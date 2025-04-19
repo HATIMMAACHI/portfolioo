@@ -91,11 +91,11 @@
       <h2>Formation</h2>
       <ul>
         <li>
-          <strong>Licence en Génie Informatique</strong> – FST Fès (2023 - 2025)
+          <strong>Licence en Génie Informatique</strong> – FST Fès (2024 - 2025)
         </li>
         <li>
           <strong>DEUST Mathématiques, Informatique, Physique (MIP)</strong> –
-          FST Fès (2021 - 2023)
+          FST Fès (2021 - 2024)
         </li>
         <li><strong>Baccalauréat Sciences Physiques</strong> – (2021)</li>
       </ul>
@@ -283,7 +283,17 @@
     <script>
       AOS.init({ offset: 0 });
     </script>
-    <script src="javascript/script.js"></script>
+      <script>
+    function hamburg() {
+      const dropdown = document.querySelector(".dropdown");
+      dropdown.style.transform = "translateY(0)";
+    }
+
+    function cancel() {
+      const dropdown = document.querySelector(".dropdown");
+      dropdown.style.transform = "translateY(-100%)";
+    }
+  </script>
 
     <!-- Footer -->
     <footer>
