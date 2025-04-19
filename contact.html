@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contact</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
+                    HATIM <span>MAACHI</span>
+                </div>
+                <div class="links">
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="html/index.html">Home</a></div>
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><a href="html/about.html">About</a></div>
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500"><a href="html/contact.html">Contact</a></div>
+            </div>
+            <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+        </div>
+            <div class="dropdown">
+                <div class="links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+                </div>
+            </div>
+        </nav>
+    
+    
+        </nav>
+    </header>
+   
+    
+    <form action=""   method="post">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required><br>
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required><br>
+
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="tel" id="telephone" name="telephone"><br>
+
+        <label for="sujet">Sujet :</label>
+        <input type="text" id="sujet" name="sujet"><br>
+
+        <label for="message">Message :</label>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+
+        <input type="submit" value="Envoyer">
+        <input type="reset" value="Annuler">
+
+    </form> 
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({offset:0});
+    </script>
+    <script src="script.js"></script>
+</body>
+<footer>
+    <p> MERCI POUR VOTRE VISIT </p>
+</footer>
+</html>

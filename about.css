@@ -1,0 +1,231 @@
+/* Importation de la police Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* Styles généraux */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color:  #000000;
+    color: #fff;
+    margin: 0;
+}
+
+/* Header */
+header {
+    background-color: #000000;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: background-color 0.3s ease; /* Ajout de transition sur l'arrière-plan */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 2rem;
+    color: #fff;
+    transition: color 0.3s linear; /* Transition ajoutée pour la couleur */
+}
+
+.logo span {
+    color: aquamarine;
+    text-shadow: 0 0 10px aquamarine;
+}
+
+.nav-container .links {
+    display: flex;
+}
+
+.nav-container .links a {
+    position: relative;
+    font-size: 1.2rem;
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 550;
+    transition: color 0.3s linear, transform 0.3s linear; /* Transition sur la couleur et la transformation */
+}
+
+.nav-container .links a::before {
+    position: absolute;
+    content: "";
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: aquamarine;
+    transition: width 0.2s linear; /* Transition sur la largeur de l'élément */
+}
+
+.nav-container .links a:hover::before {
+    width: 100%;
+}
+
+.nav-container .links a:hover {
+    color: aquamarine;
+    transform: scale(1.1); /* Ajout de l'effet d'agrandissement au survol */
+}
+
+.dropdown {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    transform: translateY(-500px);
+    width: 100%;
+    height: auto;
+    backdrop-filter: blur(4px) brightness(40%);
+    box-shadow: 0 0 20px black;
+    transition: transform 0.3s linear, opacity 0.3s ease; /* Transition sur la transformation et l'opacité */
+}
+
+.dropdown .links a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    padding: 15px 0;
+    align-items: center;
+    transition: background-color 0.2s linear; /* Transition sur le fond de l'élément */
+}
+
+.dropdown .links a:hover {
+    background-color: aquamarine;
+}
+
+/* Section de présentation */
+#presentation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.presentation-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.image-container img {
+    border-radius: 50%;
+    box-shadow: 0 0 15px aquamarine;
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Transition sur la transformation et l'ombre */
+}
+
+.image-container img:hover {
+    transform: scale(1.05); /* Animation de zoom sur l'image au survol */
+    box-shadow: 0 0 30px aquamarine; /* Augmenter l'ombre au survol */
+}
+
+.intro-text {
+    text-align: center;
+}
+
+.intro-text h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    transition: color 0.3s ease; /* Transition sur la couleur */
+}
+
+.intro-text p {
+    font-size: 1.2rem;
+    color: #aaa;
+}
+
+/* Section de contenu */
+section {
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: aquamarine;
+    margin-bottom: 10px;
+    transition: color 0.3s ease; /* Transition sur la couleur */
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+ul li {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .links {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .links .link {
+        margin: 10px 0;
+    }
+
+    #presentation {
+        flex-direction: column;
+    }
+
+    .presentation-container {
+        flex-direction: column;
+    }
+
+    .intro-text h1 {
+        font-size: 2rem;
+    }
+}
+
+.content button {
+    width: 20%;
+    height: 6vh;
+    margin: 30px;
+    background-color: aquamarine;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 120%;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: transform 0.2s linear, color 0.2s linear, border 0.2s linear, box-shadow 0.2s linear; /* Transition complète */
+}
+
+.content button:hover {
+    transform: scale(1.1); /* Transformation au survol */
+    color: aquamarine;
+    border: 2px solid aquamarine;
+    background-color: transparent;
+    font-weight: 700;
+    box-shadow: 0 0 40px aquamarine;
+}
