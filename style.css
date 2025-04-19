@@ -1,50 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
 /* Styles généraux */
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
-body{
+body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
     background-color: black;
 }
 
-nav{
+nav {
     width: 100%;
     height: 10vh;
     position: sticky;
 }
 
-.nav-container{
+.nav-container {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
 }
 
-.logo{
+.logo {
     color: white;
     font-size: 2rem;
     font-weight: bold;
 }
 
-.logo span{
+.logo span {
     color: aquamarine;
     text-shadow: 0 0 10px #B0B0B0;
 }
 
-.nav-container .links{
+.nav-container .links {
     display: flex;
 }
 
-.nav-container .links a{
+.nav-container .links a {
     position: relative;
     font-size: 1.2rem;
     color: white;
@@ -54,7 +55,7 @@ nav{
     transition: 0.3s linear;
 }
 
-.nav-container .links a::before{
+.nav-container .links a::before {
     position: absolute;
     content: "";
     bottom: -3px;
@@ -65,46 +66,73 @@ nav{
     transition: 0.2s linear;
 }
 
-.nav-container .links a:hover::before{
+.nav-container .links a:hover::before {
     width: 100%;
 }
 
-.nav-container .links a:hover{
+.nav-container .links a:hover {
     color: aquamarine;
 }
 
-.dropdown{
+/* hamburger & cancel */
+.hamburg, .cancel {
+    display: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Dropdown menu */
+.dropdown {
     z-index: 100;
     position: absolute;
     top: 0;
-    transform: translateY(-500px);
+    left: 0;
+    transform: translateY(-100%);
     width: 100%;
     height: auto;
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px) brightness(40%);
     box-shadow: 0 0 20px black;
-    transition: 0.2s linear;
+    transition: transform 0.3s ease-in-out;
 }
 
-.dropdown .links a{
+.dropdown .links {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.dropdown .links a {
     color: white;
     text-decoration: none;
-    justify-content: center;
     padding: 15px 0;
-    align-items: center;
+    font-size: 1.3rem;
     transition: 0.2s linear;
+    width: 100%;
+    text-align: center;
 }
 
-.dropdown .links a:hover{
+.dropdown .links a:hover {
     background-color: aquamarine;
+    color: black;
 }
 
-section{
+/* Cancel button inside dropdown */
+.dropdown .cancel {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+/* Section */
+section {
     width: 100%;
     height: 90vh;
 }
 
-.main-container{
+.main-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -112,7 +140,7 @@ section{
     align-items: center;
 }
 
-.main-container .image{
+.main-container .image {
     width: 500px;
     height: 80vh;
     border-radius: 100%;
@@ -120,57 +148,57 @@ section{
     box-shadow: 0 0 50px aquamarine;
 }
 
-.main-container .image img{
+.main-container .image img {
     width: 100%;
 }
 
-.main-container .image:hover{
+.main-container .image:hover {
     animation: animate 1.5s ease-in-out infinite;
 }
 
 @keyframes animate {
-    0%{
+    0% {
         scale: 1;
     }
-    50%{
+    50% {
         scale: 1.05;
     }
-    100%{
+    100% {
         scale: 1;
     }
 }
 
-.main-container .content{
+.main-container .content {
     color: white;
     width: 40%;
     min-height: 100px;
 }
 
-.content h1{
+.content h1 {
     font-size: clamp(1rem, 1rem + 5vw, 1.8rem);
 }
 
-.content h1 span{
+.content h1 span {
     color: aquamarine;
     text-shadow: 0 0 10px aquamarine;
 }
 
-.content .typewriter{
+.content .typewriter {
     font-size: clamp(1rem, 1rem + 5vw, 2.5rem);
     font-weight: 600;
 }
 
-.content .typewriter-text{
+.content .typewriter-text {
     color: aquamarine;
     text-shadow: 0 0 10px aquamarine;
 }
 
-.content p{
+.content p {
     font-size: clamp(0.4rem , 0.2rem + 9vw, 1rem);
     margin: 10px 0;
 }
 
-.social-links i{
+.social-links i {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -185,14 +213,14 @@ section{
     transition: 0.2s linear;
 }
 
-.social-links i:hover{
+.social-links i:hover {
     scale: 1.3;
     color: black;
     background-color: aquamarine;
     filter: drop-shadow(0 0 10px aquamarine);
 }
 
-.content button{
+.content button {
     width: 50%;
     height: 6vh;
     margin: 30px;
@@ -206,7 +234,7 @@ section{
     transition: 0.2s linear;
 }
 
-.content button:hover{
+.content button:hover {
     scale: 1.1;
     color: aquamarine;
     border: 2px solid aquamarine;
@@ -216,7 +244,7 @@ section{
 }
 
 @media (max-width:884px) {
-    nav .logo{
+    nav .logo {
         position: absolute;
         top: 16px;
         left: 15px;
@@ -224,48 +252,50 @@ section{
     }
 
     .main-container {
-        display: flex;
         flex-direction: column;
     }
 
-    .nav-container .links{
+    .nav-container .links {
         display: none;
     }
 
-    .hamburg,
-    .cancel{
+    .hamburg {
         display: block;
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        z-index: 101;
     }
 
-    .main-container .content{
+    .main-container .content {
         width: 80%;
     }
 
-    .social-links i{
+    .social-links i {
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1.5rem;
     }
 
-    .main-container .image{
+    .main-container .image {
         z-index: -1;
         width: 50%;
         height: 60%;
     }
 }
 
-@media (max-width:440px){
-    .main-container .image{
+@media (max-width:440px) {
+    .main-container .image {
         width: 50%;
         height: 60%;
         margin-bottom: 0px;
     }
 
-    .main-container .content{
+    .main-container .content {
         width: 80%;
     }
 
-    .main-container button{
+    .main-container button {
         margin-top: 15px;
     }
 }
