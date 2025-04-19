@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #000000; /* Fond noir */
+    color: #FFFFFF; /* Texte blanc */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    margin-left: auto;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #FFFFFF; /* Texte blanc */
+    font-weight: 550;
+    transition: 0.3s linear;
+}
+
+nav ul li a:hover {
+    color: #7FFFD4; /* Aquamarine */
+}
+
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fond gris clair */
+    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+form label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #FFFFFF; /* Texte blanc */
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #2F2F2F; /* Fond gris foncé */
+    color: #FFFFFF; /* Texte blanc */
+    border: 1px solid #7FFFD4; /* Bordure aquamarine */
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form input[type="submit"], form input[type="reset"] {
+    width: 48%;
+    margin-right: 4%;
+    background-color: #7FFFD4; /* Fond aquamarine */
+    border: none;
+    font-size: 1.2rem;
+    color: #000000; /* Texte noir */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s linear;
+}
+
+form input[type="submit"]:hover, form input[type="reset"]:hover {
+    background-color: transparent;
+    border: 1px solid #7FFFD4; /* Bordure aquamarine */
+    color: #7FFFD4; /* Texte aquamarine */
+    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
+}
+
+footer {
+    text-align: center;
+    background-color: #2F2F2F; /* Fond gris foncé */
+    padding: 10px;
+    color: #FFFFFF; /* Texte blanc */
+    font-size: 1rem;
+    box-shadow: 0 0 10px #7FFFD4; /* Ombre aquamarine */
+}
+
+footer p {
+    margin: 0;
+}
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background-color: #7FFFD4; /* Ligne aquamarine */
+}
+
+@media (max-width: 884px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    nav ul {
+        display: none;
+    }
+}
+
+@media (max-width: 440px) {
+    form {
+        width: 90%;
+    }
+
+    form input[type="submit"], form input[type="reset"] {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.nav-container .links {
+    display: flex;
+}
+
+.nav-container .links a {
+    position: relative;
+    font-size: 1.2rem;
+    color: #FFFFFF; /* Texte blanc */
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 550;
+    transition: 0.3s linear;
+}
+
+.nav-container .links a::before {
+    position: absolute;
+    content: "";
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #7FFFD4; /* Aquamarine */
+    transition: 0.2s linear;
+}
+
+.nav-container .links a:hover::before {
+    width: 100%;
+}
+
+.nav-container .links a:hover {
+    color: #7FFFD4; /* Texte aquamarine */
+}
+
+.dropdown {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    transform: translateY(-500px);
+    width: 100%;
+    height: auto;
+    backdrop-filter: blur(4px) brightness(80%);
+    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
+    transition: 0.2s linear;
+}
+
+.dropdown .links a {
+    display: flex;
+    color: #FFFFFF; /* Texte blanc */
+    text-decoration: none;
+    justify-content: center;
+    padding: 15px 0;
+    align-items: center;
+    transition: 0.2s linear;
+}
+
+.dropdown .links a:hover {
+    background-color: #7FFFD4; /* Fond aquamarine */
+    color: #000000; /* Texte noir */
+}
+
+.logo {
+    font-size: 2rem;
+    color: #FFFFFF; /* Texte blanc */
+}
+
+.logo span {
+    color: #7FFFD4; /* Aquamarine */
+    text-shadow: 0 0 10px #7FFFD4; /* Ombre aquamarine */
+}
+
+header {
+    background-color:  #000000; /* Fond gris foncé */
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}

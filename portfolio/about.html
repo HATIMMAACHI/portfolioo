@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>À propos</title>
+    <link rel="stylesheet" href="about.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="nav-container">
+          <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
+            HATIM <span>MAACHI</span>
+          </div>
+          <div class="links">
+            <div
+              class="link"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+              data-aos-delay="100"
+            >
+              <a href="index.html">Home</a>
+            </div>
+            <div
+              class="link"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+              data-aos-delay="200"
+            >
+              <a href="html/about.html">About</a>
+            </div>
+            <div
+              class="link"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+              data-aos-delay="500"
+            >
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+          <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+        </div>
+        <div class="dropdown">
+          <div class="links">
+            <a href="html/index.html">Home</a>
+            <a href="html/about.html">About</a>
+            <a href="html/contact.html">Contact</a>
+            <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Présentation -->
+    <section id="presentation">
+      <div class="presentation-container">
+        <div class="image-container">
+          <img
+            src="hatim.jpg"
+            alt="Photo de Hatim Maachi"
+            width="200"
+            height="200"
+          />
+        </div>
+        <div class="intro-text">
+          <h1>Hatim Maachi</h1>
+          <p>
+            Étudiant en Génie Informatique, passionné par les technologies et le
+            développement logiciel.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- État Civil -->
+    <section id="etat-civil">
+      <h2>État Civil</h2>
+      <p><strong>Nom et prénom :</strong> Maachi Hatim</p>
+      <p><strong>Date de naissance :</strong> 25 avril 2003</p>
+      <p><strong>Adresse :</strong> 797 Bloc 5 Alwefak, Taza</p>
+      <p><strong>Email :</strong> hatim.maachi@usmba.ac.ma</p>
+      <p><strong>Téléphone :</strong> 0658642662</p>
+    </section>
+
+    <!-- Formation -->
+    <section id="formation">
+      <h2>Formation</h2>
+      <ul>
+        <li>
+          <strong>Licence en Génie Informatique</strong> – FST Fès (2023 - 2025)
+        </li>
+        <li>
+          <strong>DEUST Mathématiques, Informatique, Physique (MIP)</strong> –
+          FST Fès (2021 - 2023)
+        </li>
+        <li><strong>Baccalauréat Sciences Physiques</strong> – (2021)</li>
+      </ul>
+    </section>
+
+    <!-- Compétences -->
+    <section id="competences">
+      <h2>Compétences</h2>
+      <ul>
+        <li>
+          <strong>Développement Web :</strong> HTML, CSS, JavaScript, PHP, Java
+        </li>
+        <li><strong>Programmation orientée objet :</strong> C++, Java</li>
+        <li><strong>Base de données :</strong> MySQL, UML</li>
+        <li>
+          <strong>Systèmes d’exploitation :</strong> Windows, Linux (Ubuntu)
+        </li>
+        <li><strong>Réseaux :</strong> Protocoles TCP/IP, HTTP, DNS</li>
+        <li><strong>Développement d’IHM :</strong> Java</li>
+      </ul>
+    </section>
+
+    <!-- Langues -->
+    <section id="langues">
+      <h2>Langues</h2>
+      <ul>
+        <li><strong>Arabe :</strong> Bilingue</li>
+        <li><strong>Français :</strong> Niveau avancé</li>
+        <li><strong>Anglais :</strong> Niveau avancé</li>
+      </ul>
+    </section>
+
+    <!-- Centres d’intérêt -->
+    <section id="interets">
+      <h2>Centres d’intérêt</h2>
+      <ul>
+        <li>Informatique et programmation</li>
+        <li>Sport (football)</li>
+        <li>Voyages et découverte de nouvelles cultures</li>
+      </ul>
+    </section>
+
+    <!-- Projets réalisés -->
+    <section id="projets">
+      <h2>Projets réalisés</h2>
+      <ul>
+        <li>
+          <strong>Site web dynamique (Projet académique)</strong><br />
+          Conception et développement d’un site web interactif utilisant HTML,
+          CSS, JavaScript (Front-End) et PHP, MySQL (Back-End).<br />
+          <strong>Fonctionnalités :</strong> Authentification utilisateur,
+          gestion de données, interface responsive.<br />
+          <strong>Résultat :</strong> Site fonctionnel et déployé avec succès.
+        </li>
+        <br /><br />
+        <li>
+          <strong>Voiture intelligente (Arduino)</strong><br />
+          Conception et développement d’une voiture intelligente utilisant
+          Arduino, capteurs infrarouges, module Bluetooth, application mobile et
+          module de reconnaissance vocale.<br />
+          <strong>Fonctionnalités :</strong> Téléguider via application mobile,
+          guidage vocal (commandes comme "avance", "recule", "tourne à gauche"),
+          détection et évitement d’obstacles.<br />
+          <strong>Résultat :</strong> Système fonctionnel testé en environnement
+          réel.
+        </li>
+        <br /><br />
+        <li>
+          <strong
+            >Plateforme de gestion de conférences scientifiques (JavaEE)</strong
+          ><br />
+          Développement d’une application web complète inspirée de plateformes
+          comme EasyChair/CMT, utilisant Java EE (Servlets, JSP), JDBC, MySQL et
+          Tailwind CSS pour l’interface.<br />
+          <strong>Fonctionnalités :</strong> Authentification multi-rôle par
+          conférence (auteur, comité, président, etc.), dashboard personnalisé,
+          soumission et évaluation d’articles, gestion des comités,
+          notifications et envoi d’e-mails.<br />
+          <strong>Résultat :</strong> Application fonctionnelle, interface
+          moderne responsive, architecture modulaire (DAO, MVC), testée avec des
+          jeux de données réalistes.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Certificats -->
+    <section id="certificats">
+      <h2>Certificats</h2>
+      <ul>
+        <li>
+          <strong>Build a Website with HTML, CSS, and GitHub Pages</strong> -
+          Codecademy <br />
+          <em>Émis en juin 2024</em>
+          <div
+            class="content"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-delay="1800"
+          >
+            <button>
+              <a
+                href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/5cadfefe5f1de806e9704577"
+                target="_blank"
+                >Voir le certificat</a
+              >
+            </button>
+          </div>
+        </li>
+        <li>
+          <strong>Learn Python 3 Course</strong> - Codecademy <br />
+          <em>Émis en déc 2023</em>
+          <div
+            class="content"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-delay="1800"
+          >
+            <button>
+              <a
+                href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/6c152bd262967f8c941c9707ed636bda"
+                target="_blank"
+                >Voir le certificat</a
+              >
+            </button>
+          </div>
+        </li>
+        <li>
+          <strong>L’état d’esprit de réussite</strong> - HP LIFE <br />
+          <em>Émis en déc 2023</em>
+          <div
+            class="content"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-delay="1800"
+          >
+            <button>
+              <a
+                href="https://www.hplife.org/courses/mindset-of-success"
+                target="_blank"
+                >Voir le certificat</a
+              >
+            </button>
+          </div>
+        </li>
+        <li>
+          <strong>Python Basics</strong> - Cybrary <br />
+          <em>Émis en déc 2023</em>
+          <div
+            class="content"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-delay="1800"
+          >
+            <button>
+              <a
+                href="https://www.cybrary.it/course/python-basics"
+                target="_blank"
+                >Voir le certificat</a
+              >
+            </button>
+          </div>
+        </li>
+        <li>
+          <strong>Impression 3D</strong> - HP LIFE <br />
+          <em>Émis en sept 2023</em>
+          <div
+            class="content"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-delay="1800"
+          >
+            <button>
+              <a
+                href="https://www.hplife.org/courses/3d-printing"
+                target="_blank"
+                >Voir le certificat</a
+              >
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({ offset: 0 });
+    </script>
+    <script src="javascript/script.js"></script>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Hatim Maachi - Tous droits réservés</p>
+    </footer>
+  </body>
+</html>
