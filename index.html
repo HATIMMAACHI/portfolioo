@@ -15,16 +15,21 @@
         HATIM <span>MAACHI</span>
       </div>
       <div class="links">
-        <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="">Home</a></div>
+        <!-- Links for larger screens -->
+        <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="index.html">Home</a></div>
         <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><a href="about.html">About</a></div>
         <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500"><a href="contact.html">Contact</a></div>
       </div>
-      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+      <!-- Hamburger Icon - REMOVED onclick -->
+      <i class="fa-solid fa-bars hamburg"></i>
     </div>
 
+    <!-- Dropdown Menu -->
     <div class="dropdown">
-      <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+      <!-- Cancel Icon - REMOVED onclick -->
+      <i class="fa-solid fa-xmark cancel"></i>
       <div class="links">
+        <!-- Links for dropdown menu -->
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -54,17 +59,43 @@
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
+    // Initialize AOS library
     AOS.init({ offset: 0 });
 
-    function hamburg() {
-      const dropdown = document.querySelector(".dropdown");
-      dropdown.style.transform = "translateY(0)";
+    // Get references to the elements
+    const hamburgIcon = document.querySelector(".hamburg");
+    const cancelIcon = document.querySelector(".cancel");
+    const dropdownMenu = document.querySelector(".dropdown");
+
+    // Function to open the dropdown menu
+    function openMenu() {
+      dropdownMenu.style.transform = "translateY(0)";
     }
 
-    function cancel() {
-      const dropdown = document.querySelector(".dropdown");
-      dropdown.style.transform = "translateY(-100%)";
+    // Function to close the dropdown menu
+    function closeMenu() {
+      dropdownMenu.style.transform = "translateY(-100%)";
     }
+
+    // Add event listeners
+    if (hamburgIcon && dropdownMenu) {
+        hamburgIcon.addEventListener("click", openMenu);
+    } else {
+        console.error("Hamburger icon or dropdown menu not found!");
+    }
+
+    if (cancelIcon && dropdownMenu) {
+        cancelIcon.addEventListener("click", closeMenu);
+    } else {
+        console.error("Cancel icon or dropdown menu not found!");
+    }
+
+    // Optional: Close menu if a link inside it is clicked
+    const dropdownLinks = dropdownMenu.querySelectorAll('.links a');
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
   </script>
 </body>
 </html>
