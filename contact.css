@@ -1,5 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
+/* --- PALETTE ---
+   Base: #000000 (Noir)
+   Accent: #8B5CF6 (Violet Électrique)
+   Texte Principal: #FFFFFF (Blanc)
+   Texte Secondaire: #CCCCCC (Gris Clair Neutre)
+   Gris Foncé (fonds): #111111
+   Gris Input: #2F2F2F
+   Violet Clair (survol): #A78BFA
+   ----------------------- */
+
+/* Styles généraux */
 * {
     padding: 0;
     margin: 0;
@@ -7,207 +18,346 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     width: 100%;
-    height: 100vh;
-    background-color: #000000; /* Fond noir */
-    color: #FFFFFF; /* Texte blanc */
-    display: flex;
+    min-height: 100vh; /* Utiliser min-height pour permettre le scroll */
+    background-color: #000000; /* Base */
+    color: #FFFFFF; /* Texte Principal */
+    line-height: 1.6;
+    display: flex; /* Permet au footer de rester en bas si peu de contenu */
     flex-direction: column;
-    justify-content: space-between;
+    overflow-x: hidden;
 }
 
-nav ul {
-    list-style-type: none;
+/* == Styles de Navigation (Identiques à about.css) == */
+nav {
+    width: 100%;
+    height: 10vh;
+    min-height: 70px;
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2); /* Accent Ligne */
+}
+
+.nav-container {
+    width: 100%;
+    height: 100%;
     display: flex;
-    margin-left: auto;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px;
 }
 
-nav ul li {
-    margin: 0 20px;
+.logo {
+    color: #FFFFFF;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #FFFFFF; /* Texte blanc */
-    font-weight: 550;
-    transition: 0.3s linear;
+.logo span {
+    color: #8B5CF6; /* Accent */
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
 }
 
-nav ul li a:hover {
-    color: #7FFFD4; /* Aquamarine */
-}
-
-form {
-    width: 100%;
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1); /* Fond gris clair */
-    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
-}
-
-form label {
-    display: block;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #FFFFFF; /* Texte blanc */
-}
-
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #2F2F2F; /* Fond gris foncé */
-    color: #FFFFFF; /* Texte blanc */
-    border: 1px solid #7FFFD4; /* Bordure aquamarine */
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-form input[type="submit"], form input[type="reset"] {
-    width: 48%;
-    margin-right: 4%;
-    background-color: #7FFFD4; /* Fond aquamarine */
-    border: none;
-    font-size: 1.2rem;
-    color: #000000; /* Texte noir */
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s linear;
-}
-
-form input[type="submit"]:hover, form input[type="reset"]:hover {
-    background-color: transparent;
-    border: 1px solid #7FFFD4; /* Bordure aquamarine */
-    color: #7FFFD4; /* Texte aquamarine */
-    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
-}
-
-footer {
-    text-align: center;
-    background-color: #2F2F2F; /* Fond gris foncé */
-    padding: 10px;
-    color: #FFFFFF; /* Texte blanc */
-    font-size: 1rem;
-    box-shadow: 0 0 10px #7FFFD4; /* Ombre aquamarine */
-}
-
-footer p {
-    margin: 0;
-}
-
-hr {
-    margin: 20px 0;
-    border: 0;
-    height: 1px;
-    background-color: #7FFFD4; /* Ligne aquamarine */
-}
-
-@media (max-width: 884px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-    nav ul {
-        display: none;
-    }
-}
-
-@media (max-width: 440px) {
-    form {
-        width: 90%;
-    }
-
-    form input[type="submit"], form input[type="reset"] {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-}
-
+/* Liens Desktop */
 .nav-container .links {
     display: flex;
+    gap: 30px;
 }
 
 .nav-container .links a {
     position: relative;
-    font-size: 1.2rem;
-    color: #FFFFFF; /* Texte blanc */
-    margin: 0 20px;
+    font-size: 1.1rem;
+    color: #CCCCCC;
     text-decoration: none;
-    font-weight: 550;
-    transition: 0.3s linear;
+    font-weight: 500;
+    transition: color 0.3s linear;
+    padding-bottom: 5px;
 }
 
 .nav-container .links a::before {
     position: absolute;
     content: "";
-    bottom: -3px;
+    bottom: 0;
     left: 0;
     width: 0%;
-    height: 3px;
-    background-color: #7FFFD4; /* Aquamarine */
-    transition: 0.2s linear;
+    height: 2px;
+    background-color: #8B5CF6; /* Accent */
+    transition: width 0.3s ease;
 }
 
-.nav-container .links a:hover::before {
+.nav-container .links a:hover::before,
+.nav-container .links a.active::before {
     width: 100%;
 }
 
-.nav-container .links a:hover {
-    color: #7FFFD4; /* Texte aquamarine */
+.nav-container .links a:hover,
+.nav-container .links a.active {
+    color: #FFFFFF;
 }
 
+/* hamburger & cancel icons */
+.hamburg, .cancel {
+    display: none;
+    font-size: 1.8rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Dropdown menu */
 .dropdown {
-    z-index: 100;
-    position: absolute;
+    position: fixed;
     top: 0;
-    transform: translateY(-500px);
+    left: 0; /* S'assure qu'il est bien à gauche */
     width: 100%;
-    height: auto;
-    backdrop-filter: blur(4px) brightness(80%);
-    box-shadow: 0 0 20px #7FFFD4; /* Ombre aquamarine */
-    transition: 0.2s linear;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    transform: translateX(100%); /* Sort par la droite (identique aux autres pages) */
+    transition: transform 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.dropdown .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
 }
 
 .dropdown .links a {
-    display: flex;
-    color: #FFFFFF; /* Texte blanc */
+    color: #FFFFFF;
     text-decoration: none;
-    justify-content: center;
     padding: 15px 0;
-    align-items: center;
-    transition: 0.2s linear;
+    font-size: 1.8rem;
+    transition: color 0.2s linear;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 500;
 }
 
 .dropdown .links a:hover {
-    background-color: #7FFFD4; /* Fond aquamarine */
-    color: #000000; /* Texte noir */
+    color: #A78BFA; /* Violet Clair */
 }
 
-.logo {
-    font-size: 2rem;
+.dropdown .cancel {
+    display: block;
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 2.2rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.dropdown .cancel:hover {
+    color: #8B5CF6; /* Accent */
+    transform: rotate(90deg);
+}
+/* == Fin Styles de Navigation == */
+
+
+/* == Styles du contenu principal de la page Contact == */
+main {
+    flex-grow: 1; /* Prend l'espace restant entre nav et footer */
+    padding: 50px 20px;
+    display: flex; /* Pour centrer le formulaire facilement */
+    flex-direction: column;
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement si peu de contenu */
+}
+
+.contact-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 2px solid #8B5CF6; /* Soulignement Accent */
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+form {
+    width: 100%;
+    max-width: 650px; /* Légèrement plus large */
+    padding: 30px 35px; /* Plus de padding */
+    background-color: #111111; /* Fond gris foncé cohérent */
+    /* Ombre violette */
+    box-shadow: 0 5px 25px rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.15); /* Bordure subtile violette */
+    border-radius: 10px;
+}
+
+form label {
+    display: block;
+    font-size: 1.1rem; /* Taille ajustée */
+    margin-bottom: 8px; /* Espace réduit */
+    color: #CCCCCC; /* Texte secondaire pour label */
+    font-weight: 500;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"], /* Ajout possible pour téléphone */
+form textarea {
+    width: 100%;
+    padding: 12px 15px; /* Padding ajusté */
+    margin-bottom: 20px;
+    background-color: #2F2F2F; /* Fond gris input */
     color: #FFFFFF; /* Texte blanc */
+    border: 1px solid #444444; /* Bordure grise foncée par défaut */
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.logo span {
-    color: #7FFFD4; /* Aquamarine */
-    text-shadow: 0 0 10px #7FFFD4; /* Ombre aquamarine */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="tel"]:focus,
+form textarea:focus {
+    outline: none; /* Supprimer l'outline par défaut */
+    border-color: #8B5CF6; /* Bordure Accent au focus */
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3); /* Lueur violette au focus */
 }
 
-header {
-    background-color:  #000000; /* Fond gris foncé */
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+form textarea {
+    min-height: 150px; /* Hauteur minimale pour message */
+    resize: vertical; /* Permettre redimensionnement vertical */
 }
 
-.nav-container {
+.form-buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    gap: 15px; /* Espace entre boutons */
+    margin-top: 10px; /* Espace avant les boutons */
+}
+
+form input[type="submit"],
+form input[type="reset"] {
+    flex-grow: 1; /* Les boutons prennent la même largeur */
+    padding: 12px 20px; /* Padding ajusté */
+    background-color: #8B5CF6; /* Fond Accent */
+    border: 1px solid #8B5CF6; /* Bordure pour cohérence au survol */
+    font-size: 1.1rem; /* Taille ajustée */
+    color: #FFFFFF; /* Texte Blanc (meilleur contraste sur violet) */
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+}
+
+form input[type="submit"]:hover,
+form input[type="reset"]:hover {
+    background-color: transparent; /* Fond transparent */
+    border-color: #8B5CF6; /* Bordure Accent */
+    color: #8B5CF6; /* Texte Accent */
+    transform: translateY(-2px); /* Léger soulèvement */
+}
+
+form input[type="reset"] {
+    background-color: transparent; /* Reset plus discret */
+    color: #CCCCCC; /* Texte secondaire */
+    border-color: #444444; /* Bordure grise */
+}
+
+form input[type="reset"]:hover {
+    color: #FFFFFF; /* Texte blanc au survol */
+    border-color: #CCCCCC; /* Bordure grise claire */
+     background-color: rgba(204, 204, 204, 0.1); /* Fond léger au survol */
+}
+
+/* == Fin Styles Contenu Principal == */
+
+
+/* Footer (Identique à about.css) */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: auto; /* Pousse le footer en bas si flex sur body */
+    background-color: #111111; /* Fond gris foncé */
+    color: #CCCCCC; /* Texte Secondaire */
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(139, 92, 246, 0.1); /* Ligne subtile */
+}
+footer p {
+    margin: 0;
+}
+
+
+/* --- Media Queries --- */
+
+/* Tablette et petits desktops */
+@media (min-width: 769px) {
+    /* Pas de changements majeurs nécessaires pour le formulaire ici */
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+    /* Styles nav copiés */
+    .nav-container .links {
+        display: none;
+    }
+    .hamburg {
+        display: block;
+    }
+    /* Fin styles nav copiés */
+
+    /* Ajustements contenu mobile */
+    main {
+        padding: 40px 15px;
+    }
+     .contact-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+     form {
+         padding: 25px 20px;
+     }
+}
+
+/* Très petits écrans (< 480px) */
+@media (max-width: 480px) {
+     /* Styles nav copiés */
+     nav .logo { font-size: 1.2rem; }
+     .hamburg { font-size: 1.6rem; }
+     .dropdown .links a { font-size: 1.5rem; }
+     .dropdown .cancel { font-size: 2rem; top: 20px; right: 20px; }
+     /* Fin styles nav copiés */
+
+     .contact-title { font-size: clamp(1.5rem, 7vw, 2rem); }
+     form {
+         padding: 20px 15px;
+     }
+     form label { font-size: 1rem; }
+     form input[type="text"],
+     form input[type="email"],
+     form input[type="tel"],
+     form textarea { padding: 10px 12px; font-size: 0.95rem;}
+     .form-buttons {
+         flex-direction: column; /* Empiler les boutons */
+         gap: 12px;
+     }
+     form input[type="submit"],
+     form input[type="reset"] {
+         width: 100%; /* Pleine largeur */
+         font-size: 1rem;
+     }
 }
