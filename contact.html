@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr"> <!-- Langue mise à fr -->
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Hatim Maachi</title> <!-- Titre amélioré -->
+    <title>Contact - Hatim Maachi</title>
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="style.css"> <!-- Utilise le même CSS -->
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- AOS Animation Library -->
@@ -22,13 +22,13 @@
                 <div class="links">
                     <!-- Liens pour écrans larges -->
                     <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-                        <a href="index.html">Home</a> <!-- Chemin corrigé (supposé racine) -->
+                        <a href="index.html">Home</a>
                     </div>
                     <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
-                        <a href="about.html">About</a> <!-- Chemin corrigé -->
+                        <a href="about.html">About</a>
                     </div>
                     <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
-                        <a href="contact.html" class="active">Contact</a> <!-- Chemin corrigé + classe active -->
+                        <a href="contact.html" class="active">Contact</a> <!-- Lien actif -->
                     </div>
                 </div>
                 <!-- Icône Hamburger (sans onclick) -->
@@ -45,18 +45,18 @@
                     <a href="contact.html">Contact</a>
                 </div>
             </div>
-            <!-- Suppression du </nav> en trop -->
         </nav>
     </header>
 
     <!-- Contenu Principal -->
-    <main>
-        <h1 class="contact-title" data-aos="fade-down">Contactez-moi</h1> <!-- Ajout du titre requis par CSS -->
+    <main class="contact-page-content"> <!-- Classe spécifique -->
+        <h1 class="contact-title" data-aos="fade-down">Contactez-moi</h1>
 
-        <!-- Le type d'action dépendra de votre backend (ex: script PHP, service externe) -->
+        <!-- ATTENTION: L'attribut 'action' est vide. Vous devrez le configurer -->
+        <!-- pour pointer vers votre script backend (PHP, etc.) ou un service comme Formspree/Netlify Forms -->
         <form action="" method="post" data-aos="fade-up" data-aos-delay="200">
             <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" required> <!-- Suppression des <br> -->
+            <input type="text" id="nom" name="nom" required>
 
             <label for="prenom">Prénom :</label>
             <input type="text" id="prenom" name="prenom" required>
@@ -65,15 +65,14 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telephone">Téléphone :</label>
-            <input type="tel" id="telephone" name="telephone"> <!-- Le téléphone est souvent optionnel -->
+            <input type="tel" id="telephone" name="telephone">
 
             <label for="sujet">Sujet :</label>
-            <input type="text" id="sujet" name="sujet" required> <!-- Sujet souvent requis -->
+            <input type="text" id="sujet" name="sujet" required>
 
             <label for="message">Message :</label>
-            <textarea id="message" name="message" rows="5" required></textarea> <!-- rows ajusté, requis -->
+            <textarea id="message" name="message" rows="5" required></textarea>
 
-            <!-- Div pour styliser les boutons avec flexbox -->
             <div class="form-buttons">
                 <input type="submit" value="Envoyer">
                 <input type="reset" value="Annuler">
@@ -81,20 +80,13 @@
         </form>
     </main>
 
-    <!-- Footer (Doit être DANS le body) -->
+    <!-- Footer -->
     <footer>
-        <!-- Texte plus standard -->
         <p>© 2024 Hatim Maachi - Tous droits réservés</p>
-        <!-- Ou votre texte : <p> MERCI POUR VOTRE VISITE </p> -->
     </footer>
 
     <!-- Scripts JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      // Initialisation AOS (placée dans le script principal pour être sûr que le DOM est prêt)
-      // Voir script.js
-    </script>
-    <!-- Assurez-vous que ce chemin est correct -->
     <script src="script.js"></script>
 
 </body>
