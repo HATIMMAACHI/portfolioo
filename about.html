@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>À propos</title>
-    <link rel="stylesheet" href="about.css" />
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À Propos - Hatim Maachi</title>
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="about.css" />
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
 
-  <body>
-    <!-- Header -->
-    <header>
-      <nav>
-        <div class="nav-container">
-          <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
-            HATIM <span>MAACHI</span>
-          </div>
-          <div class="links">
-            <div
-              class="link"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-              data-aos-delay="100"
-            >
-              <a href="index.html">Home</a>
-            </div>
-            <div
-              class="link"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-              data-aos-delay="200"
-            >
-              <a href="html/about.html">About</a>
-            </div>
-            <div
-              class="link"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-              data-aos-delay="500"
-            >
-              <a href="contact.html">Contact</a>
-            </div>
-          </div>
-          <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="nav-container">
+        <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
+          HATIM <span>MAACHI</span>
         </div>
-        <div class="dropdown">
-          <div class="links">
-            <a href="html/index.html">Home</a>
-            <a href="html/about.html">About</a>
-            <a href="html/contact.html">Contact</a>
-            <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+        <div class="links">
+          <!-- Liens pour écrans larges -->
+          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+            <a href="index.html">Home</a>
+          </div>
+          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+            <a href="about.html" class="active">About</a> <!-- Ajout de la classe active ici -->
+          </div>
+          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
+            <a href="contact.html">Contact</a>
           </div>
         </div>
-      </nav>
-    </header>
+        <!-- Icône Hamburger (sans onclick) -->
+        <i class="fa-solid fa-bars hamburg"></i>
+      </div>
 
-    <!-- Présentation -->
-    <section id="presentation">
+      <!-- Menu Dropdown (Mobile) -->
+      <div class="dropdown">
+        <!-- Icône Cancel (sans onclick) -->
+        <i class="fa-solid fa-xmark cancel"></i>
+        <div class="links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenu Principal -->
+  <main>
+    <!-- ... (Tout votre contenu HTML de la section Présentation aux Certificats va ici) ... -->
+     <!-- Présentation -->
+    <section id="presentation" data-aos="fade-up">
       <div class="presentation-container">
-        <div class="image-container">
-          <img
-            src="hatim.jpg"
-            alt="Photo de Hatim Maachi"
-            width="200"
-            height="200"
-          />
+        <div class="image-container" data-aos="zoom-in" data-aos-delay="200">
+          <img src="hatim.jpg" alt="Photo de Hatim Maachi" /> <!-- Taille gérée par CSS -->
         </div>
-        <div class="intro-text">
+        <div class="intro-text" data-aos="fade-left" data-aos-delay="400">
           <h1>Hatim Maachi</h1>
           <p>
             Étudiant en Génie Informatique, passionné par les technologies et le
@@ -76,218 +68,252 @@
       </div>
     </section>
 
-    <!-- État Civil -->
-    <section id="etat-civil">
-      <h2>État Civil</h2>
-      <p><strong>Nom et prénom :</strong> Maachi Hatim</p>
-      <p><strong>Date de naissance :</strong> 25 avril 2003</p>
-      <p><strong>Adresse :</strong> 797 Bloc 5 Alwefak, Taza</p>
-      <p><strong>Email :</strong> hatim.maachi@usmba.ac.ma</p>
-      <p><strong>Téléphone :</strong> 0658642662</p>
-    </section>
+    <!-- Sections Contenu -->
+    <div class="content-wrapper">
+      <!-- État Civil -->
+      <section id="etat-civil" data-aos="fade-up">
+        <h2>État Civil</h2>
+        <p><strong>Nom et prénom :</strong> Maachi Hatim</p>
+        <p><strong>Date de naissance :</strong> 25 avril 2003</p>
+        <p><strong>Adresse :</strong> 797 Bloc 5 Alwefak, Taza</p>
+        <p><strong>Email :</strong> hatim.maachi@usmba.ac.ma</p>
+        <p><strong>Téléphone :</strong> 0658642662</p>
+      </section>
 
-    <!-- Formation -->
-    <section id="formation">
-      <h2>Formation</h2>
-      <ul>
-        <li>
-          <strong>Licence en Génie Informatique</strong> – FST Fès (2023 - 2025)
-        </li>
-        <li>
-          <strong>DEUST Mathématiques, Informatique, Physique (MIP)</strong> –
-          FST Fès (2021 - 2023)
-        </li>
-        <li><strong>Baccalauréat Sciences Physiques</strong> – (2021)</li>
-      </ul>
-    </section>
+      <!-- Formation -->
+      <section id="formation" data-aos="fade-up">
+        <h2>Formation</h2>
+        <ul>
+          <li>
+            <strong>Licence en Génie Informatique</strong> – FST Fès (2023 - 2025)
+          </li>
+          <li>
+            <strong>DEUST Mathématiques, Informatique, Physique (MIP)</strong> –
+            FST Fès (2021 - 2023)
+          </li>
+          <li><strong>Baccalauréat Sciences Physiques</strong> – Lycée (2021) <!-- Préciser Lycée si possible --></li>
+        </ul>
+      </section>
 
-    <!-- Compétences -->
-    <section id="competences">
-      <h2>Compétences</h2>
-      <ul>
-        <li>
-          <strong>Développement Web :</strong> HTML, CSS, JavaScript, PHP, Java
-        </li>
-        <li><strong>Programmation orientée objet :</strong> C++, Java</li>
-        <li><strong>Base de données :</strong> MySQL, UML</li>
-        <li>
-          <strong>Systèmes d’exploitation :</strong> Windows, Linux (Ubuntu)
-        </li>
-        <li><strong>Réseaux :</strong> Protocoles TCP/IP, HTTP, DNS</li>
-        <li><strong>Développement d’IHM :</strong> Java</li>
-      </ul>
-    </section>
+      <!-- Compétences -->
+      <section id="competences" data-aos="fade-up">
+        <h2>Compétences</h2>
+        <div class="skills-grid"> <!-- Utilisation d'une grille pour mieux organiser -->
+            <div>
+                <h3>Langages & Frameworks</h3>
+                <ul>
+                    <li>HTML, CSS, JavaScript</li>
+                    <li>PHP, Java, C++</li>
+                    <li>Java EE (Servlets, JSP)</li>
+                    <li>Tailwind CSS</li>
+                    <li>Python</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Bases de Données & Modélisation</h3>
+                 <ul>
+                    <li>MySQL</li>
+                    <li>UML</li>
+                    <li>JDBC</li>
+                 </ul>
+            </div>
+             <div>
+                <h3>Systèmes & Réseaux</h3>
+                 <ul>
+                     <li>Windows, Linux (Ubuntu)</li>
+                     <li>Protocoles TCP/IP, HTTP, DNS</li>
+                 </ul>
+            </div>
+             <div>
+                <h3>Autres</h3>
+                 <ul>
+                     <li>Programmation Orientée Objet</li>
+                     <li>Développement d'IHM (Java Swing/FX)</li>
+                     <li>Arduino</li>
+                     <li>Git & GitHub</li>
+                 </ul>
+            </div>
+        </div>
+      </section>
 
-    <!-- Langues -->
-    <section id="langues">
-      <h2>Langues</h2>
-      <ul>
-        <li><strong>Arabe :</strong> Bilingue</li>
-        <li><strong>Français :</strong> Niveau avancé</li>
-        <li><strong>Anglais :</strong> Niveau avancé</li>
-      </ul>
-    </section>
+      <!-- Langues -->
+      <section id="langues" data-aos="fade-up">
+        <h2>Langues</h2>
+        <ul>
+          <li><strong>Arabe :</strong> Langue Maternelle</li>
+          <li><strong>Français :</strong> Niveau Avancé (DELF B2/C1 équivalent)</li>
+          <li><strong>Anglais :</strong> Niveau Avancé (Technique & Conversationnel)</li>
+        </ul>
+      </section>
 
-    <!-- Centres d’intérêt -->
-    <section id="interets">
-      <h2>Centres d’intérêt</h2>
-      <ul>
-        <li>Informatique et programmation</li>
-        <li>Sport (football)</li>
-        <li>Voyages et découverte de nouvelles cultures</li>
-      </ul>
-    </section>
+      <!-- Centres d’intérêt -->
+      <section id="interets" data-aos="fade-up">
+        <h2>Centres d’intérêt</h2>
+        <ul>
+          <li>Veille technologique (Web, IA, Logiciel)</li>
+          <li>Football (Pratique et suivi)</li>
+          <li>Voyages & Découverte culturelle</li>
+          <li>Résolution de problèmes (Challenges de code)</li>
+        </ul>
+      </section>
 
-    <!-- Projets réalisés -->
-    <section id="projets">
-      <h2>Projets réalisés</h2>
-      <ul>
-        <li>
-          <strong>Site web dynamique (Projet académique)</strong><br />
-          Conception et développement d’un site web interactif utilisant HTML,
-          CSS, JavaScript (Front-End) et PHP, MySQL (Back-End).<br />
-          <strong>Fonctionnalités :</strong> Authentification utilisateur,
-          gestion de données, interface responsive.<br />
-          <strong>Résultat :</strong> Site fonctionnel et déployé avec succès.
-        </li>
-        <br /><br />
-        <li>
-          <strong>Voiture intelligente (Arduino)</strong><br />
-          Conception et développement d’une voiture intelligente utilisant
-          Arduino, capteurs infrarouges, module Bluetooth, application mobile et
-          module de reconnaissance vocale.<br />
-          <strong>Fonctionnalités :</strong> Téléguider via application mobile,
-          guidage vocal (commandes comme "avance", "recule", "tourne à gauche"),
-          détection et évitement d’obstacles.<br />
-          <strong>Résultat :</strong> Système fonctionnel testé en environnement
-          réel.
-        </li>
-        <br /><br />
-        <li>
-          <strong
-            >Plateforme de gestion de conférences scientifiques (JavaEE)</strong
-          ><br />
-          Développement d’une application web complète inspirée de plateformes
-          comme EasyChair/CMT, utilisant Java EE (Servlets, JSP), JDBC, MySQL et
-          Tailwind CSS pour l’interface.<br />
-          <strong>Fonctionnalités :</strong> Authentification multi-rôle par
-          conférence (auteur, comité, président, etc.), dashboard personnalisé,
-          soumission et évaluation d’articles, gestion des comités,
-          notifications et envoi d’e-mails.<br />
-          <strong>Résultat :</strong> Application fonctionnelle, interface
-          moderne responsive, architecture modulaire (DAO, MVC), testée avec des
-          jeux de données réalistes.
-        </li>
-      </ul>
-    </section>
-
-    <!-- Certificats -->
-    <section id="certificats">
-      <h2>Certificats</h2>
-      <ul>
-        <li>
-          <strong>Build a Website with HTML, CSS, and GitHub Pages</strong> -
-          Codecademy <br />
-          <em>Émis en juin 2024</em>
-          <div
-            class="content"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-delay="1800"
-          >
-            <button>
-              <a
-                href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/5cadfefe5f1de806e9704577"
-                target="_blank"
-                >Voir le certificat</a
-              >
-            </button>
+      <!-- Projets réalisés -->
+      <section id="projets" data-aos="fade-up">
+        <h2>Projets Réalisés</h2>
+        <div class="project-list">
+          <div class="project-item">
+            <h3>Site web dynamique (Projet académique)</h3>
+            <p>Conception et développement d’un site web interactif utilisant HTML, CSS, JavaScript (Front-End) et PHP, MySQL (Back-End).</p>
+            <p><strong>Fonctionnalités :</strong> Authentification utilisateur, gestion de données, interface responsive.</p>
+            <p><em>Résultat : Site fonctionnel et validé académiquement.</em></p>
           </div>
-        </li>
-        <li>
-          <strong>Learn Python 3 Course</strong> - Codecademy <br />
-          <em>Émis en déc 2023</em>
-          <div
-            class="content"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-delay="1800"
-          >
-            <button>
-              <a
-                href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/6c152bd262967f8c941c9707ed636bda"
-                target="_blank"
-                >Voir le certificat</a
-              >
-            </button>
+          <div class="project-item">
+            <h3>Voiture intelligente (Arduino)</h3>
+            <p>Conception et développement d’une voiture intelligente utilisant Arduino, capteurs infrarouges, module Bluetooth, application mobile et module de reconnaissance vocale.</p>
+            <p><strong>Fonctionnalités :</strong> Téléguidage via application mobile, guidage vocal (commandes), détection et évitement d’obstacles.</p>
+            <p><em>Résultat : Système fonctionnel et démonstration réussie.</em></p>
           </div>
-        </li>
-        <li>
-          <strong>L’état d’esprit de réussite</strong> - HP LIFE <br />
-          <em>Émis en déc 2023</em>
-          <div
-            class="content"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-delay="1800"
-          >
-            <button>
-              <a
-                href="https://www.hplife.org/courses/mindset-of-success"
-                target="_blank"
-                >Voir le certificat</a
-              >
-            </button>
+          <div class="project-item">
+            <h3>Plateforme de gestion de conférences scientifiques (JavaEE)</h3>
+            <p>Développement d’une application web complète inspirée de plateformes comme EasyChair/CMT, utilisant Java EE (Servlets, JSP), JDBC, MySQL et Tailwind CSS.</p>
+            <p><strong>Fonctionnalités :</strong> Authentification multi-rôle, dashboard personnalisé, soumission et évaluation d’articles, gestion des comités, notifications e-mail.</p>
+            <p><em>Résultat : Application robuste, interface moderne, architecture MVC.</em></p>
           </div>
-        </li>
-        <li>
-          <strong>Python Basics</strong> - Cybrary <br />
-          <em>Émis en déc 2023</em>
-          <div
-            class="content"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-delay="1800"
-          >
-            <button>
-              <a
-                href="https://www.cybrary.it/course/python-basics"
-                target="_blank"
-                >Voir le certificat</a
-              >
-            </button>
-          </div>
-        </li>
-        <li>
-          <strong>Impression 3D</strong> - HP LIFE <br />
-          <em>Émis en sept 2023</em>
-          <div
-            class="content"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-delay="1800"
-          >
-            <button>
-              <a
-                href="https://www.hplife.org/courses/3d-printing"
-                target="_blank"
-                >Voir le certificat</a
-              >
-            </button>
-          </div>
-        </li>
-      </ul>
-    </section>
+        </div>
+      </section>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init({ offset: 0 });
-    </script>
-    <script src="javascript/script.js"></script>
+      <!-- Certificats -->
+      <section id="certificats" data-aos="fade-up">
+        <h2>Certificats</h2>
+        <ul class="certificate-list">
+          <li>
+            <div>
+              <strong>Build a Website with HTML, CSS, and GitHub Pages</strong> - Codecademy (Juin 2024)
+            </div>
+            <a href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/5cadfefe5f1de806e9704577" target="_blank" class="certif-button">Voir</a>
+          </li>
+          <li>
+             <div>
+               <strong>Learn Python 3 Course</strong> - Codecademy (Déc 2023)
+             </div>
+             <a href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/6c152bd262967f8c941c9707ed636bda" target="_blank" class="certif-button">Voir</a>
+          </li>
+           <li>
+             <div>
+               <strong>L’état d’esprit de réussite</strong> - HP LIFE (Déc 2023)
+             </div>
+             <a href="https://www.hplife.org/courses/mindset-of-success" target="_blank" class="certif-button">Voir</a>
+          </li>
+          <li>
+             <div>
+               <strong>Python Basics</strong> - Cybrary (Déc 2023)
+             </div>
+             <a href="https://www.cybrary.it/course/python-basics" target="_blank" class="certif-button">Voir</a>
+          </li>
+           <li>
+             <div>
+               <strong>Impression 3D</strong> - HP LIFE (Sept 2023)
+             </div>
+            <a href="https://www.hplife.org/courses/3d-printing" target="_blank" class="certif-button">Voir</a>
+          </li>
+        </ul>
+      </section>
+    </div> <!-- Fin de content-wrapper -->
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 Hatim Maachi - Tous droits réservés</p>
-    </footer>
-  </body>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2024 Hatim Maachi - Tous droits réservés</p> <!-- Année mise à jour -->
+  </footer>
+
+  <!-- Scripts JS Externes (Bibliothèques) -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <!-- ======================================= -->
+  <!-- == Début du Script JavaScript Embarqué == -->
+  <!-- ======================================= -->
+  <script>
+    // Attend que le DOM soit entièrement chargé
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Initialisation AOS
+        AOS.init({
+            offset: 50, // Déclenche l'animation un peu avant d'atteindre l'élément
+            duration: 800, // Durée standard de l'animation
+            once: true // Anime les éléments une seule fois
+        });
+
+        // Logique du Menu Hamburger
+        const hamburgIcon = document.querySelector(".hamburg");
+        const cancelIcon = document.querySelector(".dropdown .cancel"); // Sélecteur plus précis
+        const dropdownMenu = document.querySelector(".dropdown");
+        const dropdownLinks = dropdownMenu.querySelectorAll('.links a'); // Liens dans le dropdown
+
+        // Fonction pour ouvrir le menu
+        function openMenu() {
+          if (dropdownMenu) {
+            // Pour l'animation translateX(100%) -> translateX(0)
+            dropdownMenu.style.transform = "translateX(0)";
+            // Optionnel: Empêcher le scroll du body quand le menu est ouvert
+            // document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // Fonction pour fermer le menu
+        function closeMenu() {
+          if (dropdownMenu) {
+             // Pour l'animation translateX(0) -> translateX(100%)
+            dropdownMenu.style.transform = "translateX(100%)";
+             // Optionnel: Rétablir le scroll du body
+            // document.body.style.overflow = '';
+          }
+        }
+
+        // Ajouter les écouteurs d'événements
+        if (hamburgIcon && dropdownMenu) {
+            hamburgIcon.addEventListener("click", openMenu);
+        } else {
+            console.warn("Icône Hamburger ou menu Dropdown introuvable!"); // Utilisation de warn
+        }
+
+        if (cancelIcon && dropdownMenu) {
+            cancelIcon.addEventListener("click", closeMenu);
+        } else {
+             console.warn("Icône Cancel ou menu Dropdown introuvable!"); // Utilisation de warn
+        }
+
+        // Fermer le menu si un lien DANS le dropdown est cliqué
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // --- Gestion Lien Actif (simplifiée pour cette page) ---
+        // Puisque nous sommes sur about.html, nous ajoutons la classe 'active'
+        // directement dans le HTML (ce que j'ai fait ci-dessus).
+        // Si vous aviez besoin de le faire dynamiquement :
+        /*
+        const currentLocation = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-container .links a');
+
+        navLinks.forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            // Si le chemin du lien se termine par '/about.html' (ou le nom exact du fichier)
+            if (linkPath.endsWith('/about.html')) { // Adaptez si le nom est différent
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active'); // S'assurer que les autres ne l'ont pas
+            }
+        });
+        */
+       // --- Fin Gestion Lien Actif ---
+
+
+    }); // Fin de l'écouteur DOMContentLoaded
+  </script>
+  <!-- ===================================== -->
+  <!-- == Fin du Script JavaScript Embarqué == -->
+  <!-- ===================================== -->
+
+</body>
 </html>
