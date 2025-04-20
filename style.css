@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
+/* --- NOUVELLE PALETTE ---
+   Base: #0A192F (Bleu Nuit Profond)
+   Accent: #F59E0B (Or Doux)
+   Texte Principal: #E2E8F0 (Blanc Cassé / Gris Clair)
+   Texte Secondaire: #8892B0 (Gris Moyen Bleuâtre)
+   ----------------------- */
+
 /* Styles généraux */
 * {
     padding: 0;
@@ -10,18 +17,19 @@
 
 body {
     width: 100%;
-    min-height: 100vh; /* Use min-height instead of height if content might exceed viewport */
-    /* overflow: hidden; */ /* Temporarily commented out - careful with this, it prevents ALL scrolling */
-    background-color: black;
+    min-height: 100vh;
+    background-color: #0A192F; /* Base */
+    color: #E2E8F0; /* Couleur texte par défaut */
 }
 
 nav {
     width: 100%;
     height: 10vh;
     position: sticky;
-    top: 0; /* Make sticky work correctly */
-    background-color: black; /* Give nav a background to cover content scrolling underneath */
-    z-index: 100; /* Set z-index for layering context */
+    top: 0;
+    background-color: #0A192F; /* Base (peut être légèrement différent si voulu) */
+    z-index: 100;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.1); /* Ligne subtile dorée en bas */
 }
 
 .nav-container {
@@ -31,44 +39,46 @@ nav {
     justify-content: space-around;
     align-items: center;
     position: relative;
-    max-width: 1200px; /* Optional: constrain nav width */
-    margin: 0 auto; /* Center nav content if max-width is used */
-    padding: 0 20px; /* Add some padding */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .logo {
-    color: white;
+    color: #E2E8F0; /* Texte Principal */
     font-size: 2rem;
     font-weight: bold;
 }
 
 .logo span {
-    color: aquamarine;
-    text-shadow: 0 0 10px #B0B0B0;
+    color: #F59E0B; /* Accent */
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.5); /* Ombre Accent (plus subtile) */
 }
 
+/* Liens Desktop */
 .nav-container .links {
-    display: flex; /* Displayed by default */
+    display: flex;
 }
 
 .nav-container .links a {
     position: relative;
     font-size: 1.2rem;
-    color: white;
+    color: #E2E8F0; /* Texte Principal */
     margin: 0 20px;
     text-decoration: none;
-    font-weight: 550;
+    font-weight: 500; /* Slightly reduced weight */
     transition: 0.3s linear;
 }
 
+/* Soulignement au survol */
 .nav-container .links a::before {
     position: absolute;
     content: "";
     bottom: -3px;
     left: 0;
     width: 0%;
-    height: 3px;
-    background-color: aquamarine;
+    height: 2px; /* Slightly thinner line */
+    background-color: #F59E0B; /* Accent */
     transition: 0.2s linear;
 }
 
@@ -77,114 +87,114 @@ nav {
 }
 
 .nav-container .links a:hover {
-    color: aquamarine;
+    color: #F59E0B; /* Accent */
 }
 
-/* hamburger & initial cancel styles (hidden by default) */
+/* hamburger & cancel icons (initial state) */
 .hamburg, .cancel {
-    display: none; /* Hide both initially */
+    display: none;
     font-size: 1.8rem;
-    color: white;
+    color: #E2E8F0; /* Texte Principal */
     cursor: pointer;
 }
 
 /* Dropdown menu */
 .dropdown {
-    position: fixed; /* CHANGED: Use fixed for viewport positioning */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* CHANGED: Use 100vh for full viewport height */
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(4px) brightness(40%);
-    box-shadow: 0 0 20px black;
-    z-index: 1000; /* CHANGED: Ensure it's above the nav (z-index: 100) */
-
-    /* --- Animation --- */
-    transform: translateY(-100%); /* Start hidden above */
-    transition: transform 0.4s ease-in-out; /* Smooth transition */
-
-    /* --- Flexbox for centering links --- */
-    display: flex; /* Use flexbox for easier centering */
+    height: 100vh;
+    /* Utiliser la couleur de base avec transparence */
+    background-color: rgba(10, 25, 47, 0.9); /* Base avec alpha */
+    backdrop-filter: blur(5px); /* Ajuster le flou si nécessaire */
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease-in-out;
+    display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdown .links {
-    display: flex; /* Already flex */
+    display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Take full width for text alignment */
-    /* padding-top: 60px; */ /* Removed - using flexbox justify-content: center now */
+    width: 100%;
 }
 
 .dropdown .links a {
-    color: white;
+    color: #E2E8F0; /* Texte Principal */
     text-decoration: none;
-    padding: 15px 0;
-    font-size: 1.5rem; /* Slightly larger for overlay */
+    padding: 18px 0; /* Un peu plus d'espace */
+    font-size: 1.6rem; /* Un peu plus grand */
     transition: 0.2s linear;
-    width: 80%; /* Control width of the links/hover area */
-    max-width: 300px; /* Optional max width */
+    width: 80%;
+    max-width: 300px;
     text-align: center;
-    border-radius: 5px; /* Add radius for hover */
-    margin-bottom: 15px; /* Add spacing */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .dropdown .links a:hover {
-    background-color: aquamarine;
-    color: black;
+    background-color: rgba(245, 158, 11, 0.1); /* Fond Accent très léger */
+    color: #FBBF24; /* Accent légèrement plus vif au survol */
 }
 
-/* Cancel button inside dropdown */
+/* Bouton Cancel dans le dropdown */
 .dropdown .cancel {
-    display: block; /* ADDED: Make the cancel button visible when dropdown is open */
+    display: block;
     position: absolute;
-    top: 25px; /* Adjust position */
-    right: 30px; /* Adjust position */
-    font-size: 2.2rem; /* Make it a bit larger */
-    color: white; /* Ensure color */
-    cursor: pointer; /* Ensure cursor */
-    /* z-index: 1001; */ /* Not strictly needed as it's inside .dropdown */
+    top: 25px;
+    right: 30px;
+    font-size: 2.2rem;
+    color: #E2E8F0; /* Texte Principal */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.dropdown .cancel:hover {
+    color: #F59E0B; /* Accent au survol */
 }
 
-/* Section */
+
+/* Section principale */
 section {
     width: 100%;
-    /* height: 90vh; */ /* Let height be determined by content or use min-height */
     min-height: 90vh;
-    padding-top: 10vh; /* Add padding equal to nav height so content starts below */
-    box-sizing: border-box; /* Include padding in height calculation */
+    padding-top: 10vh; /* Espace pour la nav sticky */
+    box-sizing: border-box;
 }
 
 .main-container {
     width: 100%;
-    height: 100%; /* Fill the section height */
+    height: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 20px; /* Add some padding */
-    max-width: 1200px; /* Optional constraint */
-    margin: 0 auto; /* Center */
+    padding: 40px 20px; /* Plus de padding vertical */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ... (rest of your image, content, social links, button styles) ... */
 .main-container .image {
-    width: clamp(200px, 40vw, 400px); /* Responsive width */
-    /* height: 80vh; */ /* Let height be auto based on width/content */
-    aspect-ratio: 1 / 1; /* Make it square */
-    border-radius: 50%; /* Circular */
+    width: clamp(200px, 35vw, 380px); /* Ajustement taille */
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 0 50px aquamarine;
-    object-fit: cover; /* Ensure image covers */
-    flex-shrink: 0; /* Prevent shrinking too much */
+    /* Ombre Accent plus diffuse */
+    box-shadow: 0 0 60px rgba(245, 158, 11, 0.4);
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid rgba(245, 158, 11, 0.3); /* Bordure subtile dorée */
 }
 
 .main-container .image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure image covers the circle */
+    object-fit: cover;
+    display: block; /* Éviter petit espace sous l'image */
 }
 
 .main-container .image:hover {
@@ -192,162 +202,145 @@ section {
 }
 
 @keyframes animate {
-    0% {
-        transform: scale(1); /* Use transform for performance */
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); box-shadow: 0 0 60px rgba(245, 158, 11, 0.4); }
+    50% { transform: scale(1.04); box-shadow: 0 0 80px rgba(245, 158, 11, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 60px rgba(245, 158, 11, 0.4); }
 }
 
 .main-container .content {
-    color: white;
-    width: 50%; /* Adjust width */
+    color: #E2E8F0; /* Texte Principal */
+    width: 55%; /* Un peu plus large */
     min-height: 100px;
-    text-align: left; /* Align text left */
+    text-align: left;
 }
 
 .content h1 {
-    font-size: clamp(1.5rem, 4vw, 3rem); /* Adjusted clamp values */
+    font-size: clamp(1.8rem, 5vw, 3.2rem); /* Légèrement plus grand */
+    margin-bottom: 10px; /* Espace sous le titre */
 }
 
 .content h1 span {
-    color: aquamarine;
-    text-shadow: 0 0 10px aquamarine;
+    color: #F59E0B; /* Accent */
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); /* Ombre Accent */
 }
-
-/* Remove typewriter styles if not implemented */
-/* .content .typewriter { ... } */
 
 .content p {
-    font-size: clamp(0.9rem , 1.5vw, 1.1rem); /* Adjusted clamp */
-    margin: 15px 0 25px 0; /* Adjust margins */
-    line-height: 1.6; /* Improve readability */
+    font-size: clamp(1rem , 1.6vw, 1.15rem); /* Légèrement plus grand */
+    margin: 20px 0 30px 0; /* Plus d'espace */
+    line-height: 1.7; /* Interligne amélioré */
+    color: #8892B0; /* Texte Secondaire */
 }
 
+/* Liens Sociaux */
 .social-links {
-    margin-bottom: 25px; /* Space below icons */
+    margin-bottom: 25px;
 }
 
-.social-links a { /* Target the anchor tag for hover area */
-    display: inline-flex; /* Use flex for centering icon */
+.social-links a {
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 3rem;
-    height: 3rem;
+    width: 2.8rem; /* Un peu plus petit */
+    height: 2.8rem;
     background-color: transparent;
-    border: 0.2rem solid aquamarine;
+    border: 2px solid #8892B0; /* Bordure Texte Secondaire (plus discret) */
     border-radius: 50%;
-    color: aquamarine;
-    margin: 5px 10px 5px 0; /* Adjust margin */
-    font-size: 1.5rem;
-    transition: 0.2s linear;
-    text-decoration: none; /* Remove underline */
+    color: #8892B0; /* Icône couleur Texte Secondaire */
+    margin: 5px 12px 5px 0; /* Espacement */
+    font-size: 1.4rem; /* Taille icône */
+    transition: 0.3s ease; /* Transition plus douce */
+    text-decoration: none;
 }
 
-.social-links a:hover { /* Apply hover to the anchor */
-    transform: scale(1.2); /* Use transform */
-    color: black;
-    background-color: aquamarine;
-    box-shadow: 0 0 10px aquamarine; /* Use box-shadow instead of filter */
+.social-links a:hover {
+    transform: translateY(-4px); /* Effet de lévitation */
+    color: #F59E0B; /* Icône Accent */
+    border-color: #F59E0B; /* Bordure Accent */
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); /* Ombre douce */
 }
-
-/* Remove button styles if button isn't in the HTML */
-/* .content button { ... } */
-
 
 /* --- Media Queries --- */
+/* Les couleurs restent les mêmes, seuls les layouts changent */
 
 @media (max-width: 884px) {
     .nav-container {
-       justify-content: space-between; /* Adjust spacing */
+       justify-content: space-between;
     }
     nav .logo {
-        /* Removed absolute positioning - let flexbox handle it */
         font-size: 1.5rem;
-        margin-left: 0; /* Reset margin if needed */
     }
-
     .main-container {
         flex-direction: column;
-        text-align: center; /* Center text when stacked */
-        gap: 30px; /* Add gap between stacked items */
+        text-align: center;
+        gap: 40px; /* Espace augmenté */
+        padding: 30px 20px;
     }
      .main-container .content {
-        width: 90%; /* Increase width */
-        order: 2; /* Put content below image */
-        text-align: center; /* Center text */
+        width: 90%;
+        order: 2;
+        text-align: center;
     }
      .main-container .image {
-        order: 1; /* Put image above content */
-        width: clamp(180px, 50vw, 250px); /* Adjust size */
-        /* Removed z-index: -1 unless specifically needed */
-        margin-bottom: 20px; /* Add space below image */
-        /* height: auto; */ /* Let aspect-ratio handle height */
-    }
-
+        order: 1;
+        width: clamp(180px, 45vw, 240px); /* Ajustement taille */
+        margin-bottom: 0; /* Espace géré par gap */
+     }
     .nav-container .links {
-        display: none; /* Hide desktop links */
+        display: none;
     }
-
     .hamburg {
-        display: block; /* Show hamburger */
-        /* Removed absolute positioning - let flexbox handle it */
-        margin-right: 0; /* Reset margin if needed */
-        /* z-index: 101; */ /* z-index relative to nav is fine */
+        display: block;
     }
-
     .social-links {
-        text-align: center; /* Center icons */
+        text-align: center;
     }
-
-    .social-links a { /* Adjust icon size/spacing */
+     .social-links a {
         width: 2.8rem;
         height: 2.8rem;
         font-size: 1.4rem;
-        margin: 5px;
+        margin: 5px 8px; /* Espacement ajusté */
+        color: #8892B0; /* Retour couleur par défaut mobile */
+        border-color: #8892B0;
     }
+     .social-links a:hover { /* Garder le survol cohérent */
+        color: #F59E0B;
+        border-color: #F59E0B;
+     }
 }
 
-@media (max-width: 480px) { /* Adjusted breakpoint */
+@media (max-width: 480px) {
     nav .logo {
         font-size: 1.3rem;
     }
      .hamburg {
         font-size: 1.6rem;
     }
-
     .main-container .image {
-       width: clamp(150px, 55vw, 200px); /* Further size adjust */
+       width: clamp(150px, 50vw, 200px);
     }
-
     .main-container .content {
-        width: 95%; /* Use almost full width */
+        width: 95%;
     }
     .content h1 {
-        font-size: clamp(1.4rem, 5vw, 2rem);
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
     }
      .content p {
-        font-size: clamp(0.85rem , 3vw, 1rem);
+        font-size: clamp(0.9rem , 3.5vw, 1rem);
+        margin: 15px 0 25px 0;
     }
      .social-links a {
-         width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
-        margin: 5px;
+         width: 2.6rem;
+        height: 2.6rem;
+        font-size: 1.3rem;
+        margin: 5px 6px;
      }
-
     .dropdown .links a {
-        font-size: 1.3rem; /* Adjust dropdown link size */
+        font-size: 1.4rem; /* Ajustement taille lien dropdown */
+        padding: 15px 0;
     }
-
      .dropdown .cancel {
         font-size: 2rem;
         top: 20px;
         right: 25px;
     }
-
 }
