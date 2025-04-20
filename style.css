@@ -1,155 +1,353 @@
-/* Basic body reset (optional but good practice) */
-body {
-  margin: 0;
-  font-family: sans-serif; /* Add a default font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* Styles généraux */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
 }
 
-/* Navigation Styles */
+body {
+    width: 100%;
+    min-height: 100vh; /* Use min-height instead of height if content might exceed viewport */
+    /* overflow: hidden; */ /* Temporarily commented out - careful with this, it prevents ALL scrolling */
+    background-color: black;
+}
+
 nav {
-  background-color: #333; /* Example background */
-  color: white;
-  padding: 10px 0;
-  position: relative; /* Needed for absolute positioning of dropdown */
-  z-index: 1001; /* Ensure nav is above other content if needed */
+    width: 100%;
+    height: 10vh;
+    position: sticky;
+    top: 0; /* Make sticky work correctly */
+    background-color: black; /* Give nav a background to cover content scrolling underneath */
+    z-index: 100; /* Set z-index for layering context */
 }
 
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    max-width: 1200px; /* Optional: constrain nav width */
+    margin: 0 auto; /* Center nav content if max-width is used */
+    padding: 0 20px; /* Add some padding */
 }
 
 .logo {
-  font-size: 1.5em;
-  font-weight: bold;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .logo span {
-  color: #aaa; /* Example color */
+    color: aquamarine;
+    text-shadow: 0 0 10px #B0B0B0;
 }
 
-.links {
-  display: flex;
-  gap: 20px;
+.nav-container .links {
+    display: flex; /* Displayed by default */
 }
 
-.link a, .dropdown a {
-  color: white;
-  text-decoration: none;
-  padding: 5px 10px;
-  transition: background-color 0.3s ease;
+.nav-container .links a {
+    position: relative;
+    font-size: 1.2rem;
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 550;
+    transition: 0.3s linear;
 }
 
-.link a:hover, .dropdown a:hover {
-  background-color: #555; /* Example hover effect */
-  border-radius: 4px;
+.nav-container .links a::before {
+    position: absolute;
+    content: "";
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: aquamarine;
+    transition: 0.2s linear;
 }
 
-/* Hamburger Icon - Initially hidden on larger screens */
-.hamburg {
-  display: none; /* Hide by default */
-  font-size: 1.8em;
-  cursor: pointer;
+.nav-container .links a:hover::before {
+    width: 100%;
 }
 
-/* Dropdown Menu Styles */
+.nav-container .links a:hover {
+    color: aquamarine;
+}
+
+/* hamburger & initial cancel styles (hidden by default) */
+.hamburg, .cancel {
+    display: none; /* Hide both initially */
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Dropdown menu */
 .dropdown {
-  position: fixed; /* Or absolute relative to nav */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh; /* Full viewport height */
-  background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Make sure it's above nav content but below nav itself if fixed */
-  transform: translateY(-100%); /* START HIDDEN - Move it above the viewport */
-  transition: transform 0.5s ease-in-out; /* SMOOTH SLIDE - Add transition */
+    position: fixed; /* CHANGED: Use fixed for viewport positioning */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* CHANGED: Use 100vh for full viewport height */
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px) brightness(40%);
+    box-shadow: 0 0 20px black;
+    z-index: 1000; /* CHANGED: Ensure it's above the nav (z-index: 100) */
+
+    /* --- Animation --- */
+    transform: translateY(-100%); /* Start hidden above */
+    transition: transform 0.4s ease-in-out; /* Smooth transition */
+
+    /* --- Flexbox for centering links --- */
+    display: flex; /* Use flexbox for easier centering */
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
 }
 
 .dropdown .links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px; /* More space for vertical links */
-}
-
-.dropdown a {
-  font-size: 1.5em; /* Larger text for dropdown */
-}
-
-.cancel {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 2em;
-  color: white;
-  cursor: pointer;
-}
-
-
-/* --- Media Query for Responsiveness --- */
-/* Adjust the max-width as needed for your breakpoint */
-@media (max-width: 768px) {
-  .nav-container .links {
-    display: none; /* Hide the main inline links */
-  }
-  .hamburg {
-    display: block; /* Show the hamburger icon */
-  }
-}
-
-/* --- Main Section Styles (Example) --- */
-section {
-    padding-top: 80px; /* Add padding so content isn't hidden behind nav */
-}
-.main-container {
-    display: flex;
-    flex-direction: column; /* Stack image and content on small screens */
+    display: flex; /* Already flex */
+    flex-direction: column;
     align-items: center;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
-    gap: 20px;
-}
-.image img {
-    max-width: 250px; /* Adjust size */
-    height: auto;
-    border-radius: 50%; /* Make it circular */
-    border: 5px solid #eee; /* Example border */
-}
-.content {
-    text-align: center;
-}
-.content h1 span {
-    color: cornflowerblue; /* Example color */
-}
-.social-links {
-    margin-top: 20px;
-}
-.social-links a {
-    color: #333;
-    font-size: 1.8em;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.social-links a:hover {
-    color: cornflowerblue; /* Example hover color */
+    width: 100%; /* Take full width for text alignment */
+    /* padding-top: 60px; */ /* Removed - using flexbox justify-content: center now */
 }
 
-/* Media query for larger screens layout */
-@media (min-width: 769px) {
+.dropdown .links a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 0;
+    font-size: 1.5rem; /* Slightly larger for overlay */
+    transition: 0.2s linear;
+    width: 80%; /* Control width of the links/hover area */
+    max-width: 300px; /* Optional max width */
+    text-align: center;
+    border-radius: 5px; /* Add radius for hover */
+    margin-bottom: 15px; /* Add spacing */
+}
+
+.dropdown .links a:hover {
+    background-color: aquamarine;
+    color: black;
+}
+
+/* Cancel button inside dropdown */
+.dropdown .cancel {
+    display: block; /* ADDED: Make the cancel button visible when dropdown is open */
+    position: absolute;
+    top: 25px; /* Adjust position */
+    right: 30px; /* Adjust position */
+    font-size: 2.2rem; /* Make it a bit larger */
+    color: white; /* Ensure color */
+    cursor: pointer; /* Ensure cursor */
+    /* z-index: 1001; */ /* Not strictly needed as it's inside .dropdown */
+}
+
+/* Section */
+section {
+    width: 100%;
+    /* height: 90vh; */ /* Let height be determined by content or use min-height */
+    min-height: 90vh;
+    padding-top: 10vh; /* Add padding equal to nav height so content starts below */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
+.main-container {
+    width: 100%;
+    height: 100%; /* Fill the section height */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px; /* Add some padding */
+    max-width: 1200px; /* Optional constraint */
+    margin: 0 auto; /* Center */
+}
+
+/* ... (rest of your image, content, social links, button styles) ... */
+.main-container .image {
+    width: clamp(200px, 40vw, 400px); /* Responsive width */
+    /* height: 80vh; */ /* Let height be auto based on width/content */
+    aspect-ratio: 1 / 1; /* Make it square */
+    border-radius: 50%; /* Circular */
+    overflow: hidden;
+    box-shadow: 0 0 50px aquamarine;
+    object-fit: cover; /* Ensure image covers */
+    flex-shrink: 0; /* Prevent shrinking too much */
+}
+
+.main-container .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the circle */
+}
+
+.main-container .image:hover {
+    animation: animate 1.5s ease-in-out infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1); /* Use transform for performance */
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.main-container .content {
+    color: white;
+    width: 50%; /* Adjust width */
+    min-height: 100px;
+    text-align: left; /* Align text left */
+}
+
+.content h1 {
+    font-size: clamp(1.5rem, 4vw, 3rem); /* Adjusted clamp values */
+}
+
+.content h1 span {
+    color: aquamarine;
+    text-shadow: 0 0 10px aquamarine;
+}
+
+/* Remove typewriter styles if not implemented */
+/* .content .typewriter { ... } */
+
+.content p {
+    font-size: clamp(0.9rem , 1.5vw, 1.1rem); /* Adjusted clamp */
+    margin: 15px 0 25px 0; /* Adjust margins */
+    line-height: 1.6; /* Improve readability */
+}
+
+.social-links {
+    margin-bottom: 25px; /* Space below icons */
+}
+
+.social-links a { /* Target the anchor tag for hover area */
+    display: inline-flex; /* Use flex for centering icon */
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border: 0.2rem solid aquamarine;
+    border-radius: 50%;
+    color: aquamarine;
+    margin: 5px 10px 5px 0; /* Adjust margin */
+    font-size: 1.5rem;
+    transition: 0.2s linear;
+    text-decoration: none; /* Remove underline */
+}
+
+.social-links a:hover { /* Apply hover to the anchor */
+    transform: scale(1.2); /* Use transform */
+    color: black;
+    background-color: aquamarine;
+    box-shadow: 0 0 10px aquamarine; /* Use box-shadow instead of filter */
+}
+
+/* Remove button styles if button isn't in the HTML */
+/* .content button { ... } */
+
+
+/* --- Media Queries --- */
+
+@media (max-width: 884px) {
+    .nav-container {
+       justify-content: space-between; /* Adjust spacing */
+    }
+    nav .logo {
+        /* Removed absolute positioning - let flexbox handle it */
+        font-size: 1.5rem;
+        margin-left: 0; /* Reset margin if needed */
+    }
+
     .main-container {
-        flex-direction: row; /* Side-by-side layout */
-        text-align: left;
+        flex-direction: column;
+        text-align: center; /* Center text when stacked */
+        gap: 30px; /* Add gap between stacked items */
     }
-    .content {
-        text-align: left;
+     .main-container .content {
+        width: 90%; /* Increase width */
+        order: 2; /* Put content below image */
+        text-align: center; /* Center text */
     }
+     .main-container .image {
+        order: 1; /* Put image above content */
+        width: clamp(180px, 50vw, 250px); /* Adjust size */
+        /* Removed z-index: -1 unless specifically needed */
+        margin-bottom: 20px; /* Add space below image */
+        /* height: auto; */ /* Let aspect-ratio handle height */
+    }
+
+    .nav-container .links {
+        display: none; /* Hide desktop links */
+    }
+
+    .hamburg {
+        display: block; /* Show hamburger */
+        /* Removed absolute positioning - let flexbox handle it */
+        margin-right: 0; /* Reset margin if needed */
+        /* z-index: 101; */ /* z-index relative to nav is fine */
+    }
+
+    .social-links {
+        text-align: center; /* Center icons */
+    }
+
+    .social-links a { /* Adjust icon size/spacing */
+        width: 2.8rem;
+        height: 2.8rem;
+        font-size: 1.4rem;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 480px) { /* Adjusted breakpoint */
+    nav .logo {
+        font-size: 1.3rem;
+    }
+     .hamburg {
+        font-size: 1.6rem;
+    }
+
+    .main-container .image {
+       width: clamp(150px, 55vw, 200px); /* Further size adjust */
+    }
+
+    .main-container .content {
+        width: 95%; /* Use almost full width */
+    }
+    .content h1 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+    }
+     .content p {
+        font-size: clamp(0.85rem , 3vw, 1rem);
+    }
+     .social-links a {
+         width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+        margin: 5px;
+     }
+
+    .dropdown .links a {
+        font-size: 1.3rem; /* Adjust dropdown link size */
+    }
+
+     .dropdown .cancel {
+        font-size: 2rem;
+        top: 20px;
+        right: 25px;
+    }
+
 }
