@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
 /* --- NOUVELLE PALETTE ---
-   Base: #0A192F (Bleu Nuit Profond)
-   Accent: #F59E0B (Or Doux)
-   Texte Principal: #E2E8F0 (Blanc Cassé / Gris Clair)
-   Texte Secondaire: #8892B0 (Gris Moyen Bleuâtre)
+   Base: #000000 (Noir)
+   Accent: #8B5CF6 (Violet Électrique)
+   Texte Principal: #FFFFFF (Blanc)
+   Texte Secondaire: #CCCCCC (Gris Clair Neutre)
    ----------------------- */
 
 /* Styles généraux */
@@ -18,8 +18,8 @@
 body {
     width: 100%;
     min-height: 100vh;
-    background-color: #0A192F; /* Base */
-    color: #E2E8F0; /* Couleur texte par défaut */
+    background-color: #000000; /* Base */
+    color: #FFFFFF; /* Texte Principal */
 }
 
 nav {
@@ -27,9 +27,10 @@ nav {
     height: 10vh;
     position: sticky;
     top: 0;
-    background-color: #0A192F; /* Base (peut être légèrement différent si voulu) */
+    background-color: #000000; /* Base */
     z-index: 100;
-    border-bottom: 1px solid rgba(245, 158, 11, 0.1); /* Ligne subtile dorée en bas */
+    /* Option: Ligne subtile violette en bas */
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .nav-container {
@@ -45,14 +46,15 @@ nav {
 }
 
 .logo {
-    color: #E2E8F0; /* Texte Principal */
+    color: #FFFFFF; /* Texte Principal */
     font-size: 2rem;
     font-weight: bold;
 }
 
 .logo span {
-    color: #F59E0B; /* Accent */
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.5); /* Ombre Accent (plus subtile) */
+    color: #8B5CF6; /* Accent */
+    /* Ombre Accent */
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
 }
 
 /* Liens Desktop */
@@ -63,11 +65,11 @@ nav {
 .nav-container .links a {
     position: relative;
     font-size: 1.2rem;
-    color: #E2E8F0; /* Texte Principal */
+    color: #FFFFFF; /* Texte Principal */
     margin: 0 20px;
     text-decoration: none;
-    font-weight: 500; /* Slightly reduced weight */
-    transition: 0.3s linear;
+    font-weight: 500;
+    transition: color 0.3s linear; /* Transition sur la couleur */
 }
 
 /* Soulignement au survol */
@@ -77,9 +79,9 @@ nav {
     bottom: -3px;
     left: 0;
     width: 0%;
-    height: 2px; /* Slightly thinner line */
-    background-color: #F59E0B; /* Accent */
-    transition: 0.2s linear;
+    height: 2px;
+    background-color: #8B5CF6; /* Accent */
+    transition: width 0.2s linear; /* Transition sur la largeur */
 }
 
 .nav-container .links a:hover::before {
@@ -87,14 +89,14 @@ nav {
 }
 
 .nav-container .links a:hover {
-    color: #F59E0B; /* Accent */
+    color: #8B5CF6; /* Accent */
 }
 
 /* hamburger & cancel icons (initial state) */
 .hamburg, .cancel {
     display: none;
     font-size: 1.8rem;
-    color: #E2E8F0; /* Texte Principal */
+    color: #FFFFFF; /* Texte Principal */
     cursor: pointer;
 }
 
@@ -105,9 +107,9 @@ nav {
     left: 0;
     width: 100%;
     height: 100vh;
-    /* Utiliser la couleur de base avec transparence */
-    background-color: rgba(10, 25, 47, 0.9); /* Base avec alpha */
-    backdrop-filter: blur(5px); /* Ajuster le flou si nécessaire */
+    /* Fond noir semi-transparent */
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
     z-index: 1000;
     transform: translateY(-100%);
     transition: transform 0.4s ease-in-out;
@@ -125,11 +127,11 @@ nav {
 }
 
 .dropdown .links a {
-    color: #E2E8F0; /* Texte Principal */
+    color: #FFFFFF; /* Texte Principal */
     text-decoration: none;
-    padding: 18px 0; /* Un peu plus d'espace */
-    font-size: 1.6rem; /* Un peu plus grand */
-    transition: 0.2s linear;
+    padding: 18px 0;
+    font-size: 1.6rem;
+    transition: color 0.2s linear; /* Transition sur la couleur */
     width: 80%;
     max-width: 300px;
     text-align: center;
@@ -139,8 +141,9 @@ nav {
 }
 
 .dropdown .links a:hover {
-    background-color: rgba(245, 158, 11, 0.1); /* Fond Accent très léger */
-    color: #FBBF24; /* Accent légèrement plus vif au survol */
+    color: #A78BFA; /* Accent légèrement plus clair au survol */
+    /* Option alternative: fond léger */
+    /* background-color: rgba(139, 92, 246, 0.1); */
 }
 
 /* Bouton Cancel dans le dropdown */
@@ -150,12 +153,12 @@ nav {
     top: 25px;
     right: 30px;
     font-size: 2.2rem;
-    color: #E2E8F0; /* Texte Principal */
+    color: #FFFFFF; /* Texte Principal */
     cursor: pointer;
     transition: color 0.2s ease;
 }
 .dropdown .cancel:hover {
-    color: #F59E0B; /* Accent au survol */
+    color: #8B5CF6; /* Accent au survol */
 }
 
 
@@ -173,28 +176,29 @@ section {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 40px 20px; /* Plus de padding vertical */
+    padding: 40px 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .main-container .image {
-    width: clamp(200px, 35vw, 380px); /* Ajustement taille */
+    width: clamp(200px, 35vw, 380px);
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     overflow: hidden;
-    /* Ombre Accent plus diffuse */
-    box-shadow: 0 0 60px rgba(245, 158, 11, 0.4);
+    /* Ombre Accent */
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
     object-fit: cover;
     flex-shrink: 0;
-    border: 3px solid rgba(245, 158, 11, 0.3); /* Bordure subtile dorée */
+    /* Option: Bordure subtile violette */
+    border: 3px solid rgba(139, 92, 246, 0.3);
 }
 
 .main-container .image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block; /* Éviter petit espace sous l'image */
+    display: block;
 }
 
 .main-container .image:hover {
@@ -202,33 +206,34 @@ section {
 }
 
 @keyframes animate {
-    0% { transform: scale(1); box-shadow: 0 0 60px rgba(245, 158, 11, 0.4); }
-    50% { transform: scale(1.04); box-shadow: 0 0 80px rgba(245, 158, 11, 0.6); }
-    100% { transform: scale(1); box-shadow: 0 0 60px rgba(245, 158, 11, 0.4); }
+    0% { transform: scale(1); box-shadow: 0 0 60px rgba(139, 92, 246, 0.5); }
+    50% { transform: scale(1.04); box-shadow: 0 0 90px rgba(139, 92, 246, 0.7); } /* Ombre plus intense */
+    100% { transform: scale(1); box-shadow: 0 0 60px rgba(139, 92, 246, 0.5); }
 }
 
 .main-container .content {
-    color: #E2E8F0; /* Texte Principal */
-    width: 55%; /* Un peu plus large */
+    color: #FFFFFF; /* Texte Principal */
+    width: 55%;
     min-height: 100px;
     text-align: left;
 }
 
 .content h1 {
-    font-size: clamp(1.8rem, 5vw, 3.2rem); /* Légèrement plus grand */
-    margin-bottom: 10px; /* Espace sous le titre */
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    margin-bottom: 10px;
+    color: #FFFFFF; /* Assurer que le titre est blanc */
 }
 
 .content h1 span {
-    color: #F59E0B; /* Accent */
-    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); /* Ombre Accent */
+    color: #8B5CF6; /* Accent */
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.6); /* Ombre Accent */
 }
 
 .content p {
-    font-size: clamp(1rem , 1.6vw, 1.15rem); /* Légèrement plus grand */
-    margin: 20px 0 30px 0; /* Plus d'espace */
-    line-height: 1.7; /* Interligne amélioré */
-    color: #8892B0; /* Texte Secondaire */
+    font-size: clamp(1rem , 1.6vw, 1.15rem);
+    margin: 20px 0 30px 0;
+    line-height: 1.7;
+    color: #CCCCCC; /* Texte Secondaire */
 }
 
 /* Liens Sociaux */
@@ -240,23 +245,27 @@ section {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 2.8rem; /* Un peu plus petit */
+    width: 2.8rem;
     height: 2.8rem;
     background-color: transparent;
-    border: 2px solid #8892B0; /* Bordure Texte Secondaire (plus discret) */
+    /* Bordure Accent par défaut */
+    border: 2px solid #8B5CF6;
     border-radius: 50%;
-    color: #8892B0; /* Icône couleur Texte Secondaire */
-    margin: 5px 12px 5px 0; /* Espacement */
-    font-size: 1.4rem; /* Taille icône */
-    transition: 0.3s ease; /* Transition plus douce */
+    /* Icône Accent par défaut */
+    color: #8B5CF6;
+    margin: 5px 12px 5px 0;
+    font-size: 1.4rem;
+    transition: all 0.3s ease; /* Transition plus globale */
     text-decoration: none;
 }
 
 .social-links a:hover {
-    transform: translateY(-4px); /* Effet de lévitation */
-    color: #F59E0B; /* Icône Accent */
-    border-color: #F59E0B; /* Bordure Accent */
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); /* Ombre douce */
+    transform: translateY(-4px) scale(1.1); /* Léger zoom en plus */
+    /* Inverser les couleurs au survol */
+    background-color: #8B5CF6; /* Fond devient Accent */
+    color: #000000; /* Icône devient Noire */
+    border-color: #8B5CF6; /* Garder bordure violette */
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); /* Ombre plus prononcée */
 }
 
 /* --- Media Queries --- */
@@ -272,7 +281,7 @@ section {
     .main-container {
         flex-direction: column;
         text-align: center;
-        gap: 40px; /* Espace augmenté */
+        gap: 40px;
         padding: 30px 20px;
     }
      .main-container .content {
@@ -282,8 +291,7 @@ section {
     }
      .main-container .image {
         order: 1;
-        width: clamp(180px, 45vw, 240px); /* Ajustement taille */
-        margin-bottom: 0; /* Espace géré par gap */
+        width: clamp(180px, 45vw, 240px);
      }
     .nav-container .links {
         display: none;
@@ -298,13 +306,18 @@ section {
         width: 2.8rem;
         height: 2.8rem;
         font-size: 1.4rem;
-        margin: 5px 8px; /* Espacement ajusté */
-        color: #8892B0; /* Retour couleur par défaut mobile */
-        border-color: #8892B0;
+        margin: 5px 8px;
+        /* Garder les couleurs de base mobiles */
+        color: #8B5CF6;
+        border-color: #8B5CF6;
     }
-     .social-links a:hover { /* Garder le survol cohérent */
-        color: #F59E0B;
-        border-color: #F59E0B;
+     .social-links a:hover {
+        /* Assurer la cohérence du survol */
+         transform: translateY(-4px) scale(1.1);
+         background-color: #8B5CF6;
+         color: #000000;
+         border-color: #8B5CF6;
+         box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
      }
 }
 
@@ -327,6 +340,7 @@ section {
      .content p {
         font-size: clamp(0.9rem , 3.5vw, 1rem);
         margin: 15px 0 25px 0;
+        color: #CCCCCC; /* Assurer la couleur secondaire */
     }
      .social-links a {
          width: 2.6rem;
@@ -335,7 +349,7 @@ section {
         margin: 5px 6px;
      }
     .dropdown .links a {
-        font-size: 1.4rem; /* Ajustement taille lien dropdown */
+        font-size: 1.4rem;
         padding: 15px 0;
     }
      .dropdown .cancel {
