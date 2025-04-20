@@ -1,11 +1,18 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr"> <!-- Langue mise à fr -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contact</title>
+    <title>Contact - Hatim Maachi</title> <!-- Titre amélioré -->
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="contact.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
+    <!-- Header -->
     <header>
         <nav>
             <div class="nav-container">
@@ -13,58 +20,82 @@
                     HATIM <span>MAACHI</span>
                 </div>
                 <div class="links">
-                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="html/index.html">Home</a></div>
-                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><a href="html/about.html">About</a></div>
-                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500"><a href="html/contact.html">Contact</a></div>
+                    <!-- Liens pour écrans larges -->
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+                        <a href="index.html">Home</a> <!-- Chemin corrigé (supposé racine) -->
+                    </div>
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+                        <a href="about.html">About</a> <!-- Chemin corrigé -->
+                    </div>
+                    <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
+                        <a href="contact.html" class="active">Contact</a> <!-- Chemin corrigé + classe active -->
+                    </div>
+                </div>
+                <!-- Icône Hamburger (sans onclick) -->
+                <i class="fa-solid fa-bars hamburg"></i>
             </div>
-            <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
-        </div>
+
+            <!-- Menu Dropdown (Mobile) -->
             <div class="dropdown">
+                 <!-- Icône Cancel (sans onclick, déplacée hors de .links) -->
+                <i class="fa-solid fa-xmark cancel"></i>
                 <div class="links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
-                    <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
                 </div>
             </div>
-        </nav>
-    
-    
+            <!-- Suppression du </nav> en trop -->
         </nav>
     </header>
-   
-    
-    <form action=""   method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br>
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required><br>
+    <!-- Contenu Principal -->
+    <main>
+        <h1 class="contact-title" data-aos="fade-down">Contactez-moi</h1> <!-- Ajout du titre requis par CSS -->
 
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required><br>
+        <!-- Le type d'action dépendra de votre backend (ex: script PHP, service externe) -->
+        <form action="" method="post" data-aos="fade-up" data-aos-delay="200">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required> <!-- Suppression des <br> -->
 
-        <label for="telephone">Téléphone :</label>
-        <input type="tel" id="telephone" name="telephone"><br>
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required>
 
-        <label for="sujet">Sujet :</label>
-        <input type="text" id="sujet" name="sujet"><br>
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="message">Message :</label>
-        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+            <label for="telephone">Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone"> <!-- Le téléphone est souvent optionnel -->
 
-        <input type="submit" value="Envoyer">
-        <input type="reset" value="Annuler">
+            <label for="sujet">Sujet :</label>
+            <input type="text" id="sujet" name="sujet" required> <!-- Sujet souvent requis -->
 
-    </form> 
-    
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="5" required></textarea> <!-- rows ajusté, requis -->
+
+            <!-- Div pour styliser les boutons avec flexbox -->
+            <div class="form-buttons">
+                <input type="submit" value="Envoyer">
+                <input type="reset" value="Annuler">
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer (Doit être DANS le body) -->
+    <footer>
+        <!-- Texte plus standard -->
+        <p>© 2024 Hatim Maachi - Tous droits réservés</p>
+        <!-- Ou votre texte : <p> MERCI POUR VOTRE VISITE </p> -->
+    </footer>
+
+    <!-- Scripts JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-      AOS.init({offset:0});
+      // Initialisation AOS (placée dans le script principal pour être sûr que le DOM est prêt)
+      // Voir script.js
     </script>
+    <!-- Assurez-vous que ce chemin est correct -->
     <script src="script.js"></script>
+
 </body>
-<footer>
-    <p> MERCI POUR VOTRE VISIT </p>
-</footer>
 </html>
