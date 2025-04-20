@@ -87,7 +87,46 @@
 
     <!-- Scripts JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="script.js"></script>
+     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS library
+    AOS.init({ offset: 0 });
+
+    // Get references to the elements
+    const hamburgIcon = document.querySelector(".hamburg");
+    const cancelIcon = document.querySelector(".cancel");
+    const dropdownMenu = document.querySelector(".dropdown");
+
+    // Function to open the dropdown menu
+    function openMenu() {
+      dropdownMenu.style.transform = "translateY(0)";
+    }
+
+    // Function to close the dropdown menu
+    function closeMenu() {
+      dropdownMenu.style.transform = "translateY(-100%)";
+    }
+
+    // Add event listeners
+    if (hamburgIcon && dropdownMenu) {
+        hamburgIcon.addEventListener("click", openMenu);
+    } else {
+        console.error("Hamburger icon or dropdown menu not found!");
+    }
+
+    if (cancelIcon && dropdownMenu) {
+        cancelIcon.addEventListener("click", closeMenu);
+    } else {
+        console.error("Cancel icon or dropdown menu not found!");
+    }
+
+    // Optional: Close menu if a link inside it is clicked
+    const dropdownLinks = dropdownMenu.querySelectorAll('.links a');
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+  </script>
 
 </body>
 </html>
