@@ -453,8 +453,9 @@ body {
 }
 
 .btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-xl);
   border-radius: var(--radius-lg);
@@ -466,6 +467,7 @@ body {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  min-height: 48px;
 }
 
 .btn::before {
@@ -856,96 +858,33 @@ body {
 
 .project-card {
   background: var(--bg-primary);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
+  border-radius: 1rem;
   box-shadow: var(--shadow-light);
-  transition: all var(--transition-normal);
-}
-
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-heavy);
-}
-
-.project-image {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
-}
-
-.project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-normal);
-}
-
-.project-card:hover .project-image img {
-  transform: scale(1.1);
-}
-
-.project-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
-
-.project-links {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-.project-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-
-.project-link:hover {
-  background: var(--primary-dark);
-  transform: scale(1.1);
-}
-
-.project-content {
-  padding: var(--spacing-xl);
+  padding: 1.2rem 1rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .project-content h3 {
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  margin-bottom: var(--spacing-md);
-  color: var(--text-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
 }
 
 .project-content p {
+  font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.6;
+  margin-bottom: 0.7rem;
 }
 
 .project-tech {
-  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  margin-bottom: 0.2rem;
 }
 
 .tech-tag {
