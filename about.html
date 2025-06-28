@@ -1,318 +1,588 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>À Propos - Hatim Maachi</title>
-  <!-- CSS Principal -->
-  <link rel="stylesheet" href="about.css" />
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- AOS Animation Library -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="À Propos - Hatim Maachi - Étudiant en Génie Informatique"
+    />
+    <title>À Propos - Hatim Maachi</title>
 
-<body>
-  <!-- Header -->
-  <header>
-    <nav>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="hatim.jpg" as="image" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      as="style"
+    />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Animation Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
       <div class="nav-container">
-        <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
-          HATIM <span>MAACHI</span>
+        <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+          <span class="logo-text">HATIM</span>
+          <span class="logo-accent">MAACHI</span>
         </div>
-        <div class="links">
-          <!-- Liens pour écrans larges -->
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-            <a href="index.html">Home</a>
-          </div>
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
-            <a href="about.html" class="active">About</a> <!-- Ajout de la classe active ici -->
-          </div>
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500">
-            <a href="contact.html">Contact</a>
-          </div>
-        </div>
-        <!-- Icône Hamburger (sans onclick) -->
-        <i class="fa-solid fa-bars hamburg"></i>
-      </div>
 
-      <!-- Menu Dropdown (Mobile) -->
-      <div class="dropdown">
-        <!-- Icône Cancel (sans onclick) -->
-        <i class="fa-solid fa-xmark cancel"></i>
-        <div class="links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
+        <div class="nav-links">
+          <a
+            href="index.html"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="100"
+          >
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+          </a>
+          <a
+            href="about.html"
+            class="nav-link active"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
+            <i class="fas fa-user"></i>
+            <span>À Propos</span>
+          </a>
+          <a
+            href="index.html#projects"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="300"
+          >
+            <i class="fas fa-code"></i>
+            <span>Projets</span>
+          </a>
+          <a
+            href="index.html#skills"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="400"
+          >
+            <i class="fas fa-tools"></i>
+            <span>Compétences</span>
+          </a>
+          <a
+            href="contact.html"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="500"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <div class="nav-actions">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="600"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </nav>
-  </header>
 
-  <!-- Contenu Principal -->
-  <main>
-    <!-- ... (Tout votre contenu HTML de la section Présentation aux Certificats va ici) ... -->
-     <!-- Présentation -->
-    <section id="presentation" data-aos="fade-up">
-      <div class="presentation-container">
-        <div class="image-container" data-aos="zoom-in" data-aos-delay="200">
-          <img src="hatim.jpg" alt="Photo de Hatim Maachi" /> <!-- Taille gérée par CSS -->
-        </div>
-        <div class="intro-text" data-aos="fade-left" data-aos-delay="400">
-          <h1>Hatim Maachi</h1>
-          <p>
-            Étudiant en Génie Informatique, passionné par les technologies et le
-            développement logiciel.
-          </p>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="logo">HATIM <span>MAACHI</span></div>
+        <button class="mobile-menu-close" id="mobile-menu-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-menu-links">
+        <a href="index.html" class="mobile-link">
+          <i class="fas fa-home"></i>
+          <span>Accueil</span>
+        </a>
+        <a href="about.html" class="mobile-link">
+          <i class="fas fa-user"></i>
+          <span>À Propos</span>
+        </a>
+        <a href="index.html#projects" class="mobile-link">
+          <i class="fas fa-code"></i>
+          <span>Projets</span>
+        </a>
+        <a href="index.html#skills" class="mobile-link">
+          <i class="fas fa-tools"></i>
+          <span>Compétences</span>
+        </a>
+        <a href="contact.html" class="mobile-link">
+          <i class="fas fa-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="about-page">
+      <div class="container">
+        <!-- Hero Section -->
+        <section class="about-hero" data-aos="fade-up">
+          <div class="about-hero-content">
+            <div
+              class="about-hero-image"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              <img src="hatim.jpg" alt="Photo de Hatim Maachi" />
+              <div class="image-overlay"></div>
+            </div>
+            <div
+              class="about-hero-text"
+              data-aos="fade-left"
+              data-aos-delay="400"
+            >
+              <h1>Hatim Maachi</h1>
+              <p class="subtitle">Étudiant en Génie Informatique</p>
+              <p class="description">
+                Passionné par les technologies et le développement logiciel, je
+                cherche continuellement à approfondir mes compétences dans le
+                domaine dynamique de l'informatique.
+              </p>
+              <div class="hero-stats">
+                <div class="stat">
+                  <span class="number">3</span>
+                  <span class="label">Années d'Études</span>
+                </div>
+                <div class="stat">
+                  <span class="number">3</span>
+                  <span class="label">Projets Réalisés</span>
+                </div>
+                <div class="stat">
+                  <span class="number">5+</span>
+                  <span class="label">Technologies</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Content Sections -->
+        <div class="about-sections">
+          <!-- État Civil -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-id-card"></i> État Civil</h2>
+            </div>
+            <div class="section-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="label">Nom et prénom :</span>
+                  <span class="value">Maachi Hatim</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Date de naissance :</span>
+                  <span class="value">25 avril 2003</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Adresse :</span>
+                  <span class="value">797 Bloc 5 Alwefak, Taza</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Email :</span>
+                  <span class="value">hatim.maachi@usmba.ac.ma</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Téléphone :</span>
+                  <span class="value">0658642662</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Formation -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-graduation-cap"></i> Formation</h2>
+            </div>
+            <div class="section-content">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-content">
+                    <h3>Licence en Génie Informatique</h3>
+                    <p class="institution">FST Fès</p>
+                    <p class="period">2024 - 2025</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-content">
+                    <h3>DEUST Mathématiques, Informatique, Physique (MIP)</h3>
+                    <p class="institution">FST Fès</p>
+                    <p class="period">2021 - 2024</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-content">
+                    <h3>Baccalauréat Sciences Physiques</h3>
+                    <p class="institution">Lycée</p>
+                    <p class="period">2021</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Compétences -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-tools"></i> Compétences</h2>
+            </div>
+            <div class="section-content">
+              <div class="skills-grid">
+                <div class="skill-category">
+                  <h3><i class="fas fa-code"></i> Langages & Frameworks</h3>
+                  <div class="skill-tags">
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                  </div>
+                </div>
+                <div class="skill-category">
+                  <h3>
+                    <i class="fas fa-database"></i> Bases de Données &
+                    Modélisation
+                  </h3>
+                  <div class="skill-tags">
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">UML</span>
+                    <span class="skill-tag">JDBC</span>
+                  </div>
+                </div>
+                <div class="skill-category">
+                  <h3><i class="fas fa-server"></i> Systèmes & Réseaux</h3>
+                  <div class="skill-tags">
+                    <span class="skill-tag">Windows</span>
+                    <span class="skill-tag">Linux (Ubuntu)</span>
+                    <span class="skill-tag">TCP/IP</span>
+                    <span class="skill-tag">HTTP</span>
+                    <span class="skill-tag">DNS</span>
+                  </div>
+                </div>
+                <div class="skill-category">
+                  <h3><i class="fas fa-cogs"></i> Autres</h3>
+                  <div class="skill-tags">
+                    <span class="skill-tag">Programmation Orientée Objet</span>
+                    <span class="skill-tag">Développement d'IHM (JEE)</span>
+                    <span class="skill-tag">Git & GitHub</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Langues -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-language"></i> Langues</h2>
+            </div>
+            <div class="section-content">
+              <div class="languages-grid">
+                <div class="language-item">
+                  <div class="language-info">
+                    <span class="language-name">Arabe</span>
+                    <span class="language-level">Langue Maternelle</span>
+                  </div>
+                  <div class="language-bar">
+                    <div class="language-progress" style="width: 100%"></div>
+                  </div>
+                </div>
+                <div class="language-item">
+                  <div class="language-info">
+                    <span class="language-name">Français</span>
+                    <span class="language-level">Niveau Avancé</span>
+                  </div>
+                  <div class="language-bar">
+                    <div class="language-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div class="language-item">
+                  <div class="language-info">
+                    <span class="language-name">Anglais</span>
+                    <span class="language-level">Niveau Avancé</span>
+                  </div>
+                  <div class="language-bar">
+                    <div class="language-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Centres d'intérêt -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-heart"></i> Centres d'intérêt</h2>
+            </div>
+            <div class="section-content">
+              <div class="interests-grid">
+                <div class="interest-item">
+                  <i class="fas fa-laptop-code"></i>
+                  <span>Veille technologique (Web, IA, Logiciel)</span>
+                </div>
+                <div class="interest-item">
+                  <i class="fas fa-futbol"></i>
+                  <span>Football (Pratique et suivi)</span>
+                </div>
+                <div class="interest-item">
+                  <i class="fas fa-plane"></i>
+                  <span>Voyages & Découverte culturelle</span>
+                </div>
+                <div class="interest-item">
+                  <i class="fas fa-puzzle-piece"></i>
+                  <span>Résolution de problèmes (Challenges de code)</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Projets réalisés -->
+          <section class="about-section" id="projets" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-project-diagram"></i> Projets Réalisés</h2>
+            </div>
+            <div class="section-content">
+              <div class="projects-grid">
+                <div class="project-card">
+                  <div class="project-header">
+                    <h3>
+                      Plateforme de gestion de conférences scientifiques
+                      (JavaEE)
+                    </h3>
+                    <div class="project-badge">Projet Académique</div>
+                  </div>
+                  <p class="project-description">
+                    Développement d'une application web complète inspirée de
+                    plateformes comme EasyChair/CMT, utilisant Java EE
+                    (Servlets, JSP), JDBC, MySQL et Tailwind CSS.
+                  </p>
+                  <div class="project-features">
+                    <h4>Fonctionnalités :</h4>
+                    <ul>
+                      <li>Authentification multi-rôle</li>
+                      <li>Dashboard personnalisé</li>
+                      <li>Soumission et évaluation d'articles</li>
+                      <li>Gestion des comités</li>
+                      <li>Notifications e-mail</li>
+                    </ul>
+                  </div>
+                  <div class="project-tech">
+                    <span class="tech-tag">Java EE</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                    <span class="tech-tag">JDBC</span>
+                  </div>
+                  <div class="project-result">
+                    <strong>Résultat :</strong> Application robuste, interface
+                    moderne, architecture MVC.
+                  </div>
+                </div>
+
+                <div class="project-card">
+                  <div class="project-header">
+                    <h3>Voiture intelligente (Arduino)</h3>
+                    <div class="project-badge">Projet Académique</div>
+                  </div>
+                  <p class="project-description">
+                    Conception et développement d'une voiture intelligente
+                    utilisant Arduino, capteurs infrarouges, module Bluetooth,
+                    application mobile et module de reconnaissance vocale.
+                  </p>
+                  <div class="project-features">
+                    <h4>Fonctionnalités :</h4>
+                    <ul>
+                      <li>Téléguidage via application mobile</li>
+                      <li>Guidage vocal (commandes)</li>
+                      <li>Détection et évitement d'obstacles</li>
+                    </ul>
+                  </div>
+                  <div class="project-tech">
+                    <span class="tech-tag">Arduino</span>
+                    <span class="tech-tag">C++</span>
+                    <span class="tech-tag">Bluetooth</span>
+                    <span class="tech-tag">Capteurs IR</span>
+                  </div>
+                  <div class="project-result">
+                    <strong>Résultat :</strong> Système fonctionnel et
+                    démonstration réussie.
+                  </div>
+                </div>
+
+                <div class="project-card">
+                  <div class="project-header">
+                    <h3>Site web dynamique (Projet académique)</h3>
+                    <div class="project-badge">Projet Académique</div>
+                  </div>
+                  <p class="project-description">
+                    Conception et développement d'un site web interactif
+                    utilisant HTML, CSS, JavaScript (Front-End) et PHP, MySQL
+                    (Back-End).
+                  </p>
+                  <div class="project-features">
+                    <h4>Fonctionnalités :</h4>
+                    <ul>
+                      <li>Authentification utilisateur</li>
+                      <li>Gestion de données</li>
+                      <li>Interface responsive</li>
+                    </ul>
+                  </div>
+                  <div class="project-tech">
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">MySQL</span>
+                  </div>
+                  <div class="project-result">
+                    <strong>Résultat :</strong> Site fonctionnel et validé
+                    académiquement.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Certificats -->
+          <section class="about-section" data-aos="fade-up">
+            <div class="section-header">
+              <h2><i class="fas fa-certificate"></i> Certificats</h2>
+            </div>
+            <div class="section-content">
+              <div class="certificates-grid">
+                <div class="certificate-item">
+                  <div class="certificate-info">
+                    <h3>Build a Website with HTML, CSS, and GitHub Pages</h3>
+                    <p class="certificate-issuer">Codecademy</p>
+                    <p class="certificate-date">Juin 2024</p>
+                  </div>
+                  <a
+                    href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/5cadfefe5f1de806e9704577"
+                    target="_blank"
+                    class="certificate-link"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                    Voir
+                  </a>
+                </div>
+                <div class="certificate-item">
+                  <div class="certificate-info">
+                    <h3>Learn Python 3 Course</h3>
+                    <p class="certificate-issuer">Codecademy</p>
+                    <p class="certificate-date">Déc 2023</p>
+                  </div>
+                  <a
+                    href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/6c152bd262967f8c941c9707ed636bda"
+                    target="_blank"
+                    class="certificate-link"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                    Voir
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
+    </main>
 
-    <!-- Sections Contenu -->
-    <div class="content-wrapper">
-      <!-- État Civil -->
-      <section id="etat-civil" data-aos="fade-up">
-        <h2>État Civil</h2>
-        <p><strong>Nom et prénom :</strong> Maachi Hatim</p>
-        <p><strong>Date de naissance :</strong> 25 avril 2003</p>
-        <p><strong>Adresse :</strong> 797 Bloc 5 Alwefak, Taza</p>
-        <p><strong>Email :</strong> hatim.maachi@usmba.ac.ma</p>
-        <p><strong>Téléphone :</strong> 0658642662</p>
-      </section>
-
-      <!-- Formation -->
-      <section id="formation" data-aos="fade-up">
-        <h2>Formation</h2>
-        <ul>
-          <li>
-            <strong>Licence en Génie Informatique</strong> – FST Fès (2024 - 2025)
-          </li>
-          <li>
-            <strong>DEUST Mathématiques, Informatique, Physique (MIP)</strong> –
-            FST Fès (2021 - 2024)
-          </li>
-          <li><strong>Baccalauréat Sciences Physiques</strong> – Lycée (2021) <!-- Préciser Lycée si possible --></li>
-        </ul>
-      </section>
-
-      <!-- Compétences -->
-      <section id="competences" data-aos="fade-up">
-        <h2>Compétences</h2>
-        <div class="skills-grid"> <!-- Utilisation d'une grille pour mieux organiser -->
-            <div>
-                <h3>Langages & Frameworks</h3>
-                <ul>
-                    <li>HTML, CSS, JavaScript</li>
-                    <li>PHP, Java, C++</li>
-                    <li>Java EE (Servlets, JSP)</li>
-                    <li>Tailwind CSS</li>
-                    <li>Python</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Bases de Données & Modélisation</h3>
-                 <ul>
-                    <li>MySQL</li>
-                    <li>UML</li>
-                    <li>JDBC</li>
-                 </ul>
-            </div>
-             <div>
-                <h3>Systèmes & Réseaux</h3>
-                 <ul>
-                     <li>Windows, Linux (Ubuntu)</li>
-                     <li>Protocoles TCP/IP, HTTP, DNS</li>
-                 </ul>
-            </div>
-             <div>
-                <h3>Autres</h3>
-                 <ul>
-                     <li>Programmation Orientée Objet</li>
-                     <li>Développement d'IHM (JEE)</li>
-                     <li>Git & GitHub</li>
-                 </ul>
-            </div>
-        </div>
-      </section>
-
-      <!-- Langues -->
-      <section id="langues" data-aos="fade-up">
-        <h2>Langues</h2>
-        <ul>
-          <li><strong>Arabe :</strong> Langue Maternelle</li>
-          <li><strong>Français :</strong> Niveau Avancé </li>
-          <li><strong>Anglais :</strong> Niveau Avancé </li>
-        </ul>
-      </section>
-
-      <!-- Centres d’intérêt -->
-      <section id="interets" data-aos="fade-up">
-        <h2>Centres d’intérêt</h2>
-        <ul>
-          <li>Veille technologique (Web, IA, Logiciel)</li>
-          <li>Football (Pratique et suivi)</li>
-          <li>Voyages & Découverte culturelle</li>
-          <li>Résolution de problèmes (Challenges de code)</li>
-        </ul>
-      </section>
-
-      <!-- Projets réalisés -->
-      <section id="projets" data-aos="fade-up">
-        <h2>Projets Réalisés</h2>
-        <div class="project-list">
-          <div class="project-item">
-            <h3>Site web dynamique (Projet académique)</h3>
-            <p>Conception et développement d’un site web interactif utilisant HTML, CSS, JavaScript (Front-End) et PHP, MySQL (Back-End).</p>
-            <p><strong>Fonctionnalités :</strong> Authentification utilisateur, gestion de données, interface responsive.</p>
-            <p><em>Résultat : Site fonctionnel et validé académiquement.</em></p>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>HATIM <span>MAACHI</span></h3>
+            <p>Étudiant en Génie Informatique</p>
           </div>
-          <div class="project-item">
-            <h3>Voiture intelligente (Arduino)</h3>
-            <p>Conception et développement d’une voiture intelligente utilisant Arduino, capteurs infrarouges, module Bluetooth, application mobile et module de reconnaissance vocale.</p>
-            <p><strong>Fonctionnalités :</strong> Téléguidage via application mobile, guidage vocal (commandes), détection et évitement d’obstacles.</p>
-            <p><em>Résultat : Système fonctionnel et démonstration réussie.</em></p>
+
+          <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À Propos</a>
+            <a href="index.html#projects">Projets</a>
+            <a href="contact.html">Contact</a>
           </div>
-          <div class="project-item">
-            <h3>Plateforme de gestion de conférences scientifiques (JavaEE)</h3>
-            <p>Développement d’une application web complète inspirée de plateformes comme EasyChair/CMT, utilisant Java EE (Servlets, JSP), JDBC, MySQL et Tailwind CSS.</p>
-            <p><strong>Fonctionnalités :</strong> Authentification multi-rôle, dashboard personnalisé, soumission et évaluation d’articles, gestion des comités, notifications e-mail.</p>
-            <p><em>Résultat : Application robuste, interface moderne, architecture MVC.</em></p>
+
+          <div class="footer-social">
+            <a href="https://github.com/HATIMMAACHI" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/hatim-maachi-2b49801a4/"
+              target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://www.facebook.com/hatim.maachi.5" target="_blank"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/hatimmaachi" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
           </div>
         </div>
-      </section>
 
-      <!-- Certificats -->
-      <section id="certificats" data-aos="fade-up">
-        <h2>Certificats</h2>
-        <ul class="certificate-list">
-          <li>
-            <div>
-              <strong>Build a Website with HTML, CSS, and GitHub Pages</strong> - Codecademy (Juin 2024)
-            </div>
-            <a href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/5cadfefe5f1de806e9704577" target="_blank" class="certif-button">Voir</a>
-          </li>
-          <li>
-             <div>
-               <strong>Learn Python 3 Course</strong> - Codecademy (Déc 2023)
-             </div>
-             <a href="https://www.codecademy.com/profiles/Hatimmaachi/certificates/6c152bd262967f8c941c9707ed636bda" target="_blank" class="certif-button">Voir</a>
-          </li>
-           <li>
-             <div>
-               <strong>L’état d’esprit de réussite</strong> - HP LIFE (Déc 2023)
-             </div>
-             <a href="https://www.hplife.org/courses/mindset-of-success" target="_blank" class="certif-button">Voir</a>
-          </li>
-          <li>
-             <div>
-               <strong>Python Basics</strong> - Cybrary (Déc 2023)
-             </div>
-             <a href="https://www.cybrary.it/course/python-basics" target="_blank" class="certif-button">Voir</a>
-          </li>
-           <li>
-             <div>
-               <strong>Impression 3D</strong> - HP LIFE (Sept 2023)
-             </div>
-            <a href="https://www.hplife.org/courses/3d-printing" target="_blank" class="certif-button">Voir</a>
-          </li>
-        </ul>
-      </section>
-    </div> <!-- Fin de content-wrapper -->
+        <div class="footer-bottom">
+          <p>&copy; 2024 Hatim Maachi. Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
 
-  </main>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2024 Hatim Maachi - Tous droits réservés</p> <!-- Année mise à jour -->
-  </footer>
-
-  <!-- Scripts JS Externes (Bibliothèques) -->
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-  <!-- ======================================= -->
-  <!-- == Début du Script JavaScript Embarqué == -->
-  <!-- ======================================= -->
-  <script>
-    // Attend que le DOM soit entièrement chargé
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // Initialisation AOS
-        AOS.init({
-            offset: 50, // Déclenche l'animation un peu avant d'atteindre l'élément
-            duration: 800, // Durée standard de l'animation
-            once: true // Anime les éléments une seule fois
-        });
-
-        // Logique du Menu Hamburger
-        const hamburgIcon = document.querySelector(".hamburg");
-        const cancelIcon = document.querySelector(".dropdown .cancel"); // Sélecteur plus précis
-        const dropdownMenu = document.querySelector(".dropdown");
-        const dropdownLinks = dropdownMenu.querySelectorAll('.links a'); // Liens dans le dropdown
-
-        // Fonction pour ouvrir le menu
-        function openMenu() {
-          if (dropdownMenu) {
-            // Pour l'animation translateX(100%) -> translateX(0)
-            dropdownMenu.style.transform = "translateX(0)";
-            // Optionnel: Empêcher le scroll du body quand le menu est ouvert
-            // document.body.style.overflow = 'hidden';
-          }
-        }
-
-        // Fonction pour fermer le menu
-        function closeMenu() {
-          if (dropdownMenu) {
-             // Pour l'animation translateX(0) -> translateX(100%)
-            dropdownMenu.style.transform = "translateX(100%)";
-             // Optionnel: Rétablir le scroll du body
-            // document.body.style.overflow = '';
-          }
-        }
-
-        // Ajouter les écouteurs d'événements
-        if (hamburgIcon && dropdownMenu) {
-            hamburgIcon.addEventListener("click", openMenu);
-        } else {
-            console.warn("Icône Hamburger ou menu Dropdown introuvable!"); // Utilisation de warn
-        }
-
-        if (cancelIcon && dropdownMenu) {
-            cancelIcon.addEventListener("click", closeMenu);
-        } else {
-             console.warn("Icône Cancel ou menu Dropdown introuvable!"); // Utilisation de warn
-        }
-
-        // Fermer le menu si un lien DANS le dropdown est cliqué
-        dropdownLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        // --- Gestion Lien Actif (simplifiée pour cette page) ---
-        // Puisque nous sommes sur about.html, nous ajoutons la classe 'active'
-        // directement dans le HTML (ce que j'ai fait ci-dessus).
-        // Si vous aviez besoin de le faire dynamiquement :
-        /*
-        const currentLocation = window.location.pathname;
-        const navLinks = document.querySelectorAll('.nav-container .links a');
-
-        navLinks.forEach(link => {
-            const linkPath = new URL(link.href).pathname;
-            // Si le chemin du lien se termine par '/about.html' (ou le nom exact du fichier)
-            if (linkPath.endsWith('/about.html')) { // Adaptez si le nom est différent
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active'); // S'assurer que les autres ne l'ont pas
-            }
-        });
-        */
-       // --- Fin Gestion Lien Actif ---
-
-
-    }); // Fin de l'écouteur DOMContentLoaded
-  </script>
-  <!-- ===================================== -->
-  <!-- == Fin du Script JavaScript Embarqué == -->
-  <!-- ===================================== -->
-
-</body>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

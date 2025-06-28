@@ -1,101 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HATIM Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <nav>
-    <div class="nav-container">
-      <div class="logo" data-aos="zoom-in" data-aos-duration="1500">
-        HATIM <span>MAACHI</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hatim Maachi - Computer Science Student & Developer Portfolio"
+    />
+    <meta
+      name="keywords"
+      content="portfolio, developer, computer science, hatim maachi"
+    />
+    <title>Hatim Maachi - Portfolio</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="hatim1.jpg" as="image" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      as="style"
+    />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Animation Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loader">
+        <div class="loader-circle"></div>
+        <div class="loader-text">HATIM MAACHI</div>
       </div>
-      <div class="links">
-        <!-- Links for larger screens -->
-        <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="index.html">Home</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><a href="about.html">About</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="500"><a href="contact.html">Contact</a></div>
-      </div>
-      <!-- Hamburger Icon - REMOVED onclick -->
-      <i class="fa-solid fa-bars hamburg"></i>
     </div>
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown">
-      <!-- Cancel Icon - REMOVED onclick -->
-      <i class="fa-solid fa-xmark cancel"></i>
-      <div class="links">
-        <!-- Links for dropdown menu -->
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-  </nav>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+          <span class="logo-text">HATIM</span>
+          <span class="logo-accent">MAACHI</span>
+        </div>
 
-  <section>
-    <div class="main-container">
-      <div class="image" data-aos="zoom-out" data-aos-duration="3000">
-        <img src="hatim1.jpg" alt="hatim" />
-      </div>
-      <div class="content">
-        <h1 data-aos="fade-left" data-aos-duration="1500" data-aos-delay="700">Bonjour je suis <span>HATIM</span></h1>
-        <p data-aos="flip-down" data-aos-duration="1500" data-aos-delay="1100">
-         Étudiant passionné en informatique . Cherchant continuellement à approfondir mes compétences et à contribuer au domaine dynamique de la technologie, je suis ouvert aux opportunités de réseautage et de collaboration. Mon objectif est de connecter avec des professionnels partageant ma passion pour le monde numérique, afin d'échanger des idées et de participer activement à l'évolution de notre domaine passionnant
-        </p>
-        <div class="social-links">
-          <a href="https://github.com/HATIMMAACHI" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1300"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.facebook.com/hatim.maachi.5?mibextid=ZbWKwL" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1400"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.linkedin.com/in/hatim-maachi-2b49801a4/" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1500"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/hatimmaachi" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1600"><i class="fa-brands fa-instagram"></i></a>
+        <div class="nav-links">
+          <a
+            href="#home"
+            class="nav-link active"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="100"
+          >
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a
+            href="#about"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
+            <i class="fas fa-user"></i>
+            <span>About</span>
+          </a>
+          <a
+            href="#projects"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="300"
+          >
+            <i class="fas fa-code"></i>
+            <span>Projects</span>
+          </a>
+          <a
+            href="#skills"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="400"
+          >
+            <i class="fas fa-tools"></i>
+            <span>Skills</span>
+          </a>
+          <a
+            href="#contact"
+            class="nav-link"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="500"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <div class="nav-actions">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-delay="600"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="logo">HATIM <span>MAACHI</span></div>
+        <button class="mobile-menu-close" id="mobile-menu-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-menu-links">
+        <a href="#home" class="mobile-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="#about" class="mobile-link">
+          <i class="fas fa-user"></i>
+          <span>About</span>
+        </a>
+        <a href="#projects" class="mobile-link">
+          <i class="fas fa-code"></i>
+          <span>Projects</span>
+        </a>
+        <a href="#skills" class="mobile-link">
+          <i class="fas fa-tools"></i>
+          <span>Skills</span>
+        </a>
+        <a href="#contact" class="mobile-link">
+          <i class="fas fa-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </div>
     </div>
-  </section>
 
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    // Initialize AOS library
-    AOS.init({ offset: 0 });
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="hero-section">
+        <div class="hero-background">
+          <div class="hero-particles" id="particles"></div>
+        </div>
 
-    // Get references to the elements
-    const hamburgIcon = document.querySelector(".hamburg");
-    const cancelIcon = document.querySelector(".cancel");
-    const dropdownMenu = document.querySelector(".dropdown");
+        <div class="hero-container">
+          <div class="hero-content">
+            <div class="hero-text" data-aos="fade-up" data-aos-duration="1000">
+              <div class="hero-greeting">
+                <span class="wave">👋</span>
+                <span class="greeting-text">Bonjour, je suis</span>
+              </div>
+              <h1 class="hero-title">
+                <span class="name">Hatim Maachi</span>
+              </h1>
+              <div class="hero-subtitle">
+                <span class="typing-text" id="typing-text"></span>
+                <span class="cursor">|</span>
+              </div>
+              <p class="hero-description">
+                Étudiant passionné en informatique cherchant continuellement à
+                approfondir mes compétences et à contribuer au domaine dynamique
+                de la technologie. Ouvert aux opportunités de réseautage et de
+                collaboration avec des professionnels partageant ma passion pour
+                le monde numérique.
+              </p>
 
-    // Function to open the dropdown menu
-    function openMenu() {
-      dropdownMenu.style.transform = "translateY(0)";
-    }
+              <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">
+                  <i class="fas fa-eye"></i>
+                  Voir Mes Projets
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                  <i class="fas fa-paper-plane"></i>
+                  Me Contacter
+                </a>
+                <a
+                  href="assets/MAACHIIII.pdf"
+                  class="btn btn-outline"
+                  download="Hatim_Maachi_Resume.pdf"
+                >
+                  <i class="fas fa-download"></i>
+                  Télécharger CV
+                </a>
+              </div>
+            </div>
 
-    // Function to close the dropdown menu
-    function closeMenu() {
-      dropdownMenu.style.transform = "translateY(-100%)";
-    }
+            <div
+              class="hero-image"
+              data-aos="fade-left"
+              data-aos-duration="1000"
+              data-aos-delay="300"
+            >
+              <div class="image-container">
+                <img src="hatim1.jpg" alt="Hatim Maachi" loading="lazy" />
+                <div class="image-overlay"></div>
+                <div class="floating-card">
+                  <i class="fas fa-graduation-cap"></i>
+                  <span>Étudiant en Informatique</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    // Add event listeners
-    if (hamburgIcon && dropdownMenu) {
-        hamburgIcon.addEventListener("click", openMenu);
-    } else {
-        console.error("Hamburger icon or dropdown menu not found!");
-    }
+          <div
+            class="scroll-indicator"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="800"
+          >
+            <div class="scroll-text">Défiler vers le bas</div>
+            <div class="scroll-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    if (cancelIcon && dropdownMenu) {
-        cancelIcon.addEventListener("click", closeMenu);
-    } else {
-        console.error("Cancel icon or dropdown menu not found!");
-    }
+      <!-- About Section -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Get to know me better</p>
+          </div>
 
-    // Optional: Close menu if a link inside it is clicked
-    const dropdownLinks = dropdownMenu.querySelectorAll('.links a');
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
+          <div class="about-content">
+            <div class="about-image" data-aos="fade-right">
+              <img src="hatim.jpg" alt="Hatim Maachi" loading="lazy" />
+              <div class="experience-badge">
+                <span class="years">3</span>
+                <span class="text">Années<br />d'Études</span>
+              </div>
+            </div>
 
-  </script>
-</body>
+            <div class="about-text" data-aos="fade-left">
+              <h3>Étudiant en Génie Informatique</h3>
+              <p>
+                Je suis un étudiant passionné en Génie Informatique à la FST
+                Fès, actuellement en licence. Mon parcours dans la technologie a
+                commencé par une curiosité pour comprendre comment les choses
+                fonctionnent, ce qui s'est transformé en une passion pour créer
+                des solutions innovantes.
+              </p>
+
+              <div class="about-stats">
+                <div class="stat-item">
+                  <div class="stat-number">3+</div>
+                  <div class="stat-label">Projets Académiques</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">5+</div>
+                  <div class="stat-label">Technologies Apprises</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">3</div>
+                  <div class="stat-label">Années d'Études</div>
+                </div>
+              </div>
+
+              <div class="about-actions">
+                <a href="about.html" class="btn btn-primary">En Savoir Plus</a>
+                <a href="#contact" class="btn btn-outline">Discutons</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="skills-section">
+        <div class="container">
+          <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Compétences & Technologies</h2>
+            <p class="section-subtitle">
+              Technologies que j'apprends et utilise
+            </p>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
+              <h3><i class="fas fa-code"></i> Frontend</h3>
+              <div class="skill-items">
+                <div class="skill-item" data-skill="HTML">
+                  <i class="fab fa-html5"></i>
+                  <span>HTML5</span>
+                  <div class="skill-level" data-level="90"></div>
+                </div>
+                <div class="skill-item" data-skill="CSS">
+                  <i class="fab fa-css3-alt"></i>
+                  <span>CSS3</span>
+                  <div class="skill-level" data-level="85"></div>
+                </div>
+                <div class="skill-item" data-skill="JavaScript">
+                  <i class="fab fa-js-square"></i>
+                  <span>JavaScript</span>
+                  <div class="skill-level" data-level="80"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+              <h3><i class="fas fa-server"></i> Backend</h3>
+              <div class="skill-items">
+                <div class="skill-item" data-skill="PHP">
+                  <i class="fab fa-php"></i>
+                  <span>PHP</span>
+                  <div class="skill-level" data-level="75"></div>
+                </div>
+                <div class="skill-item" data-skill="Java">
+                  <i class="fab fa-java"></i>
+                  <span>Java</span>
+                  <div class="skill-level" data-level="80"></div>
+                </div>
+                <div class="skill-item" data-skill="Python">
+                  <i class="fab fa-python"></i>
+                  <span>Python</span>
+                  <div class="skill-level" data-level="70"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
+              <h3><i class="fas fa-database"></i> Database</h3>
+              <div class="skill-items">
+                <div class="skill-item" data-skill="MySQL">
+                  <i class="fas fa-database"></i>
+                  <span>MySQL</span>
+                  <div class="skill-level" data-level="85"></div>
+                </div>
+                <div class="skill-item" data-skill="MongoDB">
+                  <i class="fas fa-leaf"></i>
+                  <span>MongoDB</span>
+                  <div class="skill-level" data-level="60"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
+              <h3><i class="fas fa-tools"></i> Tools</h3>
+              <div class="skill-items">
+                <div class="skill-item" data-skill="Git">
+                  <i class="fab fa-git-alt"></i>
+                  <span>Git</span>
+                  <div class="skill-level" data-level="80"></div>
+                </div>
+                <div class="skill-item" data-skill="Docker">
+                  <i class="fab fa-docker"></i>
+                  <span>Docker</span>
+                  <div class="skill-level" data-level="65"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="projects-section">
+        <div class="container">
+          <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Mes Projets Académiques</h2>
+            <p class="section-subtitle">Quelques-uns de mes projets réalisés</p>
+          </div>
+
+          <div class="projects-grid">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="project-image">
+                <img
+                  src="https://via.placeholder.com/400x250/8B5CF6/FFFFFF?text=Conference+Platform"
+                  alt="Conference Platform"
+                  loading="lazy"
+                />
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="#" class="project-link"
+                      ><i class="fas fa-external-link-alt"></i
+                    ></a>
+                    <a href="#" class="project-link"
+                      ><i class="fab fa-github"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>Conference Management Platform</h3>
+                <p>
+                  A comprehensive web application for managing scientific
+                  conferences, built with Java EE, MySQL, and Tailwind CSS.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Java EE</span>
+                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">Tailwind CSS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="project-image">
+                <img
+                  src="https://via.placeholder.com/400x250/10B981/FFFFFF?text=Smart+Car"
+                  alt="Smart Car"
+                  loading="lazy"
+                />
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="#" class="project-link"
+                      ><i class="fas fa-external-link-alt"></i
+                    ></a>
+                    <a href="#" class="project-link"
+                      ><i class="fab fa-github"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>Smart Car with Arduino</h3>
+                <p>
+                  An intelligent car system with obstacle detection, voice
+                  control, and mobile app integration using Arduino and sensors.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Arduino</span>
+                  <span class="tech-tag">C++</span>
+                  <span class="tech-tag">Bluetooth</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="project-image">
+                <img
+                  src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Web+App"
+                  alt="Web Application"
+                  loading="lazy"
+                />
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a href="#" class="project-link"
+                      ><i class="fas fa-external-link-alt"></i
+                    ></a>
+                    <a href="#" class="project-link"
+                      ><i class="fab fa-github"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>Dynamic Web Application</h3>
+                <p>
+                  A full-stack web application with user authentication, data
+                  management, and responsive design using modern web
+                  technologies.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">HTML/CSS</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">PHP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="projects-cta" data-aos="fade-up">
+            <a href="about.html#projets" class="btn btn-primary"
+              >Voir Tous les Projets</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Contactez-moi</h2>
+            <p class="section-subtitle">Travaillons ensemble</p>
+          </div>
+
+          <div class="contact-content">
+            <div class="contact-info" data-aos="fade-right">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <p>hatim.maachi@usmba.ac.ma</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Phone</h4>
+                  <p>+212 658 642 662</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Location</h4>
+                  <p>Taza, Morocco</p>
+                </div>
+              </div>
+
+              <div class="social-links">
+                <a
+                  href="https://github.com/HATIMMAACHI"
+                  class="social-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-github"></i>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/hatim-maachi-2b49801a4/"
+                  class="social-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a
+                  href="https://www.facebook.com/hatim.maachi.5"
+                  class="social-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a
+                  href="https://www.instagram.com/hatimmaachi"
+                  class="social-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="contact-form" data-aos="fade-left">
+              <form id="contact-form">
+                <div class="form-group">
+                  <input type="text" id="name" name="name" required />
+                  <label for="name">Votre Nom</label>
+                </div>
+
+                <div class="form-group">
+                  <input type="email" id="email" name="email" required />
+                  <label for="email">Votre Email</label>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" id="subject" name="subject" required />
+                  <label for="subject">Sujet</label>
+                </div>
+
+                <div class="form-group">
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                  ></textarea>
+                  <label for="message">Votre Message</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-paper-plane"></i>
+                  Envoyer Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>HATIM <span>MAACHI</span></h3>
+            <p>Étudiant en Génie Informatique</p>
+          </div>
+
+          <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <div class="footer-social">
+            <a href="https://github.com/HATIMMAACHI" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/hatim-maachi-2b49801a4/"
+              target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://www.facebook.com/hatim.maachi.5" target="_blank"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/hatimmaachi" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 Hatim Maachi. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
