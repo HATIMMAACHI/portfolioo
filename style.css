@@ -1310,7 +1310,8 @@ body {
     padding: 0 0.5rem;
   }
   .hero-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;
     gap: 1.2rem;
     text-align: center;
   }
