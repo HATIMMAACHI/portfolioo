@@ -1,48 +1,87 @@
-// Service Worker for Portfolio PWA
+// Service Worker for Portfolio PWA (resilient caching)
 const CACHE_NAME = "hatim-portfolio-v1";
+
+// Only cache local, essential assets. Avoid pre-caching external CDNs to
+// prevent install failures when those hosts are blocked or slow.
 const urlsToCache = [
   "/",
-  "/index.html",
-  "/about.html",
-  "/contact.html",
-  "/style.css",
-  "/script.js",
-  "/hatim1.jpg",
-  "/hatim.jpg",
-  "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
-  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
-  "https://unpkg.com/aos@next/dist/aos.css",
-  "https://unpkg.com/aos@next/dist/aos.js",
+  "index.html",
+  "about.html",
+  "style.css",
+  "script.js",
+  "hatim1.jpg",
+  "hatim.jpg",
+  "assets/MAACHIIII.pdf",
+  "assets/resume.pdf",
+  "manifest.json",
 ];
 
-// Install event
+// Install: try to cache local assets but continue even if some fail
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
-      return cache.addAll(urlsToCache);
-    })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      for (const url of urlsToCache) {
+        try {
+          const response = await fetch(url);
+          if (response && (response.status === 200 || response.type === "opaque")) {
+            await cache.put(url, response.clone());
+          } else {
+            // fallback to cache.add which may throw; ignore errors
+            await cache.add(url).catch(() => {});
+          }
+        } catch (err) {
+          // Log and continue; we don't want SW install to fail because of one asset
+          console.warn("SW: failed to cache", url, err);
+        }
+      }
+    })()
   );
 });
 
-// Fetch event
+// Fetch: respond with cache first, then network; for navigations provide an
+// offline fallback to index.html when possible.
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Return cached version or fetch from network
-      return response || fetch(event.request);
+    caches.match(event.request).then((cached) => {
+      if (cached) return cached;
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          // Cache a copy of same-origin GET requests for future use
+          if (
+            event.request.method === "GET" &&
+            new URL(event.request.url).origin === location.origin
+          ) {
+            caches.open(CACHE_NAME).then((cache) => {
+              try {
+                cache.put(event.request, networkResponse.clone());
+              } catch (e) {
+                // ignore cache put errors
+              }
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // If the request is a navigation, serve the cached index.html as a fallback
+          if (event.request.mode === "navigate") {
+            return caches.match("index.html");
+          }
+          // otherwise, let the request fail (opaque) or return nothing
+          return null;
+        });
     })
   );
 });
 
-// Activate event
+// Activate: remove old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            console.log("Deleting old cache:", cacheName);
             return caches.delete(cacheName);
           }
         })

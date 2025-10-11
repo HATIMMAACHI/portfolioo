@@ -142,7 +142,7 @@ function initializeTypingEffect() {
   if (!typingText) return;
 
   const texts = [
-    "Étudiant en Génie Informatique",
+    "Étudiant en Master SDSI — Sciences des Données et Systèmes Intelligents",
     "Développeur Web",
     "Passionné de Technologie",
     "Apprenant Curieux",
