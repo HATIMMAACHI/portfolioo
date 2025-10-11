@@ -24,7 +24,10 @@ self.addEventListener("install", (event) => {
       for (const url of urlsToCache) {
         try {
           const response = await fetch(url);
-          if (response && (response.status === 200 || response.type === "opaque")) {
+          if (
+            response &&
+            (response.status === 200 || response.type === "opaque")
+          ) {
             await cache.put(url, response.clone());
           } else {
             // fallback to cache.add which may throw; ignore errors
