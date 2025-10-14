@@ -222,7 +222,7 @@ function initializeContactForm() {
 
       // Show loading state
       submitButton.innerHTML =
-        '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        '<i class="fas fa-spinner fa-spin"></i> Envoi...';
       submitButton.disabled = true;
 
       try {
@@ -230,10 +230,10 @@ function initializeContactForm() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         // Show success message
-        showNotification("Message sent successfully!", "success");
+        showNotification("Message envoyé avec succès !", "success");
         contactForm.reset();
       } catch (error) {
-        showNotification("Failed to send message. Please try again.", "error");
+        showNotification("Échec de l'envoi. Veuillez réessayer.", "error");
       } finally {
         // Reset button state
         submitButton.innerHTML = originalText;
@@ -263,7 +263,7 @@ function showNotification(message, type = "info") {
         </button>
     `;
 
-  // Add styles
+  // Add styles (colors remain the same since they're standard)
   notification.style.cssText = `
         position: fixed;
         top: 20px;
