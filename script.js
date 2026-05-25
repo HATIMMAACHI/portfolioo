@@ -253,8 +253,8 @@ function showNotification(message, type = "info") {
               type === "success"
                 ? "check-circle"
                 : type === "error"
-                ? "exclamation-circle"
-                : "info-circle"
+                  ? "exclamation-circle"
+                  : "info-circle"
             }"></i>
             <span>${message}</span>
         </div>
@@ -270,10 +270,10 @@ function showNotification(message, type = "info") {
         right: 20px;
         background: ${
           type === "success"
-            ? "#10B981"
+            ? "#1A1A1A"
             : type === "error"
-            ? "#EF4444"
-            : "#3B82F6"
+              ? "#1A1A1A"
+              : "#1A1A1A"
         };
         color: white;
         padding: 1rem 1.5rem;
@@ -354,7 +354,7 @@ function initializeSkillLevels() {
         }
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.5 },
   );
 
   skillItems.forEach((item) => {
@@ -378,7 +378,7 @@ function initializeParticles() {
             position: absolute;
             width: 2px;
             height: 2px;
-            background: rgba(139, 92, 246, 0.3);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 50%;
             pointer-events: none;
             animation: float-particle ${

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -125,13 +125,18 @@
           <button
             class="theme-toggle"
             id="theme-toggle"
+            aria-label="Changer le thème"
             data-aos="fade-down"
             data-aos-duration="1000"
             data-aos-delay="600"
           >
             <i class="fas fa-moon"></i>
           </button>
-          <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <button
+            class="mobile-menu-toggle"
+            id="mobile-menu-toggle"
+            aria-label="Ouvrir le menu mobile"
+          >
             <span></span>
             <span></span>
             <span></span>
@@ -144,7 +149,11 @@
     <div class="mobile-menu" id="mobile-menu">
       <div class="mobile-menu-header">
         <div class="logo">HATIM <span>MAACHI</span></div>
-        <button class="mobile-menu-close" id="mobile-menu-close">
+        <button
+          class="mobile-menu-close"
+          id="mobile-menu-close"
+          aria-label="Fermer le menu mobile"
+        >
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -213,12 +222,12 @@
                 <span class="cursor">|</span>
               </div>
               <p class="hero-description">
-                Étudiant en Master SDSI — Sciences des Données et Systèmes
-                Intelligents passionné, je cherche continuellement à approfondir
-                mes compétences et à contribuer au domaine dynamique de la
-                sécurité et des systèmes d'information. Ouvert aux opportunités
-                de réseautage et de collaboration avec des professionnels
-                partageant ma passion pour le monde numérique.
+                Passionné par les technologies et les systèmes d'information, je
+                poursuis un Master SDSI afin de développer mes compétences en
+                science des données, machine learning et ingénierie logicielle.
+                Rigoureux, autonome et motivé, je suis à la recherche d'un stage
+                à distance (remote) me permettant de mettre en pratique mes
+                connaissances sur des projets concrets.
               </p>
               <div class="hero-actions">
                 <a href="#projects" class="btn btn-primary">
@@ -267,7 +276,7 @@
             <div class="about-image" data-aos="fade-right">
               <img src="hatim.jpg" alt="Hatim Maachi" loading="lazy" />
               <div class="experience-badge">
-                <span class="years">3</span>
+                <span class="years">4</span>
                 <span class="text">Années<br />d'Études</span>
               </div>
             </div>
@@ -278,25 +287,25 @@
                 Intelligents
               </h3>
               <p>
-                Je suis un étudiant passionné en Master SDSI — Sciences des
-                Données et Systèmes Intelligents à la FST Fès. Mon parcours dans
-                la technologie a commencé par une curiosité pour comprendre
-                comment les choses fonctionnent, ce qui s'est transformé en une
-                passion pour créer des solutions innovantes, en particulier en
-                sécurité et architecture des systèmes.
+                Passionné par les technologies et les systèmes d'information, je
+                poursuis mon Master SDSI à la FST Fès pour développer mon
+                expertise en science des données, machine learning et ingénierie
+                logicielle. Je suis actuellement à la recherche d'un stage
+                (remote) pour mettre en pratique mes connaissances sur des
+                projets innovants.
               </p>
 
               <div class="about-stats">
                 <div class="stat-item">
-                  <div class="stat-number">3+</div>
-                  <div class="stat-label">Projets Académiques</div>
+                  <div class="stat-number">4+</div>
+                  <div class="stat-label">Projets Réalisés</div>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-number">5+</div>
-                  <div class="stat-label">Technologies Apprises</div>
+                  <div class="stat-number">15+</div>
+                  <div class="stat-label">Technologies</div>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-number">3</div>
+                  <div class="stat-number">4</div>
                   <div class="stat-label">Années d'Études</div>
                 </div>
               </div>
@@ -322,75 +331,80 @@
 
           <div class="skills-grid">
             <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
-              <h3><i class="fas fa-code"></i> Frontend</h3>
+              <h3><i class="fas fa-code"></i> Frontend & Web</h3>
               <div class="skill-items">
-                <div class="skill-item" data-skill="HTML">
-                  <i class="fab fa-html5"></i>
-                  <span>HTML5</span>
+                <div class="skill-item" data-skill="React & Vue">
+                  <i class="fab fa-react"></i>
+                  <span>React / Vue.js</span>
+                  <div class="skill-level" data-level="80"></div>
+                </div>
+                <div class="skill-item" data-skill="Tailwind">
+                  <i class="fab fa-css3-alt"></i>
+                  <span>Tailwind CSS</span>
                   <div class="skill-level" data-level="90"></div>
                 </div>
-                <div class="skill-item" data-skill="CSS">
-                  <i class="fab fa-css3-alt"></i>
-                  <span>CSS3</span>
-                  <div class="skill-level" data-level="85"></div>
-                </div>
-                <div class="skill-item" data-skill="JavaScript">
+                <div class="skill-item" data-skill="TypeScript">
                   <i class="fab fa-js-square"></i>
-                  <span>JavaScript</span>
-                  <div class="skill-level" data-level="80"></div>
+                  <span>TypeScript / JS</span>
+                  <div class="skill-level" data-level="85"></div>
                 </div>
               </div>
             </div>
 
             <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
-              <h3><i class="fas fa-server"></i> Backend</h3>
+              <h3><i class="fas fa-server"></i> Backend & Data</h3>
               <div class="skill-items">
-                <div class="skill-item" data-skill="PHP">
-                  <i class="fab fa-php"></i>
-                  <span>PHP</span>
-                  <div class="skill-level" data-level="75"></div>
-                </div>
-                <div class="skill-item" data-skill="Java">
+                <div class="skill-item" data-skill="Spring">
                   <i class="fab fa-java"></i>
-                  <span>Java</span>
-                  <div class="skill-level" data-level="80"></div>
+                  <span>Spring Boot / JEE</span>
+                  <div class="skill-level" data-level="85"></div>
                 </div>
                 <div class="skill-item" data-skill="Python">
                   <i class="fab fa-python"></i>
-                  <span>Python</span>
+                  <span>Python / Scikit-learn</span>
+                  <div class="skill-level" data-level="85"></div>
+                </div>
+                <div class="skill-item" data-skill="PHP">
+                  <i class="fab fa-php"></i>
+                  <span>PHP</span>
                   <div class="skill-level" data-level="70"></div>
                 </div>
               </div>
             </div>
 
             <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
-              <h3><i class="fas fa-database"></i> Database</h3>
+              <h3><i class="fas fa-database"></i> Databases</h3>
               <div class="skill-items">
                 <div class="skill-item" data-skill="MySQL">
                   <i class="fas fa-database"></i>
-                  <span>MySQL</span>
+                  <span>MySQL / PostgreSQL</span>
                   <div class="skill-level" data-level="85"></div>
                 </div>
-                <div class="skill-item" data-skill="MongoDB">
+                <div class="skill-item" data-skill="NoSQL">
                   <i class="fas fa-leaf"></i>
-                  <span>MongoDB</span>
-                  <div class="skill-level" data-level="60"></div>
+                  <span>NoSQL</span>
+                  <div class="skill-level" data-level="70"></div>
                 </div>
               </div>
             </div>
 
             <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
-              <h3><i class="fas fa-tools"></i> Tools</h3>
+              <h3><i class="fas fa-tools"></i> Tools & Methods</h3>
               <div class="skill-items">
                 <div class="skill-item" data-skill="Git">
                   <i class="fab fa-git-alt"></i>
-                  <span>Git</span>
-                  <div class="skill-level" data-level="80"></div>
+                  <span>Git/GitHub</span>
+                  <div class="skill-level" data-level="85"></div>
                 </div>
                 <div class="skill-item" data-skill="Docker">
                   <i class="fab fa-docker"></i>
                   <span>Docker</span>
-                  <div class="skill-level" data-level="65"></div>
+                  <div class="skill-level" data-level="75"></div>
+                </div>
+                <div class="skill-item" data-skill="UML">
+                  <i class="fas fa-project-diagram"></i>
+                  <span>UML / Agile</span>
+                  <div class="skill-level" data-level="80"></div>
                 </div>
               </div>
             </div>
@@ -409,33 +423,64 @@
           <div class="projects-grid">
             <div class="project-card" data-aos="fade-up" data-aos-delay="100">
               <div class="project-content">
-                <h3>Conference Management Platform</h3>
+                <h3>Skill ROI Forecaster</h3>
                 <p>
-                  Une application web complète pour la gestion de conférences
-                  scientifiques, construite avec Java EE, MySQL et Tailwind CSS.
+                  Plateforme d'aide à la décision carrière (dataset
+                  LinkedIn/GitHub). Modèles ML implémentés : Random Forest,
+                  Apriori, K-Means. Déployé via Streamlit.
                 </p>
                 <div class="project-tech">
-                  <span class="tech-tag">Java EE</span>
-                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Scikit-learn</span>
+                  <span class="tech-tag">Streamlit</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="project-content">
+                <h3>Gestion du Département (App PFE)</h3>
+                <p>
+                  Application web complète pour la gestion des besoins
+                  matériels, données pédagogiques et assemblées, avec auth
+                  sécurisée et génération de PDF.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Spring Boot</span>
+                  <span class="tech-tag">Vue.js</span>
+                  <span class="tech-tag">Docker</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="project-content">
+                <h3>NexaDesk — Gestion des Ressources</h3>
+                <p>
+                  Application de gestion des ressources matérielles
+                  universitaires. Architecture N-tiers, sécurité JWT, double
+                  sidebar (design system moderne).
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Spring Boot</span>
                   <span class="tech-tag">Tailwind CSS</span>
                 </div>
               </div>
             </div>
 
-            <!-- Smart Car with Arduino project removed -->
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
               <div class="project-content">
-                <h3>Dynamic Web Application</h3>
+                <h3>Platforme Conférences Scientifiques</h3>
                 <p>
-                  Application web full-stack avec authentification, gestion de
-                  données et design responsive utilisant les technologies web
-                  modernes.
+                  Application type EasyChair avec authentification multi-rôle,
+                  soumission d'articles, gestion des comités et notifications
+                  par email.
                 </p>
                 <div class="project-tech">
-                  <span class="tech-tag">HTML/CSS</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">PHP</span>
+                  <span class="tech-tag">Java EE</span>
+                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">Tailwind CSS</span>
                 </div>
               </div>
             </div>
