@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeBackToTop();
   initializeSkillLevels();
   initializeParticles();
+  initializeThreeJSBackground();
+  initialize3DParallaxAndTilt();
+  initializeSkillsTagSphere();
+  initializeScrollDrivenPerspective();
   initializeAOS();
 });
 
@@ -540,3 +544,652 @@ window.portfolioUtils = {
   debounce,
   throttle,
 };
+
+// ==========================================================================
+// 3D PORTFOLIO FUNCTIONALITY (Three.js & CSS 3D Parallax)
+// ==========================================================================
+
+// Three.js 3D Constellation Background
+function initializeThreeJSBackground() {
+  const container = document.getElementById("hero-3d-container") || document.getElementById("about-3d-container");
+  if (!container || typeof THREE === "undefined") return;
+
+  const scene = new THREE.Scene();
+
+  // Camera Setup
+  const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.z = 80;
+
+  // Renderer Setup (Transparent background, high performance)
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // Particles / Constellation Nodes Setup
+  const particleCount = window.innerWidth < 768 ? 90 : 200;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  const velocities = [];
+
+  // Distribute particles randomly in a 3D bounding box
+  const range = 150;
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * range * 1.5;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * range;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * range * 0.8;
+
+    velocities.push({
+      x: (Math.random() - 0.5) * 0.08,
+      y: (Math.random() - 0.5) * 0.08,
+      z: (Math.random() - 0.5) * 0.04
+    });
+  }
+
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+  // Determine active colors based on theme configuration
+  const getThemeColors = () => {
+    const isDark = document.body.getAttribute("data-theme") === "dark";
+    return {
+      particle: isDark ? 0x8b5cf6 : 0x1a1a1a, // Violet for dark, Charcoal for light
+      line: isDark ? 0x6366f1 : 0x444444,     // Indigo for dark, Slate for light
+      lineOpacity: isDark ? 0.18 : 0.08,
+      particleOpacity: isDark ? 0.8 : 0.55
+    };
+  };
+
+  let colors = getThemeColors();
+
+  // Create customized high-end circular glowing sprite texture
+  const createCircleTexture = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 16;
+    canvas.height = 16;
+    const ctx = canvas.getContext("2d");
+    const grad = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+    grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+    grad.addColorStop(0.3, "rgba(255, 255, 255, 0.8)");
+    grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 16, 16);
+    
+    return new THREE.CanvasTexture(canvas);
+  };
+
+  const material = new THREE.PointsMaterial({
+    size: 2.2,
+    sizeAttenuation: true,
+    color: colors.particle,
+    transparent: true,
+    opacity: colors.particleOpacity,
+    map: createCircleTexture(),
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+
+  const particleSystem = new THREE.Points(geometry, material);
+  scene.add(particleSystem);
+
+  // Connection Lines setup
+  const maxConnections = particleCount * 2;
+  const lineGeometry = new THREE.BufferGeometry();
+  const linePositions = new Float32Array(maxConnections * 2 * 3);
+  lineGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
+
+  const lineMaterial = new THREE.LineBasicMaterial({
+    color: colors.line,
+    transparent: true,
+    opacity: colors.lineOpacity,
+    depthWrite: false
+  });
+
+  const lineSystem = new THREE.LineSegments(lineGeometry, lineMaterial);
+  scene.add(lineSystem);
+
+  // Mouse Coordinate tracking variables (for interactive orbit parallax)
+  let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  window.addEventListener("mousemove", (e) => {
+    mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+  });
+
+  // Watch for Theme Attribute mutations
+  const themeObserver = new MutationObserver(() => {
+    const nextColors = getThemeColors();
+    colors = nextColors;
+    material.color.setHex(colors.particle);
+    material.opacity = colors.particleOpacity;
+    lineMaterial.color.setHex(colors.line);
+    lineMaterial.opacity = colors.lineOpacity;
+    
+    if (document.body.getAttribute("data-theme") === "light") {
+      material.blending = THREE.NormalBlending;
+    } else {
+      material.blending = THREE.AdditiveBlending;
+    }
+  });
+  themeObserver.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // Scroll warp tracking properties
+  let scrollSpeedTarget = 0;
+  let lastScrollY = window.scrollY;
+  let currentScrollSpeed = 0;
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+    const delta = Math.abs(currentScrollY - lastScrollY);
+    scrollSpeedTarget = delta * 0.15; // Warp scaling factor
+    lastScrollY = currentScrollY;
+  });
+
+  // WebGL Render Loop
+  const posArr = geometry.attributes.position.array;
+  let timer = 0;
+
+  function animateScene() {
+    requestAnimationFrame(animateScene);
+    timer += 0.0035;
+
+    // Smoothly ease scroll-warp stretch speed and decay target
+    currentScrollSpeed += (scrollSpeedTarget - currentScrollSpeed) * 0.08;
+    scrollSpeedTarget *= 0.88;
+
+    // Dampen mouse movement to achieve a high-end elastic float transition
+    mouse.x += (mouse.targetX - mouse.x) * 0.06;
+    mouse.y += (mouse.targetY - mouse.y) * 0.06;
+
+    camera.position.x = mouse.x * 20;
+    camera.position.y = mouse.y * 15;
+    camera.lookAt(scene.position);
+
+    // Subtle ambient coordinate rotations
+    particleSystem.rotation.y = timer * 0.12;
+    lineSystem.rotation.y = timer * 0.12;
+
+    // Approximate mouse 3D position to calculate local magnetic node attraction
+    const mouse3D = new THREE.Vector3(
+      mouse.x * range * 0.35,
+      mouse.y * range * 0.25,
+      0
+    );
+
+    const activePositions = [];
+
+    // Translate nodes individually
+    for (let i = 0; i < particleCount; i++) {
+      let x = posArr[i * 3];
+      let y = posArr[i * 3 + 1];
+      let z = posArr[i * 3 + 2];
+
+      x += velocities[i].x;
+      y += velocities[i].y;
+      z += velocities[i].z;
+
+      // Wrap around bounding box boundaries
+      if (Math.abs(x) > range) velocities[i].x *= -1;
+      if (Math.abs(y) > range * 0.8) velocities[i].y *= -1;
+      if (Math.abs(z) > range * 0.6) velocities[i].z *= -1;
+
+      // Distance calculation to apply gravity pull
+      const dx = mouse3D.x - x;
+      const dy = mouse3D.y - y;
+      const dz = mouse3D.z - z;
+      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      
+      if (dist < 45) {
+        const attractionForce = (45 - dist) * 0.0012;
+        x += dx * attractionForce;
+        y += dy * attractionForce;
+        z += dz * attractionForce;
+      }
+
+      // Particles stretch elastically along Z axis based on scroll velocity
+      const zOffset = velocities[i].z * currentScrollSpeed * 150;
+      const actualZ = z + zOffset;
+
+      posArr[i * 3] = x;
+      posArr[i * 3 + 1] = y;
+      posArr[i * 3 + 2] = actualZ;
+
+      activePositions.push(new THREE.Vector3(x, y, actualZ));
+    }
+
+    geometry.attributes.position.needsUpdate = true;
+
+    // Draw vertex relationship segments based on proximity
+    const linePosArr = lineGeometry.attributes.position.array;
+    let currentLinesCount = 0;
+    const maxConnectionDistance = window.innerWidth < 768 ? 18 : 24;
+
+    // Reset line vertices
+    for (let i = 0; i < linePosArr.length; i++) {
+      linePosArr[i] = 0;
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      const p1 = activePositions[i];
+      for (let j = i + 1; j < particleCount; j++) {
+        const p2 = activePositions[j];
+        const dist = p1.distanceTo(p2);
+
+        if (dist < maxConnectionDistance && currentLinesCount < maxConnections) {
+          const baseIndex = currentLinesCount * 6;
+          
+          linePosArr[baseIndex] = p1.x;
+          linePosArr[baseIndex + 1] = p1.y;
+          linePosArr[baseIndex + 2] = p1.z;
+
+          linePosArr[baseIndex + 3] = p2.x;
+          linePosArr[baseIndex + 4] = p2.y;
+          linePosArr[baseIndex + 5] = p2.z;
+
+          currentLinesCount++;
+        }
+      }
+    }
+
+    lineGeometry.attributes.position.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+
+  animateScene();
+
+  // Screen Resizing Event
+  const onScreenResize = () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  };
+
+  window.addEventListener("resize", debounce(onScreenResize, 150));
+}
+
+// 3D Glassmorphic Card Parallax and Tilt Effects
+function initialize3DParallaxAndTilt() {
+  const tiltElements = document.querySelectorAll(
+    ".project-card, .skill-category, .stat-item, .experience-badge, .about-hero-image img, .certificate-item"
+  );
+  const heroImageContainer = document.querySelector(".hero-image .image-container");
+
+  // 1. Generic Card Tilt handler
+  tiltElements.forEach((element) => {
+    element.classList.add("tilt-card");
+
+    // Wrap card's internal content to provide perspective translation depth
+    const children = Array.from(element.children);
+    const wrapper = document.createElement("div");
+    wrapper.className = "tilt-card-content";
+    
+    while (element.firstChild) {
+      wrapper.appendChild(element.firstChild);
+    }
+    element.appendChild(wrapper);
+
+    element.addEventListener("mousemove", (e) => {
+      const rect = element.getBoundingClientRect();
+      const relativeX = e.clientX - rect.left;
+      const relativeY = e.clientY - rect.top;
+
+      const percentX = relativeX / rect.width;
+      const percentY = relativeY / rect.height;
+
+      // Max tilt degrees
+      const maxTilt = 16;
+      const tiltX = (percentY - 0.5) * -maxTilt;
+      const tiltY = (percentX - 0.5) * maxTilt;
+
+      element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      // Update variables for shine spotlight
+      element.style.setProperty("--shine-x", `${percentX * 100}%`);
+      element.style.setProperty("--shine-y", `${percentY * 100}%`);
+    });
+
+    element.addEventListener("mouseleave", () => {
+      element.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+    });
+  });
+
+  // 2. Specialized Profile Holographic Depth
+  if (heroImageContainer) {
+    heroImageContainer.classList.add("tilt-card");
+    const floatingBadge = heroImageContainer.querySelector(".floating-card");
+
+    heroImageContainer.addEventListener("mousemove", (e) => {
+      const rect = heroImageContainer.getBoundingClientRect();
+      const relativeX = e.clientX - rect.left;
+      const relativeY = e.clientY - rect.top;
+
+      const percentX = relativeX / rect.width;
+      const percentY = relativeY / rect.height;
+
+      const tiltX = (percentY - 0.5) * -20;
+      const tiltY = (percentX - 0.5) * 20;
+
+      heroImageContainer.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.04, 1.04, 1.04)`;
+
+      heroImageContainer.style.setProperty("--shine-x", `${percentX * 100}%`);
+      heroImageContainer.style.setProperty("--shine-y", `${percentY * 100}%`);
+
+      // Translate the floating badge in opposite coordinate to emphasize a separate Z depth layer
+      if (floatingBadge) {
+        const badgeTranslateX = (percentX - 0.5) * -25;
+        const badgeTranslateY = (percentY - 0.5) * -25;
+        floatingBadge.style.transform = `translateZ(50px) translateX(${badgeTranslateX}px) translateY(${badgeTranslateY}px)`;
+      }
+    });
+
+    heroImageContainer.addEventListener("mouseleave", () => {
+      heroImageContainer.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      if (floatingBadge) {
+        floatingBadge.style.transform = "translateZ(40px) translateX(0px) translateY(0px)";
+      }
+    });
+  }
+}
+
+// WebGL Interactive Skills Tag Sphere (Fibonacci distribution with inertia drag physics)
+function initializeSkillsTagSphere() {
+  const container = document.getElementById("skills-3d-container");
+  const canvas = document.getElementById("skills-3d-canvas");
+  if (!container || !canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  
+  // Tag cloud content representing Hatim's professional domain
+  const skillTags = [
+    "React", "Vue.js", "Spring Boot", "Python", "TypeScript", 
+    "Docker", "Git/GitHub", "MySQL", "Java EE", "NoSQL", 
+    "Tailwind CSS", "Scikit-learn", "Machine Learning", "REST APIs", "Data Science"
+  ];
+  
+  const numTags = skillTags.length;
+  const tags = [];
+  const R = 135; // Sphere Radius
+
+  // Distribute tags uniformly across a sphere using Fibonacci spiral projection
+  for (let i = 0; i < numTags; i++) {
+    const k = -1 + (2 * i + 1) / numTags;
+    const theta = Math.acos(k);
+    const phi = Math.sqrt(numTags * Math.PI) * theta;
+
+    tags.push({
+      text: skillTags[i],
+      x: R * Math.sin(theta) * Math.cos(phi),
+      y: R * Math.sin(theta) * Math.sin(phi),
+      z: R * Math.cos(theta),
+      screenX: 0,
+      screenY: 0,
+      scale: 1,
+      opacity: 1,
+      hovered: false,
+      glowIntensity: 0
+    });
+  }
+
+  // Physics rotation states
+  let angleX = 0.0035; // Ambient rotation speed
+  let angleY = 0.0035;
+  let targetAngleX = 0.0035;
+  let targetAngleY = 0.0035;
+  
+  let isDragging = false;
+  let startMouseX = 0;
+  let startMouseY = 0;
+  
+  let mouseCanvasX = -1000;
+  let mouseCanvasY = -1000;
+
+  // Adapt sizing to device pixel ratio
+  let width = container.clientWidth;
+  let height = container.clientHeight;
+  
+  const resizeCanvas = () => {
+    width = container.clientWidth;
+    height = container.clientHeight;
+    
+    // Scale canvas buffer matching client layout sizes
+    canvas.width = width;
+    canvas.height = height;
+  };
+  
+  resizeCanvas();
+  window.addEventListener("resize", debounce(resizeCanvas, 150));
+
+  // Rotate points in 3D matrices
+  function rotate3D(tag, rotX, rotY) {
+    // 1. Rotate Y Axis
+    const cosY = Math.cos(rotY);
+    const sinY = Math.sin(rotY);
+    const x1 = tag.x * cosY - tag.z * sinY;
+    const z1 = tag.z * cosY + tag.x * sinY;
+
+    // 2. Rotate X Axis
+    const cosX = Math.cos(rotX);
+    const sinX = Math.sin(rotX);
+    const y2 = tag.y * cosX - z1 * sinX;
+    const z2 = z1 * cosX + tag.y * sinX;
+
+    tag.x = x1;
+    tag.y = y2;
+    tag.z = z2;
+  }
+
+  // Interaction handlers
+  canvas.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startMouseX = e.clientX;
+    startMouseY = e.clientY;
+    canvas.style.cursor = "grabbing";
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseCanvasX = e.clientX - rect.left;
+    mouseCanvasY = e.clientY - rect.top;
+
+    if (!isDragging) return;
+
+    // Drag torque translation
+    const deltaX = e.clientX - startMouseX;
+    const deltaY = e.clientY - startMouseY;
+    
+    targetAngleY = deltaX * 0.00018;
+    targetAngleX = -deltaY * 0.00018;
+    
+    startMouseX = e.clientX;
+    startMouseY = e.clientY;
+  });
+
+  window.addEventListener("mouseup", () => {
+    isDragging = false;
+    canvas.style.cursor = "grab";
+  });
+
+  // Touch controls for screen dragging compatibility
+  canvas.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startMouseX = e.touches[0].clientX;
+      startMouseY = e.touches[0].clientY;
+    }
+  });
+
+  canvas.addEventListener("touchmove", (e) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    mouseCanvasX = e.touches[0].clientX - rect.left;
+    mouseCanvasY = e.touches[0].clientY - rect.top;
+
+    const deltaX = e.touches[0].clientX - startMouseX;
+    const deltaY = e.touches[0].clientY - startMouseY;
+
+    targetAngleY = deltaX * 0.00028;
+    targetAngleX = -deltaY * 0.00028;
+
+    startMouseX = e.touches[0].clientX;
+    startMouseY = e.touches[0].clientY;
+  });
+
+  canvas.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+
+  // Dynamic contrast configuration
+  const getTagColor = (hovered, glow) => {
+    const isDark = document.body.getAttribute("data-theme") === "dark";
+    if (hovered) {
+      return "#8b5cf6"; // Highlight color upon hovers (Violet)
+    }
+    // Return colors with contrasting gradients depending on theme states
+    if (isDark) {
+      // Shading to soft whites
+      return `rgba(255, 255, 255, ${0.4 + glow * 0.6})`;
+    } else {
+      // Shading to charcoal
+      return `rgba(26, 26, 26, ${0.4 + glow * 0.6})`;
+    }
+  };
+
+  // Rendering Loop
+  function drawTags() {
+    requestAnimationFrame(drawTags);
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Apply kinetic deceleration friction (organic damping)
+    if (!isDragging) {
+      targetAngleX += (0.0018 - targetAngleX) * 0.04;
+      targetAngleY += (0.0018 - targetAngleY) * 0.04;
+    }
+
+    angleX += (targetAngleX - angleX) * 0.08;
+    angleY += (targetAngleY - angleY) * 0.08;
+
+    // Projection focal length depth
+    const depth = 280;
+    const halfWidth = width / 2;
+    const halfHeight = height / 2;
+
+    // Rotate points
+    tags.forEach(tag => {
+      rotate3D(tag, angleX, angleY);
+
+      // Perspective scale calculations
+      const perspectiveScale = depth / (depth + tag.z);
+      tag.scale = perspectiveScale;
+      
+      // Calculate opacity shading matching depth layering
+      tag.opacity = Math.max(0.18, Math.min(1.0, (depth - tag.z) / (depth * 1.5)));
+
+      tag.screenX = halfWidth + tag.x * perspectiveScale;
+      tag.screenY = halfHeight + tag.y * perspectiveScale;
+    });
+
+    // Sort nodes dynamically matching Z value (Painters layering algorithm)
+    const sortedTags = [...tags].sort((a, b) => b.z - a.z);
+
+    // Render text to canvas buffer
+    sortedTags.forEach(tag => {
+      // Base tag font sizing scaled by depth projection
+      const baseFontSize = window.innerWidth < 768 ? 12 : 15;
+      const fontSize = Math.round(baseFontSize * tag.scale * (tag.hovered ? 1.25 : 1.0));
+      
+      ctx.font = `${tag.hovered ? "700" : "500"} ${fontSize}px var(--font-family)`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      // Detect cursor coordinate overlap inside text bounding boxes
+      const textWidth = ctx.measureText(tag.text).width;
+      const textHeight = fontSize;
+      
+      const isMouseOver = 
+        mouseCanvasX >= tag.screenX - textWidth / 2 - 8 &&
+        mouseCanvasX <= tag.screenX + textWidth / 2 + 8 &&
+        mouseCanvasY >= tag.screenY - textHeight / 2 - 6 &&
+        mouseCanvasY <= tag.screenY + textHeight / 2 + 6;
+
+      tag.hovered = isMouseOver;
+
+      // Glow metrics easing
+      if (tag.hovered) {
+        tag.glowIntensity += (1.0 - tag.glowIntensity) * 0.15;
+        // Pause auto rotation if hovered to ease click-through highlights
+        if (!isDragging) {
+          targetAngleX *= 0.85;
+          targetAngleY *= 0.85;
+        }
+      } else {
+        tag.glowIntensity += (0.0 - tag.glowIntensity) * 0.15;
+      }
+
+      // Draw shadow glow backdrop underneath active nodes
+      if (tag.glowIntensity > 0.01) {
+        ctx.shadowColor = "rgba(139, 92, 246, 0.4)";
+        ctx.shadowBlur = Math.round(15 * tag.glowIntensity * tag.scale);
+      } else {
+        ctx.shadowBlur = 0;
+      }
+
+      // Paint tag text matching theme specifications
+      ctx.fillStyle = getTagColor(tag.hovered, tag.opacity);
+      ctx.fillText(tag.text, tag.screenX, tag.screenY);
+      
+      // Reset canvas contexts for successive buffers
+      ctx.shadowBlur = 0;
+    });
+  }
+
+  drawTags();
+}
+
+// Scroll-Driven CSS 3D Viewport entry tilts (cylindrical scrolling mesh)
+function initializeScrollDrivenPerspective() {
+  const sections = document.querySelectorAll(
+    ".hero-section, .about-section, .skills-section, .projects-section, .contact-section, .about-page section"
+  );
+  
+  if (sections.length === 0) return;
+
+  function performScrollTransformations() {
+    const viewportHeight = window.innerHeight;
+    const viewportCenter = viewportHeight / 2;
+
+    sections.forEach((section) => {
+      // Inject scroll class if missing
+      if (!section.classList.contains("scroll-3d-section")) {
+        section.classList.add("scroll-3d-section");
+      }
+
+      const rect = section.getBoundingClientRect();
+      const sectionCenter = rect.top + rect.height / 2;
+      
+      // Calculate delta distance relative to screen centers
+      const delta = sectionCenter - viewportCenter;
+      
+      // Compute delta ratio bounded between -1 and 1
+      const ratio = Math.max(-1, Math.min(1, delta / viewportHeight));
+
+      // Map scale limits and perspective tilt angles
+      const maxTiltAngle = window.innerWidth < 768 ? 6 : 9; // Subtle tilts
+      const currentTiltX = ratio * maxTiltAngle;
+      
+      // Make elements fade out slightly as they exit viewport boundaries
+      const opacityFactor = 1 - Math.abs(ratio) * 0.18;
+
+      // Apply perspective matrix transformations elastically
+      section.style.transform = `perspective(1200px) rotateX(${currentTiltX}deg) translateZ(0px)`;
+      section.style.opacity = `${opacityFactor}`;
+    });
+  }
+
+  // Bind throttle event triggers
+  window.addEventListener("scroll", performScrollTransformations);
+  // Perform immediate setup invocation
+  performScrollTransformations();
+}
+
+

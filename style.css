@@ -1834,3 +1834,136 @@ body {
     gap: 1.5rem;
   }
 }
+
+/* ==========================================================================
+   3D Portfolio Styles & Utilities
+   ========================================================================== */
+
+/* 3D Canvas Background */
+.hero-3d-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none; /* Let events fall through to the global listener */
+}
+
+/* 3D Holographic Card Base */
+.tilt-card {
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+}
+
+/* Glowing lens flare reflection shine overlay */
+.tilt-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 60%);
+  border-radius: inherit;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .tilt-card::before {
+  background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
+.tilt-card:hover::before {
+  opacity: 1;
+}
+
+/* Ensure contents pop inside tilted elements */
+.tilt-card-content {
+  transform: translateZ(20px);
+  transform-style: preserve-3d;
+}
+
+/* Holographic styling specifically for hero image container */
+.image-container.tilt-card {
+  box-shadow: var(--shadow-heavy);
+  transform-style: preserve-3d;
+  background: var(--bg-secondary);
+}
+
+.image-container.tilt-card .floating-card {
+  transform: translateZ(40px);
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+[data-theme="dark"] .image-container.tilt-card .floating-card {
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Skills Layout grid splitting for 3D Sphere */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  margin-top: var(--spacing-xl);
+}
+
+.skills-3d-sphere-container {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: var(--radius-xl);
+}
+
+[data-theme="light"] .skills-3d-sphere-container {
+  background: radial-gradient(circle at center, rgba(26, 26, 26, 0.02) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+#skills-3d-canvas {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 400px;
+  cursor: grab;
+}
+
+#skills-3d-canvas:active {
+  cursor: grabbing;
+}
+
+/* Scroll 3D Section Viewport perspective */
+.scroll-3d-section {
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+/* Responsive constraints for Skills sphere split layout */
+@media (max-width: 992px) {
+  .skills-layout {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .skills-3d-sphere-container {
+    height: 350px;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+
+
