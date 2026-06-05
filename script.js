@@ -36,8 +36,8 @@ function initializeThemeToggle() {
   const themeToggle = document.getElementById("theme-toggle");
   const body = document.body;
 
-  // Check for saved theme preference or default to light
-  const savedTheme = localStorage.getItem("theme") || "light";
+  // Check for saved theme preference or default to dark
+  const savedTheme = localStorage.getItem("theme") || "dark";
   body.setAttribute("data-theme", savedTheme);
   updateThemeIcon(savedTheme);
 
@@ -550,6 +550,7 @@ window.portfolioUtils = {
 // ==========================================================================
 
 // Three.js 3D Constellation Background
+// Three.js 3D Moroccan Star Background
 function initializeThreeJSBackground() {
   const container = document.getElementById("hero-3d-container") || document.getElementById("about-3d-container");
   if (!container || typeof THREE === "undefined") return;
@@ -566,36 +567,85 @@ function initializeThreeJSBackground() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
 
-  // Particles / Constellation Nodes Setup
-  const particleCount = window.innerWidth < 768 ? 90 : 200;
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const velocities = [];
-
-  // Distribute particles randomly in a 3D bounding box
-  const range = 150;
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * range * 1.5;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * range;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * range * 0.8;
-
-    velocities.push({
-      x: (Math.random() - 0.5) * 0.08,
-      y: (Math.random() - 0.5) * 0.08,
-      z: (Math.random() - 0.5) * 0.04
-    });
+  // Moroccan Star Mathematically Defined Vertices (Pentagram on XY plane)
+  const R = window.innerWidth < 768 ? 16 : 24;
+  const vertices = [];
+  for (let i = 0; i < 5; i++) {
+    // Start at top (pi/2) and step counter-clockwise/clockwise to draw a star
+    const theta = (Math.PI / 2) - (i * 2 * Math.PI / 5);
+    vertices.push(new THREE.Vector3(R * Math.cos(theta), R * Math.sin(theta), 0));
   }
 
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  // Pentagram order to connect: 0 -> 2 -> 4 -> 1 -> 3 -> 0
+  const starSegments = [
+    [vertices[0], vertices[2]],
+    [vertices[2], vertices[4]],
+    [vertices[4], vertices[1]],
+    [vertices[1], vertices[3]],
+    [vertices[3], vertices[0]]
+  ];
 
-  // Determine active colors based on theme configuration
+  // Two separate particle systems: Star outline & surrounding Stardust
+  const starParticleCount = 200;
+  const stardustParticleCount = 80;
+
+  // 1. Star Geometry setup
+  const starGeometry = new THREE.BufferGeometry();
+  const starPositions = new Float32Array(starParticleCount * 3);
+  const starData = [];
+
+  for (let i = 0; i < starParticleCount; i++) {
+    const segIndex = i % 5;
+    const t = Math.random();
+    const speed = 0.0015 + Math.random() * 0.002;
+    // Fluffy cloud offset around the segments for 3D thickness
+    const offset = new THREE.Vector3(
+      (Math.random() - 0.5) * 2.5,
+      (Math.random() - 0.5) * 2.5,
+      (Math.random() - 0.5) * 6
+    );
+    const phase = Math.random() * Math.PI * 2;
+
+    starData.push({ segIndex, t, speed, offset, phase });
+
+    // Initial positions along segments
+    const seg = starSegments[segIndex];
+    const start = seg[0];
+    const end = seg[1];
+    starPositions[i * 3] = start.x + t * (end.x - start.x) + offset.x;
+    starPositions[i * 3 + 1] = start.y + t * (end.y - start.y) + offset.y;
+    starPositions[i * 3 + 2] = offset.z;
+  }
+  starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+
+  // 2. Stardust Geometry setup
+  const stardustGeometry = new THREE.BufferGeometry();
+  const stardustPositions = new Float32Array(stardustParticleCount * 3);
+  const stardustData = [];
+
+  for (let i = 0; i < stardustParticleCount; i++) {
+    const r = R * (1.1 + Math.random() * 1.3);
+    const angle = Math.random() * Math.PI * 2;
+    const orbitSpeed = 0.0006 + Math.random() * 0.0008;
+    const yOffset = (Math.random() - 0.5) * R * 0.8;
+    const phase = Math.random() * Math.PI * 2;
+
+    stardustData.push({ r, angle, orbitSpeed, yOffset, phase });
+
+    stardustPositions[i * 3] = r * Math.cos(angle);
+    stardustPositions[i * 3 + 1] = yOffset;
+    stardustPositions[i * 3 + 2] = r * Math.sin(angle);
+  }
+  stardustGeometry.setAttribute("position", new THREE.BufferAttribute(stardustPositions, 3));
+
+  // Theme configuration for Monochrome Star (White in dark theme, Black in light theme)
   const getThemeColors = () => {
     const isDark = document.body.getAttribute("data-theme") === "dark";
     return {
-      particle: isDark ? 0x8b5cf6 : 0x1a1a1a, // Violet for dark, Charcoal for light
-      line: isDark ? 0x6366f1 : 0x444444,     // Indigo for dark, Slate for light
-      lineOpacity: isDark ? 0.18 : 0.08,
-      particleOpacity: isDark ? 0.8 : 0.55
+      particle: isDark ? 0xffffff : 0x000000,    // White for dark theme, Black for light theme
+      line: isDark ? 0x666666 : 0xcccccc,        // Grey connection lines for readability
+      lineOpacity: isDark ? 0.35 : 0.22,
+      particleOpacity: isDark ? 0.9 : 0.7
     };
   };
 
@@ -617,22 +667,40 @@ function initializeThreeJSBackground() {
     return new THREE.CanvasTexture(canvas);
   };
 
-  const material = new THREE.PointsMaterial({
+  const circleTexture = createCircleTexture();
+
+  // Star points material (larger, glows brighter)
+  const starMaterial = new THREE.PointsMaterial({
     size: 2.2,
     sizeAttenuation: true,
     color: colors.particle,
     transparent: true,
     opacity: colors.particleOpacity,
-    map: createCircleTexture(),
-    blending: THREE.AdditiveBlending,
+    map: circleTexture,
+    blending: document.body.getAttribute("data-theme") === "dark" ? THREE.AdditiveBlending : THREE.NormalBlending,
     depthWrite: false
   });
 
-  const particleSystem = new THREE.Points(geometry, material);
-  scene.add(particleSystem);
+  const starParticleSystem = new THREE.Points(starGeometry, starMaterial);
+  scene.add(starParticleSystem);
 
-  // Connection Lines setup
-  const maxConnections = particleCount * 2;
+  // Stardust points material (smaller, fainter, orbits around)
+  const stardustMaterial = new THREE.PointsMaterial({
+    size: 1.2,
+    sizeAttenuation: true,
+    color: colors.particle,
+    transparent: true,
+    opacity: colors.particleOpacity * 0.45,
+    map: circleTexture,
+    blending: document.body.getAttribute("data-theme") === "dark" ? THREE.AdditiveBlending : THREE.NormalBlending,
+    depthWrite: false
+  });
+
+  const stardustParticleSystem = new THREE.Points(stardustGeometry, stardustMaterial);
+  scene.add(stardustParticleSystem);
+
+  // Connection Lines setup (specifically connecting star outline points)
+  const maxConnections = 500;
   const lineGeometry = new THREE.BufferGeometry();
   const linePositions = new Float32Array(maxConnections * 2 * 3);
   lineGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
@@ -658,16 +726,19 @@ function initializeThreeJSBackground() {
   const themeObserver = new MutationObserver(() => {
     const nextColors = getThemeColors();
     colors = nextColors;
-    material.color.setHex(colors.particle);
-    material.opacity = colors.particleOpacity;
+    
+    starMaterial.color.setHex(colors.particle);
+    starMaterial.opacity = colors.particleOpacity;
+    
+    stardustMaterial.color.setHex(colors.particle);
+    stardustMaterial.opacity = colors.particleOpacity * 0.45;
+    
     lineMaterial.color.setHex(colors.line);
     lineMaterial.opacity = colors.lineOpacity;
     
-    if (document.body.getAttribute("data-theme") === "light") {
-      material.blending = THREE.NormalBlending;
-    } else {
-      material.blending = THREE.AdditiveBlending;
-    }
+    const isDark = document.body.getAttribute("data-theme") === "dark";
+    starMaterial.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+    stardustMaterial.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
   });
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
 
@@ -684,7 +755,8 @@ function initializeThreeJSBackground() {
   });
 
   // WebGL Render Loop
-  const posArr = geometry.attributes.position.array;
+  const starPosArr = starGeometry.attributes.position.array;
+  const stardustPosArr = stardustGeometry.attributes.position.array;
   let timer = 0;
 
   function animateScene() {
@@ -703,74 +775,83 @@ function initializeThreeJSBackground() {
     camera.position.y = mouse.y * 15;
     camera.lookAt(scene.position);
 
-    // Subtle ambient coordinate rotations
-    particleSystem.rotation.y = timer * 0.12;
-    lineSystem.rotation.y = timer * 0.12;
+    // Subtle ambient rotations of the star systems (Z-axis spin to keep the star shape visible, with static tilts on X/Y)
+    starParticleSystem.rotation.z = timer * 0.08;
+    starParticleSystem.rotation.x = 0.25;
+    starParticleSystem.rotation.y = 0.15;
 
-    // Approximate mouse 3D position to calculate local magnetic node attraction
-    const mouse3D = new THREE.Vector3(
-      mouse.x * range * 0.35,
-      mouse.y * range * 0.25,
-      0
-    );
+    stardustParticleSystem.rotation.z = -timer * 0.04;
+    stardustParticleSystem.rotation.x = 0.25;
+    stardustParticleSystem.rotation.y = 0.15;
 
-    const activePositions = [];
+    lineSystem.rotation.z = timer * 0.08;
+    lineSystem.rotation.x = 0.25;
+    lineSystem.rotation.y = 0.15;
 
-    // Translate nodes individually
-    for (let i = 0; i < particleCount; i++) {
-      let x = posArr[i * 3];
-      let y = posArr[i * 3 + 1];
-      let z = posArr[i * 3 + 2];
-
-      x += velocities[i].x;
-      y += velocities[i].y;
-      z += velocities[i].z;
-
-      // Wrap around bounding box boundaries
-      if (Math.abs(x) > range) velocities[i].x *= -1;
-      if (Math.abs(y) > range * 0.8) velocities[i].y *= -1;
-      if (Math.abs(z) > range * 0.6) velocities[i].z *= -1;
-
-      // Distance calculation to apply gravity pull
-      const dx = mouse3D.x - x;
-      const dy = mouse3D.y - y;
-      const dz = mouse3D.z - z;
-      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-      
-      if (dist < 45) {
-        const attractionForce = (45 - dist) * 0.0012;
-        x += dx * attractionForce;
-        y += dy * attractionForce;
-        z += dz * attractionForce;
+    // 1. Update Star Particle positions (flow along pentagram segments)
+    const activeStarPositions = [];
+    for (let i = 0; i < starParticleCount; i++) {
+      const data = starData[i];
+      // Move along the segment
+      data.t += data.speed * (1 + currentScrollSpeed * 3);
+      if (data.t > 1) {
+        data.t = 0;
+        data.segIndex = (data.segIndex + 1) % 5; // Move to the next connected segment in sequence
       }
 
-      // Particles stretch elastically along Z axis based on scroll velocity
-      const zOffset = velocities[i].z * currentScrollSpeed * 150;
-      const actualZ = z + zOffset;
+      const seg = starSegments[data.segIndex];
+      const start = seg[0];
+      const end = seg[1];
 
-      posArr[i * 3] = x;
-      posArr[i * 3 + 1] = y;
-      posArr[i * 3 + 2] = actualZ;
+      // Base coordinate along line
+      const baseX = start.x + data.t * (end.x - start.x);
+      const baseY = start.y + data.t * (end.y - start.y);
 
-      activePositions.push(new THREE.Vector3(x, y, actualZ));
+      // Shimmering and scroll Z stretch offset
+      const shimmer = Math.sin(timer * 2.5 + data.phase) * 0.35;
+      const zOffset = data.offset.z + Math.sin(timer * 1.5 + data.phase) * currentScrollSpeed * 18;
+
+      const px = baseX + data.offset.x + shimmer;
+      const py = baseY + data.offset.y + shimmer;
+      const pz = zOffset;
+
+      starPosArr[i * 3] = px;
+      starPosArr[i * 3 + 1] = py;
+      starPosArr[i * 3 + 2] = pz;
+
+      activeStarPositions.push(new THREE.Vector3(px, py, pz));
     }
+    starGeometry.attributes.position.needsUpdate = true;
 
-    geometry.attributes.position.needsUpdate = true;
+    // 2. Update Stardust Particle positions (orbiting dust)
+    for (let i = 0; i < stardustParticleCount; i++) {
+      const data = stardustData[i];
+      data.angle += data.orbitSpeed * (1 + currentScrollSpeed * 2);
 
-    // Draw vertex relationship segments based on proximity
+      const px = data.r * Math.cos(data.angle);
+      const py = data.yOffset + Math.sin(timer * 0.6 + data.phase) * 2;
+      const pz = data.r * Math.sin(data.angle);
+
+      stardustPosArr[i * 3] = px;
+      stardustPosArr[i * 3 + 1] = py;
+      stardustPosArr[i * 3 + 2] = pz;
+    }
+    stardustGeometry.attributes.position.needsUpdate = true;
+
+    // 3. Draw connection segments based on star particle proximity
     const linePosArr = lineGeometry.attributes.position.array;
     let currentLinesCount = 0;
-    const maxConnectionDistance = window.innerWidth < 768 ? 18 : 24;
+    const maxConnectionDistance = window.innerWidth < 768 ? 10 : 13;
 
     // Reset line vertices
     for (let i = 0; i < linePosArr.length; i++) {
       linePosArr[i] = 0;
     }
 
-    for (let i = 0; i < particleCount; i++) {
-      const p1 = activePositions[i];
-      for (let j = i + 1; j < particleCount; j++) {
-        const p2 = activePositions[j];
+    for (let i = 0; i < starParticleCount; i++) {
+      const p1 = activeStarPositions[i];
+      for (let j = i + 1; j < starParticleCount; j++) {
+        const p2 = activeStarPositions[j];
         const dist = p1.distanceTo(p2);
 
         if (dist < maxConnectionDistance && currentLinesCount < maxConnections) {
