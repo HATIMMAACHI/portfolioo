@@ -1,0 +1,14 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+dist/
+chat-widget/node_modules/
+chat-widget/dist/
+backend/.env
+backend/**/__pycache__/
+backend/**/*.pyc

@@ -642,10 +642,10 @@ function initializeThreeJSBackground() {
   const getThemeColors = () => {
     const isDark = document.body.getAttribute("data-theme") === "dark";
     return {
-      particle: isDark ? 0xffffff : 0x000000,    // White for dark theme, Black for light theme
-      line: isDark ? 0x666666 : 0xcccccc,        // Grey connection lines for readability
-      lineOpacity: isDark ? 0.35 : 0.22,
-      particleOpacity: isDark ? 0.9 : 0.7
+      particle: isDark ? 0x60a5fa : 0x3b82f6,    // Vibrant blue
+      line: isDark ? 0xa78bfa : 0x8b5cf6,        // Vibrant purple
+      lineOpacity: isDark ? 0.45 : 0.35,
+      particleOpacity: isDark ? 0.9 : 0.8
     };
   };
 

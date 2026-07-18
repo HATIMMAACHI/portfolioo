@@ -42,7 +42,7 @@
     />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=1.0.2" />
 
     <!-- Favicon -->
     <link
@@ -650,6 +650,16 @@
       </div>
     </footer>
 
+    <!-- Floating Chat Widget -->
+    <div id="portfolio-chat-widget" class="portfolio-chat-widget">
+      <button id="chat-widget-toggle" class="chat-widget-toggle" aria-label="Discuter avec l'assistant IA">
+        <i class="fas fa-comments"></i>
+      </button>
+      <div id="chat-iframe-container" class="chat-iframe-container">
+        <iframe id="chat-iframe" title="Hatim AI Assistant"></iframe>
+      </div>
+    </div>
+
     <!-- Back to Top Button -->
     <button class="back-to-top" id="back-to-top">
       <i class="fas fa-arrow-up"></i>
@@ -659,5 +669,6 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
+    <script src="chat-loader.js"></script>
   </body>
 </html>

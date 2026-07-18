@@ -1,5 +1,5 @@
 // Service Worker for Portfolio PWA (resilient caching)
-const CACHE_NAME = "hatim-portfolio-v1";
+const CACHE_NAME = "hatim-portfolio-v3";
 
 // Only cache local, essential assets. Avoid pre-caching external CDNs to
 // prevent install failures when those hosts are blocked or slow.
@@ -18,6 +18,7 @@ const urlsToCache = [
 
 // Install: try to cache local assets but continue even if some fail
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
