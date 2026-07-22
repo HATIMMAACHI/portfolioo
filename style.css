@@ -467,10 +467,13 @@ body {
   display: flex;
   gap: var(--spacing-md);
   flex-wrap: wrap;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
 }
 
 .btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
@@ -478,9 +481,17 @@ body {
   border-radius: var(--radius-lg);
   text-decoration: none;
   font-weight: 600;
-  font-size: 13px;
-  transition: all var(--transition-fast);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
   cursor: pointer;
+  border: none;
+  position: relative;
+  z-index: 101;
+  pointer-events: auto !important;
+}
+
+.btn i {
+  pointer-events: none;
 }
 
 .btn-primary {
