@@ -31,25 +31,36 @@ function initializeLoadingScreen() {
   }
 }
 
+// Immediate theme setup to prevent flash of wrong theme
+(function applyInitialTheme() {
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  document.body?.setAttribute("data-theme", savedTheme);
+  document.documentElement.setAttribute("data-theme", savedTheme);
+})();
+
 // Theme Toggle
 function initializeThemeToggle() {
   const themeToggle = document.getElementById("theme-toggle");
   const body = document.body;
+  const html = document.documentElement;
 
   // Check for saved theme preference or default to dark
   const savedTheme = localStorage.getItem("theme") || "dark";
   body.setAttribute("data-theme", savedTheme);
+  html.setAttribute("data-theme", savedTheme);
   updateThemeIcon(savedTheme);
 
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = body.getAttribute("data-theme");
+    themeToggle.onclick = function (e) {
+      if (e) e.preventDefault();
+      const currentTheme = body.getAttribute("data-theme") || "dark";
       const newTheme = currentTheme === "dark" ? "light" : "dark";
 
       body.setAttribute("data-theme", newTheme);
+      html.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
       updateThemeIcon(newTheme);
-    });
+    };
   }
 }
 

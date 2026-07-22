@@ -260,6 +260,9 @@ body {
   padding: var(--spacing-sm);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
 }
 
 .theme-toggle:hover {
