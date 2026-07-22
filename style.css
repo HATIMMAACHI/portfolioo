@@ -144,6 +144,7 @@ body {
 .loading-screen.hidden {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none !important;
 }
 
 .loader {
@@ -186,7 +187,7 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
-  z-index: 1000;
+  z-index: 10000;
   transition: all var(--transition-normal);
 }
 
@@ -261,8 +262,12 @@ body {
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   position: relative;
-  z-index: 100;
-  pointer-events: auto;
+  z-index: 10001;
+  pointer-events: auto !important;
+}
+
+.theme-toggle i {
+  pointer-events: none;
 }
 
 .theme-toggle:hover {
