@@ -1123,7 +1123,7 @@ function initializeSkillsTagSphere() {
   const getTagColor = (hovered, glow) => {
     const isDark = document.body.getAttribute("data-theme") === "dark";
     if (hovered) {
-      return "#8b5cf6"; // Highlight color upon hovers (Violet)
+      return isDark ? "#ffffff" : "#000000"; // Highlight color upon hovers (White/Black)
     }
     // Return colors with contrasting gradients depending on theme states
     if (isDark) {
@@ -1209,7 +1209,8 @@ function initializeSkillsTagSphere() {
 
       // Draw shadow glow backdrop underneath active nodes
       if (tag.glowIntensity > 0.01) {
-        ctx.shadowColor = "rgba(139, 92, 246, 0.4)";
+        const isDark = document.body.getAttribute("data-theme") === "dark";
+        ctx.shadowColor = isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.3)";
         ctx.shadowBlur = Math.round(15 * tag.glowIntensity * tag.scale);
       } else {
         ctx.shadowBlur = 0;

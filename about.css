@@ -2,11 +2,11 @@
 
 /* --- PALETTE ---
    Base: #000000 (Noir)
-   Accent: #8B5CF6 (Violet Électrique)
+   Accent: #FFFFFF (Blanc)
    Texte Principal: #FFFFFF (Blanc)
    Texte Secondaire: #CCCCCC (Gris Clair Neutre)
    Gris Foncé (pour fonds légers): #111111
-   Violet Clair (survol): #A78BFA
+   Gris Clair (survol): #E5E5E5
    ----------------------- */
 
 /* Styles généraux */
@@ -40,7 +40,7 @@ nav {
     background-color: rgba(0, 0, 0, 0.8); /* Base avec transparence pour effet sticky */
     backdrop-filter: blur(10px);
     z-index: 100;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.2); /* Accent Ligne */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Accent Ligne */
 }
 
 .nav-container {
@@ -64,8 +64,8 @@ nav {
 }
 
 .logo span {
-    color: #8B5CF6; /* Accent */
-    text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+    color: #FFFFFF; /* Accent */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 /* Liens Desktop */
@@ -91,7 +91,7 @@ nav {
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: #8B5CF6; /* Accent */
+    background-color: #FFFFFF; /* Accent */
     transition: width 0.3s ease;
 }
 
@@ -155,7 +155,7 @@ nav {
 }
 
 .dropdown .links a:hover {
-    color: #A78BFA; /* Violet Clair */
+    color: #E5E5E5; /* Gris Clair */
 }
 
 /* Bouton Cancel dans le dropdown */
@@ -170,7 +170,7 @@ nav {
     transition: color 0.2s ease, transform 0.2s ease;
 }
 .dropdown .cancel:hover {
-    color: #8B5CF6; /* Accent */
+    color: #FFFFFF; /* Accent */
     transform: rotate(90deg); /* Effet au survol */
 }
 /* == Fin Styles de Navigation == */
@@ -189,7 +189,7 @@ section {
     margin-right: auto;
     background-color: #111111; /* Fond légèrement différent */
     border-radius: 8px;
-    border: 1px solid rgba(139, 92, 246, 0.1); /* Bordure subtile */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Bordure subtile */
     box-shadow: 0 4px 15px rgba(0,0,0, 0.3);
 }
 
@@ -206,7 +206,7 @@ h1 {
 
 h2 {
     font-size: clamp(1.5rem, 4vw, 2rem);
-    border-bottom: 2px solid #8B5CF6; /* Soulignement Accent */
+    border-bottom: 2px solid #FFFFFF; /* Soulignement Accent */
     display: inline-block; /* Pour que la bordure s'ajuste au texte */
     padding-bottom: 8px;
     margin-bottom: 30px; /* Plus d'espace après H2 */
@@ -243,12 +243,12 @@ li::before {
     top: 8px; /* Ajuster verticalement */
     width: 8px;
     height: 8px;
-    background-color: #8B5CF6; /* Accent */
+    background-color: #FFFFFF; /* Accent */
     border-radius: 50%;
 }
 
 a {
-    color: #A78BFA; /* Liens en Violet Clair */
+    color: #E5E5E5; /* Liens en Gris Clair */
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -280,8 +280,8 @@ a:hover {
     height: 180px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #8B5CF6; /* Bordure Accent */
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    border: 4px solid #FFFFFF; /* Bordure Accent */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
 }
 .image-container img {
     width: 100%;
@@ -317,7 +317,7 @@ a:hover {
     color: #FFFFFF;
     font-weight: 600;
     margin-bottom: 15px;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     padding-bottom: 5px;
 }
 .skills-grid ul {
@@ -337,7 +337,7 @@ a:hover {
     background-color: #1a1a1a; /* Fond légèrement plus clair */
     padding: 20px;
     border-radius: 6px;
-    border-left: 4px solid #8B5CF6; /* Accent sur le côté */
+    border-left: 4px solid #FFFFFF; /* Accent sur le côté */
 }
 .project-item h3 {
     color: #FFFFFF;
@@ -349,7 +349,7 @@ a:hover {
     color: #CCCCCC;
 }
 .project-item em { /* Mettre en évidence le résultat */
-    color: #A78BFA;
+    color: #FFFFFF;
     font-style: normal;
 }
 
@@ -374,7 +374,7 @@ a:hover {
 }
 .certif-button {
     display: inline-block;
-    background-color: #8B5CF6; /* Accent */
+    background-color: #FFFFFF; /* Accent */
     color: #000000; /* Texte Noir */
     padding: 6px 15px;
     border-radius: 4px;
@@ -387,7 +387,7 @@ a:hover {
     white-space: nowrap; /* Empêcher le texte du bouton de se casser */
 }
 .certif-button:hover {
-    background-color: #A78BFA; /* Violet Clair */
+    background-color: #CCCCCC; /* Gris */
     color: #000000;
     transform: scale(1.05);
     text-decoration: none; /* Pas de soulignement sur le bouton */
@@ -400,7 +400,7 @@ footer {
     margin-top: 50px; /* Espace avant le footer */
     color: #CCCCCC; /* Texte Secondaire */
     font-size: 0.9rem;
-    border-top: 1px solid rgba(139, 92, 246, 0.1); /* Ligne subtile */
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Ligne subtile */
 }
 
 
