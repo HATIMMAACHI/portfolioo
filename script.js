@@ -1,6 +1,5 @@
 // Modern Portfolio JavaScript
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize all components
+function initApp() {
   initializeLoadingScreen();
   initializeThemeToggle();
   initializeMobileMenu();
@@ -16,7 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeSkillsTagSphere();
   initializeScrollDrivenPerspective();
   initializeAOS();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
 
 // Loading Screen
 function initializeLoadingScreen() {
@@ -31,47 +36,53 @@ function initializeLoadingScreen() {
   }
 }
 
-// Immediate theme setup to prevent flash of wrong theme
-(function applyInitialTheme() {
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  document.body?.setAttribute("data-theme", savedTheme);
-  document.documentElement.setAttribute("data-theme", savedTheme);
-})();
+// Global Theme Helper & Event Delegation
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme") || document.body?.getAttribute("data-theme") || "dark";
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
 
-// Theme Toggle
-function initializeThemeToggle() {
-  const themeToggle = document.getElementById("theme-toggle");
-  const body = document.body;
-  const html = document.documentElement;
+  document.documentElement.setAttribute("data-theme", newTheme);
+  if (document.body) {
+    document.body.setAttribute("data-theme", newTheme);
+  }
+  localStorage.setItem("theme", newTheme);
+  updateThemeIcon(newTheme);
 
-  // Check for saved theme preference or default to dark
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  body.setAttribute("data-theme", savedTheme);
-  html.setAttribute("data-theme", savedTheme);
-  updateThemeIcon(savedTheme);
-
-  if (themeToggle) {
-    themeToggle.onclick = function (e) {
-      if (e) e.preventDefault();
-      const currentTheme = body.getAttribute("data-theme") || "dark";
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-      body.setAttribute("data-theme", newTheme);
-      html.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
-      updateThemeIcon(newTheme);
-    };
+  // Notify chat iframe if present
+  const iframe = document.getElementById("chat-iframe");
+  if (iframe && iframe.contentWindow) {
+    iframe.contentWindow.postMessage({ type: "theme-change", theme: newTheme }, "*");
   }
 }
 
-function updateThemeIcon(theme) {
-  const themeToggle = document.getElementById("theme-toggle");
-  if (themeToggle) {
-    const icon = themeToggle.querySelector("i");
-    if (icon) {
-      icon.className = theme === "dark" ? "fas fa-sun" : "fas fa-moon";
-    }
+// Global delegated click listener for theme toggle buttons
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest("#theme-toggle, .theme-toggle");
+  if (btn) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleTheme();
   }
+});
+
+function initializeThemeToggle() {
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  if (document.body) {
+    document.body.setAttribute("data-theme", savedTheme);
+  }
+  updateThemeIcon(savedTheme);
+}
+
+function updateThemeIcon(theme) {
+  const currentTheme = theme || localStorage.getItem("theme") || "dark";
+  const themeToggles = document.querySelectorAll("#theme-toggle, .theme-toggle");
+  themeToggles.forEach((btn) => {
+    const icon = btn.querySelector("i");
+    if (icon) {
+      icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+    }
+  });
 }
 
 // Mobile Menu
