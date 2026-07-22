@@ -638,14 +638,14 @@ function initializeThreeJSBackground() {
   }
   stardustGeometry.setAttribute("position", new THREE.BufferAttribute(stardustPositions, 3));
 
-  // Theme configuration for Monochrome Star (White in dark theme, Black in light theme)
+  // Theme configuration for Monochrome Star (Pure White in dark theme, Pure Black in light theme)
   const getThemeColors = () => {
     const isDark = document.body.getAttribute("data-theme") === "dark";
     return {
-      particle: isDark ? 0xffffff : 0x18181b,    // Pure white in dark, dark charcoal in light
-      line: isDark ? 0xe4e4e7 : 0x3f3f46,        // Silver/white in dark, gray in light
-      lineOpacity: isDark ? 0.45 : 0.35,
-      particleOpacity: isDark ? 0.9 : 0.8
+      particle: isDark ? 0xffffff : 0x000000,    // Pure white in dark theme, pure black in light theme
+      line: isDark ? 0xffffff : 0x000000,        // Pure white in dark theme, pure black in light theme
+      lineOpacity: isDark ? 0.55 : 0.4,
+      particleOpacity: isDark ? 1.0 : 0.85
     };
   };
 
