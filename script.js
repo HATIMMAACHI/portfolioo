@@ -28,7 +28,7 @@ if (document.readyState === "loading") {
 async function fetchDynamicProfile() {
   const apiHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8000'
-    : 'https://votre-backend.up.railway.app'; // <--- REMPLACEZ PAR VOTRE URL DE PRODUCTION RAILWAY (ex: https://portfolio-api.up.railway.app)
+    : 'https://last-production-dc6e.up.railway.app';
   try {
     const res = await fetch(`${apiHost}/api/profile`);
     if (!res.ok) throw new Error("Impossible de charger le profil dynamique");

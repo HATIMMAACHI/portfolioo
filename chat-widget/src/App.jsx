@@ -29,7 +29,7 @@ const getApiUrl = () => {
     return "/api/chat";
   }
   // Production default pointing to your Railway backend
-  return "https://votre-backend.up.railway.app/api/chat"; // <--- REMPLACEZ PAR VOTRE URL DE PRODUCTION RAILWAY (ex: https://portfolio-api.up.railway.app)
+  return "https://last-production-dc6e.up.railway.app/api/chat";
 };
 
 export default function App() {
