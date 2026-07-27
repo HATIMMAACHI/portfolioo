@@ -57,6 +57,9 @@ app.add_middleware(
 # Path setup
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 profile_json_path = os.path.join(base_dir, "backend", "data", "profile.json")
+if not os.path.exists(profile_json_path):
+    # Standalone backend folder deployment fallback
+    profile_json_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "profile.json"))
 
 # In-memory admin session storage
 admin_sessions = set()
