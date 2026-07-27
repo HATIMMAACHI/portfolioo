@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal - Hatim Maachi</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-secondary: #121216;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent-color: #ffffff;
+      --accent-hover: #e5e7eb;
+      --danger-color: #ef4444;
+      --success-color: #10b981;
+      --card-bg: rgba(18, 18, 22, 0.6);
+      --font-family: 'Inter', -apple-system, sans-serif;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Glassmorphism utility */
+    .glass {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Login Screen Overlay */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .login-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 2.5rem;
+      border-radius: 1.25rem;
+      text-align: center;
+    }
+
+    .login-card h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-card p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--text-primary);
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: var(--bg-primary);
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-danger {
+      background-color: transparent;
+      color: var(--danger-color);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-danger:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+
+    /* Main Dashboard Layout */
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-b: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+
+    .logo-container h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-container p {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      margin-top: 0.25rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .tab-link {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 0.375rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .tab-link:hover {
+      color: var(--text-primary);
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .tab-link.active {
+      color: var(--bg-primary);
+      background-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section-card {
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Skills styling */
+    .skill-category-box {
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.01);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Projects Editor */
+    .project-item {
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.01);
+      position: relative;
+    }
+
+    .project-header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-num {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(10, 10, 12, 0.95);
+      border-top: 1px solid var(--border-color);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+
+    .action-bar-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transform: translateY(-20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .toast.visible {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .toast-success {
+      background-color: var(--success-color);
+    }
+
+    .toast-error {
+      background-color: var(--danger-color);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .nav-tabs {
+        margin-bottom: 1.5rem;
+      }
+      .action-bar-inner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast notifications -->
+  <div id="toast" class="toast">
+    <i id="toast-icon" class="fas"></i>
+    <span id="toast-message"></span>
+  </div>
+
+  <!-- Login Modal Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card glass">
+      <h2>Espace Administrateur</h2>
+      <p>Connectez-vous pour gérer votre site et votre base RAG</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-sign-in-alt"></i> Connexion
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Portal Container -->
+  <div class="dashboard-container">
+    <header>
+      <div class="logo-container">
+        <h1>Console de Gestion</h1>
+        <p>Gérez vos données de portfolio et les connaissances de l'IA</p>
+      </div>
+      <button id="logout-btn" class="btn btn-secondary">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </button>
+    </header>
+
+    <!-- Tabs Navigation -->
+    <div class="nav-tabs">
+      <button class="tab-link active" onclick="switchTab(event, 'tab-profile')">
+        <i class="fas fa-user-circle"></i> Profil & Contact
+      </button>
+      <button class="tab-link" onclick="switchTab(event, 'tab-skills')">
+        <i class="fas fa-tools"></i> Compétences
+      </button>
+      <button class="tab-link" onclick="switchTab(event, 'tab-projects')">
+        <i class="fas fa-folder-open"></i> Projets
+      </button>
+      <button class="tab-link" onclick="switchTab(event, 'tab-ai')">
+        <i class="fas fa-robot"></i> Assistant IA
+      </button>
+    </div>
+
+    <!-- Tab Profile Content -->
+    <div id="tab-profile" class="tab-content active">
+      <div class="section-card glass">
+        <h3><i class="fas fa-user"></i> Informations Personnelles</h3>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="prof-name">Nom complet</label>
+            <input type="text" id="prof-name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="prof-subtitle">Sous-titre / Profession</label>
+            <input type="text" id="prof-subtitle" class="form-control">
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 1rem;">
+          <label for="prof-bio">Bio du profil (Introduction)</label>
+          <textarea id="prof-bio" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="grid-2" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label for="prof-about-title">Titre section À Propos</label>
+            <input type="text" id="prof-about-title" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="prof-exp-years">Années d'Études / Expérience</label>
+            <input type="text" id="prof-exp-years" class="form-control">
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 1rem;">
+          <label for="prof-about-bio">Contenu section À Propos</label>
+          <textarea id="prof-about-bio" class="form-control" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="section-card glass">
+        <h3><i class="fas fa-chart-bar"></i> Statistiques (Page d'accueil)</h3>
+        <div class="grid-2" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="form-group">
+            <label for="stat-projects">Projets Réalisés</label>
+            <input type="text" id="stat-projects" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="stat-tech">Technologies</label>
+            <input type="text" id="stat-tech" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="stat-studies">Années d'études</label>
+            <input type="text" id="stat-studies" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card glass">
+        <h3><i class="fas fa-envelope"></i> Coordonnées & Réseaux</h3>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Téléphone</label>
+            <input type="text" id="contact-phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="contact-location">Localisation</label>
+            <input type="text" id="contact-location" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="social-github">GitHub</label>
+            <input type="text" id="social-github" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="social-linkedin">LinkedIn</label>
+            <input type="text" id="social-linkedin" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="social-facebook">Facebook</label>
+            <input type="text" id="social-facebook" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="social-instagram">Instagram</label>
+            <input type="text" id="social-instagram" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Skills Content -->
+    <div id="tab-skills" class="tab-content">
+      <div class="section-card glass">
+        <h3><i class="fas fa-tools"></i> Compétences par Catégorie</h3>
+        <p style="color: var(--text-secondary); font-size: 0.8125rem; margin-bottom: 1.5rem;">
+          Séparez vos compétences par des virgules (ex: React, Vue.js, Angular)
+        </p>
+        <div id="skills-container">
+          <!-- Categories will load dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Projects Content -->
+    <div id="tab-projects" class="tab-content">
+      <div class="section-card glass">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3><i class="fas fa-folder-open"></i> Projets Académiques & Personnels</h3>
+          <button type="button" class="btn btn-secondary" onclick="addProjectForm()">
+            <i class="fas fa-plus"></i> Ajouter un projet
+          </button>
+        </div>
+        <div id="projects-container">
+          <!-- Projects forms will load dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab AI Content -->
+    <div id="tab-ai" class="tab-content">
+      <div class="section-card glass">
+        <h3><i class="fas fa-robot"></i> Assistant Virtuel IA (Prompt Système)</h3>
+        <p style="color: var(--text-secondary); font-size: 0.8125rem; margin-bottom: 1.5rem;">
+          Définissez les consignes et le comportement de votre double virtuel pour répondre aux visiteurs.
+        </p>
+        <div class="form-group">
+          <label for="ai-instructions">Consignes Système (System Prompt)</label>
+          <textarea id="ai-instructions" class="form-control" rows="12"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixed Bottom Action Bar -->
+    <div class="action-bar">
+      <div class="action-bar-inner">
+        <span style="color: var(--text-secondary); font-size: 0.875rem;" id="db-status">
+          <i class="fas fa-check-circle" style="color: var(--success-color);"></i> Connecté au serveur
+        </span>
+        <button id="save-all-btn" class="btn btn-primary" style="width: auto;">
+          <i class="fas fa-save"></i> Enregistrer les modifications
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let profileData = {};
+    const apiHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:8000'
+      : 'https://votre-backend.up.railway.app'; // <--- REMPLACEZ PAR VOTRE URL DE PRODUCTION RAILWAY (ex: https://portfolio-api.up.railway.app)
+
+    // 1. App State & Authentication
+    document.addEventListener("DOMContentLoaded", () => {
+      const token = sessionStorage.getItem("admin_token");
+      if (token) {
+        document.getElementById("login-overlay").classList.add("hidden");
+        loadProfileData();
+      }
+      
+      // Login submission
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const password = document.getElementById("password").value;
+        try {
+          const res = await fetch(`${apiHost}/api/admin/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+          });
+          
+          if (!res.ok) throw new Error("Mot de passe incorrect");
+          
+          const data = await res.json();
+          sessionStorage.setItem("admin_token", data.token);
+          document.getElementById("login-overlay").classList.add("hidden");
+          showToast("Connexion réussie !", "success");
+          loadProfileData();
+        } catch (err) {
+          showToast(err.message, "error");
+        }
+      });
+
+      // Logout handler
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        sessionStorage.removeItem("admin_token");
+        document.getElementById("login-overlay").classList.remove("hidden");
+        document.getElementById("password").value = '';
+        showToast("Déconnexion effectuée", "success");
+      });
+
+      // Save button handler
+      document.getElementById("save-all-btn").addEventListener("click", saveAllData);
+    });
+
+    // 2. Tab Navigation
+    function switchTab(evt, tabId) {
+      const contents = document.querySelectorAll(".tab-content");
+      contents.forEach(c => c.classList.remove("active"));
+      
+      const links = document.querySelectorAll(".tab-link");
+      links.forEach(l => l.classList.remove("active"));
+      
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // 3. Load profile.json data from API
+    async function loadProfileData() {
+      const token = sessionStorage.getItem("admin_token");
+      try {
+        const res = await fetch(`${apiHost}/api/admin/profile`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Session invalide ou expirée");
+        
+        profileData = await res.json();
+        populateForm(profileData);
+      } catch (err) {
+        showToast(err.message, "error");
+        sessionStorage.removeItem("admin_token");
+        document.getElementById("login-overlay").classList.remove("hidden");
+      }
+    }
+
+    // Populate DOM inputs with profile data
+    function populateForm(data) {
+      document.getElementById("prof-name").value = data.name || '';
+      document.getElementById("prof-subtitle").value = data.subtitle || '';
+      document.getElementById("prof-bio").value = data.bio || '';
+      document.getElementById("prof-about-title").value = data.about_title || '';
+      document.getElementById("prof-exp-years").value = data.experience_years || '';
+      document.getElementById("prof-about-bio").value = data.about_bio || '';
+      
+      const stats = data.stats || {};
+      document.getElementById("stat-projects").value = stats.projects_count || '';
+      document.getElementById("stat-tech").value = stats.tech_count || '';
+      document.getElementById("stat-studies").value = stats.studies_years || '';
+
+      const contact = data.contact || {};
+      document.getElementById("contact-email").value = contact.email || '';
+      document.getElementById("contact-phone").value = contact.phone || '';
+      document.getElementById("contact-location").value = contact.location || '';
+
+      const socials = data.socials || {};
+      document.getElementById("social-github").value = socials.github || '';
+      document.getElementById("social-linkedin").value = socials.linkedin || '';
+      document.getElementById("social-facebook").value = socials.facebook || '';
+      document.getElementById("social-instagram").value = socials.instagram || '';
+
+      document.getElementById("ai-instructions").value = data.ai_instructions || '';
+
+      // Build Skills categories
+      const skillsContainer = document.getElementById("skills-container");
+      skillsContainer.innerHTML = '';
+      const skills = data.skills || [];
+      skills.forEach((cat, idx) => {
+        const div = document.createElement("div");
+        div.className = "skill-category-box";
+        div.innerHTML = `
+          <div class="form-group">
+            <label style="font-size:0.875rem; color: #fff;">Catégorie ${idx+1}</label>
+            <input type="text" class="form-control skill-cat-title" value="${cat.category}" style="font-weight: 600; margin-bottom: 0.75rem;">
+          </div>
+          <div class="form-group">
+            <label>Éléments (séparés par des virgules)</label>
+            <textarea class="form-control skill-cat-items" rows="2">${cat.items.join(", ")}</textarea>
+          </div>
+        `;
+        skillsContainer.appendChild(div);
+      });
+
+      // Build Projects
+      const projectsContainer = document.getElementById("projects-container");
+      projectsContainer.innerHTML = '';
+      const projects = data.projects || [];
+      projects.forEach((proj, idx) => {
+        addProjectForm(proj);
+      });
+    }
+
+    // Add a project item dynamically
+    function addProjectForm(proj = { title: '', description: '', tech: [] }) {
+      const container = document.getElementById("projects-container");
+      const index = container.children.length;
+      
+      const div = document.createElement("div");
+      div.className = "project-item";
+      div.innerHTML = `
+        <div class="project-header-actions">
+          <span class="project-num">Projet ${index + 1}</span>
+          <button type="button" class="btn btn-danger" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" onclick="removeProject(this)">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Titre du projet</label>
+            <input type="text" class="form-control proj-title" value="${proj.title}">
+          </div>
+          <div class="form-group">
+            <label>Technologies utilisées (virgules)</label>
+            <input type="text" class="form-control proj-tech" value="${proj.tech.join(", ")}">
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 1rem;">
+          <label>Description du projet</label>
+          <textarea class="form-control proj-desc" rows="3">${proj.description}</textarea>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeProject(btn) {
+      const item = btn.closest(".project-item");
+      item.remove();
+      // Re-index tags
+      const container = document.getElementById("projects-container");
+      Array.from(container.children).forEach((el, idx) => {
+        el.querySelector(".project-num").innerText = `Projet ${idx + 1}`;
+      });
+    }
+
+    // 4. Save and Send API call to Backend
+    async function saveAllData() {
+      const token = sessionStorage.getItem("admin_token");
+      if (!token) return;
+
+      const saveBtn = document.getElementById("save-all-btn");
+      const statusSpan = document.getElementById("db-status");
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enregistrement...';
+
+      // Rebuild Skills from form inputs
+      const skills = [];
+      const skillBoxes = document.querySelectorAll(".skill-category-box");
+      skillBoxes.forEach(box => {
+        const cat = box.querySelector(".skill-cat-title").value.trim();
+        const itemsText = box.querySelector(".skill-cat-items").value;
+        const items = itemsText.split(",").map(i => i.trim()).filter(i => i !== "");
+        if (cat) {
+          skills.push({ category: cat, items });
+        }
+      });
+
+      // Rebuild Projects from form inputs
+      const projects = [];
+      const projectItems = document.querySelectorAll(".project-item");
+      projectItems.forEach(item => {
+        const title = item.querySelector(".proj-title").value.trim();
+        const techText = item.querySelector(".proj-tech").value;
+        const tech = techText.split(",").map(t => t.trim()).filter(t => t !== "");
+        const description = item.querySelector(".proj-desc").value.trim();
+        if (title) {
+          projects.push({ title, description, tech });
+        }
+      });
+
+      // Formulate JSON body
+      const updatedPayload = {
+        name: document.getElementById("prof-name").value.trim(),
+        subtitle: document.getElementById("prof-subtitle").value.trim(),
+        bio: document.getElementById("prof-bio").value.trim(),
+        about_title: document.getElementById("prof-about-title").value.trim(),
+        about_bio: document.getElementById("prof-about-bio").value.trim(),
+        experience_years: document.getElementById("prof-exp-years").value.trim(),
+        stats: {
+          projects_count: document.getElementById("stat-projects").value.trim(),
+          tech_count: document.getElementById("stat-tech").value.trim(),
+          studies_years: document.getElementById("stat-studies").value.trim()
+        },
+        contact: {
+          email: document.getElementById("contact-email").value.trim(),
+          phone: document.getElementById("contact-phone").value.trim(),
+          location: document.getElementById("contact-location").value.trim()
+        },
+        socials: {
+          github: document.getElementById("social-github").value.trim(),
+          linkedin: document.getElementById("social-linkedin").value.trim(),
+          facebook: document.getElementById("social-facebook").value.trim(),
+          instagram: document.getElementById("social-instagram").value.trim()
+        },
+        skills,
+        projects,
+        ai_instructions: document.getElementById("ai-instructions").value.trim()
+      };
+
+      try {
+        const res = await fetch(`${apiHost}/api/admin/profile`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(updatedPayload)
+        });
+
+        if (!res.ok) throw new Error("Échec de la sauvegarde sur le serveur.");
+        
+        showToast("Sauvegarde réussie ! Indexation IA en cours en arrière-plan.", "success");
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Enregistrer les modifications';
+      }
+    }
+
+    // Toast Utility
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      const icon = document.getElementById("toast-icon");
+      const msg = document.getElementById("toast-message");
+
+      toast.className = `toast visible ${type === "success" ? "toast-success" : "toast-error"}`;
+      icon.className = type === "success" ? "fas fa-check-circle" : "fas fa-exclamation-circle";
+      msg.innerText = message;
+
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

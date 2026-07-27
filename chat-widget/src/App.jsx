@@ -16,12 +16,7 @@ const SUGGESTIONS = [
 ];
 
 const getApiUrl = () => {
-  // If running on the FastAPI port (8000), use relative API path
-  if (window.location.port === "8000") {
-    return "/api/chat";
-  }
-  // If running locally on a different port (Vite 5173, Live Server, etc.) or file protocol,
-  // target the local FastAPI backend on port 8000
+  // If running locally on a different port (Vite, live server, local file, etc.), point to local backend
   if (
     window.location.hostname === "localhost" ||
     window.location.hostname === "127.0.0.1" ||
@@ -29,8 +24,12 @@ const getApiUrl = () => {
   ) {
     return "http://localhost:8000/api/chat";
   }
-  // Default for production deployment
-  return "/api/chat";
+  // If running on the FastAPI port (8000), use relative API path
+  if (window.location.port === "8000") {
+    return "/api/chat";
+  }
+  // Production default pointing to your Railway backend
+  return "https://votre-backend.up.railway.app/api/chat"; // <--- REMPLACEZ PAR VOTRE URL DE PRODUCTION RAILWAY (ex: https://portfolio-api.up.railway.app)
 };
 
 export default function App() {

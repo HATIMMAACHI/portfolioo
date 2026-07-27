@@ -1,0 +1,11 @@
+[build]
+  # The directory where Netlify will find the compiled website to deploy
+  publish = "dist"
+
+  # The build command:
+  # 1. Installs and builds the React chat-widget in the sub-folder
+  # 2. Creates the deploy directory 'dist' and a sub-folder 'dist/chat'
+  # 3. Copies the built chat widget to the 'dist/chat' directory
+  # 4. Copies all static HTML, CSS, JS, and image files to the root of 'dist'
+  # 5. Copies the assets folder to 'dist'
+  command = "npm install --prefix chat-widget && npm run build --prefix chat-widget && mkdir -p dist/chat && cp -r chat-widget/dist/* dist/chat/ && cp index.html about.html admin.html style.css about.css script.js chat-loader.js manifest.json sw.js hatim.jpg hatim1.jpg dist/ && cp -r assets dist/ 2>/dev/null || true"

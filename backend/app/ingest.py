@@ -193,15 +193,95 @@ def get_github_fallback():
         documents.append(doc)
     return documents
 
+import json
+
+def load_profile_json():
+    profile_path = os.path.join(get_base_dir(), "backend", "data", "profile.json")
+    if not os.path.exists(profile_path):
+        print(f"Warning: profile.json not found at {profile_path}")
+        return []
+    try:
+        with open(profile_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        content_parts = []
+        content_parts.append(f"Nom complet de l'étudiant: {data.get('name', '')}")
+        content_parts.append(f"Titre et sous-titre de profil: {data.get('subtitle', '')}")
+        content_parts.append(f"Bio résumé de Hatim: {data.get('bio', '')}")
+        content_parts.append(f"Présentation générale (À Propos): {data.get('about_bio', '')}")
+        content_parts.append(f"Années d'expérience ou d'études: {data.get('experience_years', '')}")
+        
+        stats = data.get("stats", {})
+        content_parts.append(f"Statistiques portfolio: {stats.get('projects_count', '')} projets réalisés, {stats.get('tech_count', '')} technologies maîtrisées, {stats.get('studies_years', '')} ans d'études.")
+        
+        contact = data.get("contact", {})
+        content_parts.append(f"Email de contact professionnel: {contact.get('email', '')}")
+        content_parts.append(f"Téléphone mobile: {contact.get('phone', '')}")
+        content_parts.append(f"Localisation géographique: {contact.get('location', '')}")
+        
+        socials = data.get("socials", {})
+        content_parts.append(f"Réseaux et profils sociaux: GitHub ({socials.get('github', '')}), LinkedIn ({socials.get('linkedin', '')}), Facebook ({socials.get('facebook', '')}), Instagram ({socials.get('instagram', '')}).")
+        
+        skills = data.get("skills", [])
+        skills_text = "Compétences techniques et technologiques :\n"
+        for cat in skills:
+            skills_text += f"- {cat.get('category', '')}: {', '.join(cat.get('items', []))}\n"
+        content_parts.append(skills_text)
+            
+        projects = data.get("projects", [])
+        projects_text = "Projets académiques et personnels réalisés par Hatim Maachi :\n"
+        for proj in projects:
+            projects_text += f"- Projet: {proj.get('title', '')}\n  Description: {proj.get('description', '')}\n  Technologies: {', '.join(proj.get('tech', []))}\n"
+        content_parts.append(projects_text)
+
+        ai_instr = data.get("ai_instructions", "")
+        if ai_instr:
+            content_parts.append(f"Consignes système de l'assistant IA: {ai_instr}")
+            
+        doc_text = "\n\n".join(content_parts)
+        return [Document(page_content=doc_text, metadata={"source": "Profile JSON", "type": "admin_profile"})]
+    except Exception as e:
+        print(f"Error loading profile.json: {e}")
+        return []
+
+def reingest_profile():
+    """
+    Called from main.py background tasks to regenerate ChromaDB embeddings when changes are saved.
+    """
+    try:
+        print("Starting background re-ingestion of RAG database...")
+        cv_docs = load_cv()
+        github_docs = load_github_repos()
+        profile_docs = load_profile_json()
+        
+        all_docs = cv_docs + github_docs + profile_docs
+        
+        if not all_docs:
+            print("Error: No documents loaded for re-ingestion.")
+            return False
+            
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=80)
+        chunks = text_splitter.split_documents(all_docs)
+        
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+        chroma_db_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chroma_db"))
+        
+        # Rewrite ChromaDB vector store
+        Chroma.from_documents(documents=chunks, embedding=embeddings, persist_directory=chroma_db_dir)
+        print("=== Re-ingestion completed successfully! ===")
+        return True
+    except Exception as e:
+        print(f"Error during background re-ingestion: {e}")
+        return False
+
 def main():
     print("=== Commencer le pipeline d'ingestion RAG ===")
     
-    # Load all documents
     cv_docs = load_cv()
-    portfolio_docs = load_portfolio_projects()
     github_docs = load_github_repos()
+    profile_docs = load_profile_json()
     
-    all_docs = cv_docs + portfolio_docs + github_docs
+    all_docs = cv_docs + github_docs + profile_docs
     
     if not all_docs:
         print("Error: No documents loaded. Exiting.")
@@ -209,7 +289,6 @@ def main():
         
     print(f"Total documents loaded: {len(all_docs)}")
     
-    # Split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=600,
         chunk_overlap=80,
@@ -218,17 +297,14 @@ def main():
     chunks = text_splitter.split_documents(all_docs)
     print(f"Split documents into {len(chunks)} chunks.")
     
-    # Create local embeddings
-    print("Initializing local HuggingFace embeddings (paraphrase-multilingual-MiniLM-L12-v2)...")
+    print("Initializing local HuggingFace embeddings...")
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     )
     
-    # Store in Chroma DB
-    chroma_db_dir = os.path.join(os.path.dirname(__file__), "..", "chroma_db")
-    print(f"Saving embeddings in ChromaDB directory: {chroma_db_dir}...")
+    chroma_db_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chroma_db"))
+    print(f"Saving embeddings in ChromaDB: {chroma_db_dir}...")
     
-    # Recreate the vector store
     try:
         vectorstore = Chroma.from_documents(
             documents=chunks,

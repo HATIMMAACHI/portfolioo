@@ -2,6 +2,7 @@
 function initApp() {
   initializeLoadingScreen();
   initializeThemeToggle();
+  fetchDynamicProfile(); // Fetch and hydrate profile variables dynamically
   initializeMobileMenu();
   initializeSmoothScrolling();
   initializeTypingEffect();
@@ -21,6 +22,211 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initApp);
 } else {
   initApp();
+}
+
+// Fetch and hydrate profile variables dynamically from FastAPI profile endpoint
+async function fetchDynamicProfile() {
+  const apiHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8000'
+    : 'https://votre-backend.up.railway.app'; // <--- REMPLACEZ PAR VOTRE URL DE PRODUCTION RAILWAY (ex: https://portfolio-api.up.railway.app)
+  try {
+    const res = await fetch(`${apiHost}/api/profile`);
+    if (!res.ok) throw new Error("Impossible de charger le profil dynamique");
+    const profile = await res.json();
+    
+    // Hydrate DOM
+    if (profile.name) {
+      const heroName = document.querySelector(".hero-title .name");
+      if (heroName) heroName.innerText = profile.name;
+      const loaderName = document.querySelector(".loader-text");
+      if (loaderName) loaderName.innerText = profile.name.toUpperCase();
+      
+      const logoText = document.querySelector(".logo-text");
+      const logoAccent = document.querySelector(".logo-accent");
+      if (logoText && logoAccent) {
+        const parts = profile.name.split(" ");
+        if (parts.length >= 2) {
+          logoText.innerText = parts[0];
+          logoAccent.innerText = parts.slice(1).join(" ");
+        }
+      }
+      
+      const footerLogo = document.querySelector(".footer-logo h3");
+      if (footerLogo) {
+        const parts = profile.name.split(" ");
+        if (parts.length >= 2) {
+          footerLogo.innerHTML = `${parts[0]} <span>${parts.slice(1).join(" ")}</span>`;
+        }
+      }
+    }
+    
+    if (profile.subtitle) {
+      window.dynamicTypingTexts = [
+        profile.subtitle,
+        "Développeur Web",
+        "Passionné de Technologie"
+      ];
+      
+      const floatingTitle = document.querySelector(".floating-card span");
+      if (floatingTitle) floatingTitle.innerText = profile.subtitle;
+      
+      const footerSub = document.querySelector(".footer-logo p");
+      if (footerSub) footerSub.innerText = profile.subtitle;
+    }
+    
+    if (profile.bio) {
+      const heroDesc = document.querySelector(".hero-description");
+      if (heroDesc) heroDesc.innerText = profile.bio;
+    }
+    
+    if (profile.about_title) {
+      const aboutTitle = document.querySelector(".about-text h3");
+      if (aboutTitle) aboutTitle.innerText = profile.about_title;
+    }
+    
+    if (profile.about_bio) {
+      const aboutBio = document.querySelector(".about-text p");
+      if (aboutBio) aboutBio.innerText = profile.about_bio;
+    }
+    
+    if (profile.experience_years) {
+      const expYears = document.querySelector(".experience-badge .years");
+      if (expYears) expYears.innerText = profile.experience_years;
+    }
+    
+    if (profile.stats) {
+      const statItems = document.querySelectorAll(".about-stats .stat-item");
+      if (statItems.length >= 3) {
+        statItems[0].querySelector(".stat-number").innerText = profile.stats.projects_count || "";
+        statItems[1].querySelector(".stat-number").innerText = profile.stats.tech_count || "";
+        statItems[2].querySelector(".stat-number").innerText = profile.stats.studies_years || "";
+      }
+    }
+    
+    if (profile.contact) {
+      const contactDetails = document.querySelectorAll(".contact-details p");
+      if (contactDetails.length >= 3) {
+        contactDetails[0].innerText = profile.contact.email || "";
+        contactDetails[1].innerText = profile.contact.phone || "";
+        contactDetails[2].innerText = profile.contact.location || "";
+      }
+    }
+    
+    if (profile.socials) {
+      const contactSocials = document.querySelectorAll(".contact-info .social-link");
+      contactSocials.forEach(link => {
+        const icon = link.querySelector("i");
+        if (icon) {
+          if (icon.classList.contains("fa-github") && profile.socials.github) link.href = profile.socials.github;
+          if (icon.classList.contains("fa-linkedin") && profile.socials.linkedin) link.href = profile.socials.linkedin;
+          if (icon.classList.contains("fa-facebook") && profile.socials.facebook) link.href = profile.socials.facebook;
+          if (icon.classList.contains("fa-instagram") && profile.socials.instagram) link.href = profile.socials.instagram;
+        }
+      });
+      
+      const footerSocials = document.querySelectorAll(".footer-social a");
+      footerSocials.forEach(link => {
+        const icon = link.querySelector("i");
+        if (icon) {
+          if (icon.classList.contains("fa-github") && profile.socials.github) link.href = profile.socials.github;
+          if (icon.classList.contains("fa-linkedin") && profile.socials.linkedin) link.href = profile.socials.linkedin;
+          if (icon.classList.contains("fa-facebook") && profile.socials.facebook) link.href = profile.socials.facebook;
+          if (icon.classList.contains("fa-instagram") && profile.socials.instagram) link.href = profile.socials.instagram;
+        }
+      });
+    }
+    
+    if (profile.skills && profile.skills.length > 0) {
+      const skillsGrid = document.querySelector(".skills-grid");
+      if (skillsGrid) {
+        skillsGrid.innerHTML = '';
+        profile.skills.forEach((cat, idx) => {
+          const catDiv = document.createElement("div");
+          catDiv.className = "skill-category";
+          catDiv.setAttribute("data-aos", "fade-up");
+          catDiv.setAttribute("data-aos-delay", `${(idx + 1) * 100}`);
+          
+          let iconClass = "fa-code";
+          if (cat.category.toLowerCase().includes("backend") || cat.category.toLowerCase().includes("data")) iconClass = "fa-server";
+          else if (cat.category.toLowerCase().includes("database") || cat.category.toLowerCase().includes("base")) iconClass = "fa-database";
+          else if (cat.category.toLowerCase().includes("tool") || cat.category.toLowerCase().includes("outil") || cat.category.toLowerCase().includes("method")) iconClass = "fa-tools";
+          
+          let skillItemsHtml = '';
+          cat.items.forEach(item => {
+            let itemIcon = "fa-code";
+            if (item.toLowerCase().includes("react")) itemIcon = "fab fa-react";
+            else if (item.toLowerCase().includes("vue")) itemIcon = "fab fa-vuejs";
+            else if (item.toLowerCase().includes("tailwind")) itemIcon = "fab fa-css3-alt";
+            else if (item.toLowerCase().includes("typescript") || item.toLowerCase().includes("js")) itemIcon = "fab fa-js-square";
+            else if (item.toLowerCase().includes("spring") || item.toLowerCase().includes("java")) itemIcon = "fab fa-java";
+            else if (item.toLowerCase().includes("python")) itemIcon = "fab fa-python";
+            else if (item.toLowerCase().includes("php")) itemIcon = "fab fa-php";
+            else if (item.toLowerCase().includes("mysql") || item.toLowerCase().includes("postgre") || item.toLowerCase().includes("sql")) itemIcon = "fas fa-database";
+            else if (item.toLowerCase().includes("nosql") || item.toLowerCase().includes("mongo")) itemIcon = "fas fa-leaf";
+            else if (item.toLowerCase().includes("git")) itemIcon = "fab fa-git-alt";
+            else if (item.toLowerCase().includes("docker")) itemIcon = "fab fa-docker";
+            else if (item.toLowerCase().includes("uml") || item.toLowerCase().includes("agile")) itemIcon = "fas fa-project-diagram";
+            
+            skillItemsHtml += `
+              <div class="skill-item" data-skill="${item}">
+                <i class="${itemIcon}"></i>
+                <span>${item}</span>
+                <div class="skill-level" data-level="85" style="--level: 85%;"></div>
+              </div>
+            `;
+          });
+          
+          catDiv.innerHTML = `
+            <h3><i class="fas ${iconClass}"></i> ${cat.category}</h3>
+            <div class="skill-items">
+              ${skillItemsHtml}
+            </div>
+          `;
+          skillsGrid.appendChild(catDiv);
+        });
+        
+        initializeSkillLevels();
+      }
+    }
+    
+    if (profile.projects && profile.projects.length > 0) {
+      const projectsGrid = document.querySelector(".projects-grid");
+      if (projectsGrid) {
+        projectsGrid.innerHTML = '';
+        profile.projects.forEach((proj, idx) => {
+          const card = document.createElement("div");
+          card.className = "project-card";
+          card.setAttribute("data-aos", "fade-up");
+          card.setAttribute("data-aos-delay", `${(idx + 1) * 100}`);
+          
+          let techHtml = '';
+          proj.tech.forEach(t => {
+            techHtml += `<span class="tech-tag">${t}</span>`;
+          });
+          
+          card.innerHTML = `
+            <div class="project-content">
+              <h3>${proj.title}</h3>
+              <p>${proj.description}</p>
+              <div class="project-tech">
+                ${techHtml}
+              </div>
+            </div>
+          `;
+          projectsGrid.appendChild(card);
+        });
+      }
+    }
+    
+    // Trigger Typing Effect init if texts were populated asynchronously
+    const typingEl = document.getElementById("typing-text");
+    if (typingEl && typingEl.textContent === "") {
+      initializeTypingEffect();
+    }
+    
+  } catch (err) {
+    console.warn("Dynamic profile loading failed:", err);
+  }
 }
 
 // Loading Screen
@@ -167,7 +373,7 @@ function initializeTypingEffect() {
   const typingText = document.getElementById("typing-text");
   if (!typingText) return;
 
-  const texts = [
+  const texts = window.dynamicTypingTexts || [
     "Étudiant en Master SDSI — Sciences des Données et Systèmes Intelligents",
     "Développeur Web",
     "Passionné de Technologie",
@@ -1295,5 +1501,7 @@ function initializeScrollDrivenPerspective() {
   // Perform immediate setup invocation
   performScrollTransformations();
 }
+
+// The profile is hydrated dynamically by the fetchDynamicProfile function at the top of this file.
 
 
