@@ -61,9 +61,10 @@ async function fetchDynamicProfile() {
     }
     
     if (profile.subtitle) {
+      const parts = profile.subtitle.split("|").map(p => p.trim()).filter(p => p.length > 0);
       window.dynamicTypingTexts = [
-        profile.subtitle,
-        "Développeur Web",
+        ...parts,
+        "Développeur Full-Stack",
         "Passionné de Technologie"
       ];
       
@@ -386,10 +387,10 @@ function initializeTypingEffect() {
   window.typingEffectInitialized = true;
 
   let texts = window.dynamicTypingTexts || [
-    "Étudiant en Master SDSI — Sciences des Données et Systèmes Intelligents",
-    "Développeur Web",
+    "Ingénieur IA & Data Science",
+    "Étudiant en Master SDSI",
+    "Développeur Full-Stack",
     "Passionné de Technologie",
-    "Apprenant Curieux",
   ];
 
   let textIndex = 0;
