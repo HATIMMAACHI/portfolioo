@@ -12,6 +12,22 @@ from dotenv import load_dotenv
 # Load env variables from backend/.env
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
+def get_embeddings():
+    hf_token = os.getenv("HF_TOKEN")
+    if hf_token:
+        print("Using HuggingFace API Embeddings via HF_TOKEN (Light RAM)...")
+        from langchain_huggingface import HuggingFaceEndpointEmbeddings
+        return HuggingFaceEndpointEmbeddings(
+            model="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+            huggingfacehub_api_token=hf_token
+        )
+    else:
+        print("Loading local HuggingFace embeddings model (Requires PyTorch and high RAM)...")
+        from langchain_huggingface import HuggingFaceEmbeddings
+        return HuggingFaceEmbeddings(
+            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+        )
+
 def get_base_dir():
     # Base directory of the portfolio project (parent of backend)
     return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -263,7 +279,7 @@ def reingest_profile():
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=80)
         chunks = text_splitter.split_documents(all_docs)
         
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+        embeddings = get_embeddings()
         chroma_db_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chroma_db"))
         
         # Rewrite ChromaDB vector store
@@ -297,10 +313,7 @@ def main():
     chunks = text_splitter.split_documents(all_docs)
     print(f"Split documents into {len(chunks)} chunks.")
     
-    print("Initializing local HuggingFace embeddings...")
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    )
+    embeddings = get_embeddings()
     
     chroma_db_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chroma_db"))
     print(f"Saving embeddings in ChromaDB: {chroma_db_dir}...")

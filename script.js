@@ -147,25 +147,33 @@ async function fetchDynamicProfile() {
           catDiv.setAttribute("data-aos-delay", `${(idx + 1) * 100}`);
           
           let iconClass = "fa-code";
-          if (cat.category.toLowerCase().includes("backend") || cat.category.toLowerCase().includes("data")) iconClass = "fa-server";
+          if (cat.category.toLowerCase().includes("learning") || cat.category.toLowerCase().includes("ia") || cat.category.toLowerCase().includes("intelligence")) iconClass = "fa-brain";
+          else if (cat.category.toLowerCase().includes("big data")) iconClass = "fa-network-wired";
+          else if (cat.category.toLowerCase().includes("bi") || cat.category.toLowerCase().includes("données")) iconClass = "fa-chart-bar";
+          else if (cat.category.toLowerCase().includes("backend") || cat.category.toLowerCase().includes("server") || cat.category.toLowerCase().includes("architecture")) iconClass = "fa-server";
           else if (cat.category.toLowerCase().includes("database") || cat.category.toLowerCase().includes("base")) iconClass = "fa-database";
-          else if (cat.category.toLowerCase().includes("tool") || cat.category.toLowerCase().includes("outil") || cat.category.toLowerCase().includes("method")) iconClass = "fa-tools";
+          else if (cat.category.toLowerCase().includes("tool") || cat.category.toLowerCase().includes("outil") || cat.category.toLowerCase().includes("method") || cat.category.toLowerCase().includes("autre")) iconClass = "fa-tools";
           
           let skillItemsHtml = '';
           cat.items.forEach(item => {
             let itemIcon = "fa-code";
             if (item.toLowerCase().includes("react")) itemIcon = "fab fa-react";
             else if (item.toLowerCase().includes("vue")) itemIcon = "fab fa-vuejs";
+            else if (item.toLowerCase().includes("angular")) itemIcon = "fab fa-angular";
             else if (item.toLowerCase().includes("tailwind")) itemIcon = "fab fa-css3-alt";
             else if (item.toLowerCase().includes("typescript") || item.toLowerCase().includes("js")) itemIcon = "fab fa-js-square";
             else if (item.toLowerCase().includes("spring") || item.toLowerCase().includes("java")) itemIcon = "fab fa-java";
-            else if (item.toLowerCase().includes("python")) itemIcon = "fab fa-python";
+            else if (item.toLowerCase().includes("python") || item.toLowerCase().includes("pytorch")) itemIcon = "fab fa-python";
+            else if (item.toLowerCase().includes("fastapi")) itemIcon = "fas fa-bolt";
             else if (item.toLowerCase().includes("php")) itemIcon = "fab fa-php";
             else if (item.toLowerCase().includes("mysql") || item.toLowerCase().includes("postgre") || item.toLowerCase().includes("sql")) itemIcon = "fas fa-database";
             else if (item.toLowerCase().includes("nosql") || item.toLowerCase().includes("mongo")) itemIcon = "fas fa-leaf";
             else if (item.toLowerCase().includes("git")) itemIcon = "fab fa-git-alt";
             else if (item.toLowerCase().includes("docker")) itemIcon = "fab fa-docker";
             else if (item.toLowerCase().includes("uml") || item.toLowerCase().includes("agile")) itemIcon = "fas fa-project-diagram";
+            else if (item.toLowerCase().includes("langchain") || item.toLowerCase().includes("chromadb")) itemIcon = "fas fa-link";
+            else if (item.toLowerCase().includes("streamlit")) itemIcon = "fas fa-rocket";
+            else if (item.toLowerCase().includes("cryptographie")) itemIcon = "fas fa-lock";
             
             skillItemsHtml += `
               <div class="skill-item" data-skill="${item}">
@@ -370,10 +378,14 @@ function updateActiveNavLink(activeId) {
 
 // Typing Effect
 function initializeTypingEffect() {
+  if (window.typingEffectInitialized) return;
+
   const typingText = document.getElementById("typing-text");
   if (!typingText) return;
 
-  const texts = window.dynamicTypingTexts || [
+  window.typingEffectInitialized = true;
+
+  let texts = window.dynamicTypingTexts || [
     "Étudiant en Master SDSI — Sciences des Données et Systèmes Intelligents",
     "Développeur Web",
     "Passionné de Technologie",
@@ -386,7 +398,7 @@ function initializeTypingEffect() {
   let typingSpeed = 100;
 
   function typeWriter() {
-    const currentText = texts[textIndex];
+    const currentText = texts[textIndex] || "";
 
     if (isDeleting) {
       typingText.textContent = currentText.substring(0, charIndex - 1);
@@ -404,6 +416,10 @@ function initializeTypingEffect() {
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
+      // Sync with dynamic texts if they loaded in the background
+      if (window.dynamicTypingTexts) {
+        texts = window.dynamicTypingTexts;
+      }
       textIndex = (textIndex + 1) % texts.length;
       typingSpeed = 500;
     }

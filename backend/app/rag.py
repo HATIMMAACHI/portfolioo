@@ -19,12 +19,20 @@ embeddings = None
 def get_embeddings():
     global embeddings
     if embeddings is None:
-        print("Loading local HuggingFace embeddings model...")
-        from langchain_huggingface import HuggingFaceEmbeddings
-
-        embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-        )
+        hf_token = os.getenv("HF_TOKEN")
+        if hf_token:
+            print("Using HuggingFace API Embeddings via HF_TOKEN (Light RAM)...")
+            from langchain_huggingface import HuggingFaceEndpointEmbeddings
+            embeddings = HuggingFaceEndpointEmbeddings(
+                model="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+                huggingfacehub_api_token=hf_token
+            )
+        else:
+            print("Loading local HuggingFace embeddings model (Requires PyTorch and high RAM)...")
+            from langchain_huggingface import HuggingFaceEmbeddings
+            embeddings = HuggingFaceEmbeddings(
+                model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+            )
     return embeddings
 
 # Load ChromaDB
