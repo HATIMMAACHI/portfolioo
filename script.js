@@ -2,6 +2,7 @@
 function initApp() {
   initializeLoadingScreen();
   initializeThemeToggle();
+  initializeLanguageToggle();
   fetchDynamicProfile(); // Fetch and hydrate profile variables dynamically
   initializeMobileMenu();
   initializeSmoothScrolling();
@@ -26,6 +27,8 @@ if (document.readyState === "loading") {
 
 // Fetch and hydrate profile variables dynamically from FastAPI profile endpoint
 async function fetchDynamicProfile() {
+  if (!document.querySelector(".hero-section")) return;
+
   const apiHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8000'
     : 'https://last-production-dc6e.up.railway.app';
@@ -64,8 +67,8 @@ async function fetchDynamicProfile() {
       const parts = profile.subtitle.split("|").map(p => p.trim()).filter(p => p.length > 0);
       window.dynamicTypingTexts = [
         ...parts,
-        "Développeur Full-Stack",
-        "Passionné de Technologie"
+        "Développement Java & Full-Stack",
+        "Projets & solutions basés sur l'IA"
       ];
       
       const floatingTitle = document.querySelector(".floating-card span");
@@ -77,7 +80,7 @@ async function fetchDynamicProfile() {
     
     if (profile.bio) {
       const heroDesc = document.querySelector(".hero-description");
-      if (heroDesc) heroDesc.innerText = profile.bio;
+      if (heroDesc) setLocalizedText(heroDesc, profile.bio);
     }
     
     if (profile.about_title) {
@@ -87,7 +90,7 @@ async function fetchDynamicProfile() {
     
     if (profile.about_bio) {
       const aboutBio = document.querySelector(".about-text p");
-      if (aboutBio) aboutBio.innerText = profile.about_bio;
+      if (aboutBio) setLocalizedText(aboutBio, profile.about_bio);
     }
     
     if (profile.experience_years) {
@@ -222,6 +225,7 @@ async function fetchDynamicProfile() {
               </div>
             </div>
           `;
+          setLocalizedText(card.querySelector("p"), proj.description);
           projectsGrid.appendChild(card);
         });
       }
@@ -232,10 +236,168 @@ async function fetchDynamicProfile() {
     if (typingEl && typingEl.textContent === "") {
       initializeTypingEffect();
     }
+
+    const selectedLanguage = localStorage.getItem("language") || "fr";
+    applyLanguage("fr");
+    applyLanguage(selectedLanguage);
     
   } catch (err) {
     console.warn("Dynamic profile loading failed:", err);
   }
+}
+
+const translations = {
+  en: {
+    "Accueil": "Home",
+    "À propos": "About",
+    "Projets": "Projects",
+    "Compétences": "Skills",
+    "Contact": "Contact",
+    "Bonjour, je suis": "Hello, I am",
+    "Voir Mes Projets": "View My Projects",
+    "Me Contacter": "Contact Me",
+    "Télécharger CV": "Download CV",
+    "Défiler vers le bas": "Scroll down",
+    "À propos de moi": "About Me",
+    "Apprenez à me connaître": "Get to know me",
+    "Années": "Years",
+    "d'Études": "of Study",
+    "Années d'Études": "Years of Study",
+    "Projets Réalisés": "Completed Projects",
+    "En Savoir Plus": "Learn More",
+    "Discutons": "Let's Talk",
+    "Compétences & Technologies": "Skills & Technologies",
+    "Technologies que j'apprends et utilise": "Technologies I learn and use",
+    "Mes Projets Académiques": "My Academic Projects",
+    "Quelques-uns de mes projets réalisés": "Some of my completed projects",
+    "Voir Tous les Projets": "View All Projects",
+    "Travaillons ensemble": "Let's work together",
+    "Votre Nom": "Your Name",
+    "Votre Email": "Your Email",
+    "Sujet": "Subject",
+    "Votre Message": "Your Message",
+    "Envoyer Message": "Send Message",
+    "Tous droits réservés.": "All rights reserved.",
+    "À Propos": "About",
+    "Formation": "Education",
+    "Compétences": "Skills",
+    "Langues": "Languages",
+    "Centres d'intérêt": "Interests",
+    "Engagement Associatif": "Community Involvement",
+    "Projets Réalisés": "Completed Projects",
+    "Certificats": "Certificates",
+    "Année": "Year",
+    "Niveau Avancé": "Advanced Level",
+    "Langue Maternelle": "Native Language",
+    "Veille technologique (Web, IA, Logiciel)": "Technology watch (Web, AI, Software)",
+    "Football (Pratique et suivi)": "Football (Playing and following)",
+    "Voyages & Découverte culturelle": "Travel & Cultural discovery",
+    "Résolution de problèmes (Challenges de code)": "Problem solving (Coding challenges)",
+    "Master Sciences et Techniques en Science des Données et Systèmes Intelligents (SDSI)": "Master of Science and Technology in Data Science and Intelligent Systems (SDSI)",
+    "Licence en Génie Informatique": "Bachelor's Degree in Computer Engineering",
+    "Baccalauréat Sciences Physiques": "High School Diploma in Physical Sciences",
+    "Membre du Comité d'Organisation": "Organizing Committee Member",
+    "Projet Académique": "Academic Project",
+    "Voir tous mes certificats LinkedIn": "View all my LinkedIn certificates",
+    "Voir sur LinkedIn": "View on LinkedIn",
+    "Voir": "View",
+    "Stack utilisée": "Technology stack",
+    "Détails": "Details",
+    "Résultat": "Result",
+    "Apprentissage supervisé et non supervisé": "Supervised and unsupervised learning",
+    "Modélisation UML": "UML modeling",
+    "Septembre 2025 - (en cours)": "September 2025 - (ongoing)",
+    "Septembre 2021 - juin 2025": "September 2021 - June 2025",
+    "Juin 2026": "June 2026",
+    "Octobre 2025": "October 2025",
+    "Janvier 2025": "January 2025",
+    "Juin 2024": "June 2024",
+    "Déc 2023": "Dec 2023",
+    "Conception et déploiement d'un système ML multi-modèles combinant régression, classification, règles d'association et clustering.": "Designed and deployed a multi-model ML system combining regression, classification, association rules, and clustering.",
+    "Développement d'une IA conversationnelle spécialisée, basée sur l'architecture RAG (Retrieval-Augmented Generation).": "Developed a specialized conversational AI based on a RAG (Retrieval-Augmented Generation) architecture.",
+    "Modélisation et développement d'une application sécurisée pour la gestion des ressources matérielles universitaires.": "Modeled and developed a secure application for managing university equipment resources.",
+    "Mise en place d'un pipeline complet reliant un grand modèle de langage (LLaMA 3) à une base vectorielle via un backend FastAPI et une interface React.": "Built a complete pipeline connecting a large language model (LLaMA 3) to a vector database through a FastAPI backend and React interface.",
+    "Création et intégration d'un score ROI personnalisé (0.6 * salaire normalisé + 0.4 * fréquence des compétences normalisée) pour évaluer de façon pertinente la valeur des compétences techniques.": "Created and integrated a custom ROI score (0.6 * normalized salary + 0.4 * normalized skill frequency) to accurately evaluate the value of technical skills.",
+    "Application déployée via Streamlit Community Cloud.": "Application deployed via Streamlit Community Cloud.",
+    "Pipeline complet fonctionnel avec assistant conversationnel intégré.": "Fully functional pipeline with an integrated conversational assistant.",
+    "Application web complète avec double sidebar et design moderne.": "Complete web application with a dual sidebar and modern design.",
+    "Membre actif du comité d'organisation d'une conférence internationale scientifique. Certificat d'appréciation reçu pour cette contribution.": "Active member of the organizing committee for an international scientific conference. Received a certificate of appreciation for this contribution.",
+    "Ingénieur IA & Data Science | Étudiant en Master SDSI": "AI & Data Science Engineer | SDSI Master's Student",
+    "Étudiant en Master SDSI (Sciences des Données et Systèmes Intelligents) passionné par l'intelligence artificielle et l'exploitation des données. Doté d'un solide bagage technique allant de l'ingénierie des données à la conception de modèles d'apprentissage automatique, je recherche un stage à distance pour contribuer à des projets innovants et développer des solutions décisionnelles intelligentes.": "SDSI Master's student (Data Science and Intelligent Systems) passionate about artificial intelligence and data analysis. With a strong technical background ranging from data engineering to machine learning model design, I am seeking a remote internship to contribute to innovative projects and develop intelligent decision-making solutions.",
+    "Conception et déploiement d'un système ML multi-modèles combinant régression, classification, règles d'association et clustering. Création et intégration d'un score ROI personnalisé pour évaluer la valeur des compétences techniques.": "Designed and deployed a multi-model ML system combining regression, classification, association rules, and clustering. Created and integrated a custom ROI score to evaluate the value of technical skills.",
+    "Conception et déploiement d'un système ML multi-modèles combinant régression, classification, règles d'association et clustering. Création et intégration d'un score ROI personnalisé pour évaluer de façon pertinente la valeur des compétences techniques.": "Designed and deployed a multi-model ML system combining regression, classification, association rules, and clustering. Created and integrated a custom ROI score to accurately evaluate the value of technical skills.",
+    "Développement d'une IA conversationnelle spécialisée, basée sur l'architecture RAG. Pipeline complet reliant un grand modèle de langage (LLaMA 3) à une base vectorielle via un backend FastAPI et React.": "Developed a specialized conversational AI based on a RAG architecture. Built a complete pipeline connecting a large language model (LLaMA 3) to a vector database through a FastAPI and React backend.",
+    "Modélisation et développement d'une application sécurisée pour la gestion des ressources universitaires. Architecture backend robuste avec Spring Boot et sécurisation des accès par jetons JWT.": "Modeled and developed a secure application for managing university resources. Built a robust backend architecture with Spring Boot and secured access using JWT tokens.",
+  },
+};
+
+function applyLanguage(language) {
+  const isEnglish = language === "en";
+  document.documentElement.lang = isEnglish ? "en" : "fr";
+
+  if (document.body.classList.contains("about-page") || document.querySelector(".about-page")) {
+    document.title = isEnglish ? "About - Hatim Maachi" : "À Propos - Hatim Maachi";
+  } else {
+    document.title = isEnglish ? "Hatim Maachi - AI & Data Science Portfolio" : "Hatim Maachi - Portfolio IA & Data Science";
+  }
+
+  document.querySelectorAll("[data-fr][data-en]").forEach((element) => {
+    element.textContent = isEnglish ? element.dataset.en : element.dataset.fr;
+  });
+
+  const languageMap = isEnglish
+    ? translations.en
+    : Object.fromEntries(Object.entries(translations.en).map(([french, english]) => [english, french]));
+  const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (textWalker.nextNode()) textNodes.push(textWalker.currentNode);
+
+  textNodes.forEach((node) => {
+    let text = node.nodeValue;
+    Object.entries(languageMap).forEach(([source, target]) => {
+      if (text.includes(source)) text = text.replaceAll(source, target);
+    });
+    node.nodeValue = text;
+  });
+
+  document.querySelectorAll("input, textarea").forEach((element) => {
+    const frenchPlaceholder = element.getAttribute("data-placeholder-fr");
+    const englishPlaceholder = element.getAttribute("data-placeholder-en");
+    if (frenchPlaceholder && englishPlaceholder) {
+      element.placeholder = isEnglish ? englishPlaceholder : frenchPlaceholder;
+    }
+  });
+
+  const toggle = document.getElementById("language-toggle");
+  if (toggle) {
+    toggle.querySelector("span").textContent = isEnglish ? "FR" : "EN";
+    const label = isEnglish ? "Switch to French" : "Passer en anglais";
+    toggle.setAttribute("aria-label", label);
+    toggle.title = label;
+  }
+}
+
+function setLocalizedText(element, frenchText) {
+  if (!element) return;
+  element.dataset.fr = frenchText;
+  element.dataset.en = translations.en[frenchText] || frenchText;
+  element.textContent = element.dataset.en && localStorage.getItem("language") === "en"
+    ? element.dataset.en
+    : element.dataset.fr;
+}
+
+function initializeLanguageToggle() {
+  const language = localStorage.getItem("language") || "fr";
+  applyLanguage(language);
+
+  document.addEventListener("click", (event) => {
+    const toggle = event.target.closest("#language-toggle");
+    if (!toggle) return;
+
+    const nextLanguage = (localStorage.getItem("language") || "fr") === "fr" ? "en" : "fr";
+    localStorage.setItem("language", nextLanguage);
+    applyLanguage(nextLanguage);
+  });
 }
 
 // Loading Screen

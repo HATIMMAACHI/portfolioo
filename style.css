@@ -266,6 +266,26 @@ body {
   pointer-events: auto !important;
 }
 
+.language-toggle {
+  background: none;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.35rem 0.45rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  position: relative;
+  z-index: 10001;
+}
+
+.language-toggle:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background: var(--bg-tertiary);
+}
+
 .theme-toggle i {
   pointer-events: none;
 }

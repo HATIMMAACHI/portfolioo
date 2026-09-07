@@ -90,11 +90,15 @@ def verify_admin_token(authorization: Optional[str] = Header(None)):
 @app.post("/api/chat")
 async def chat_endpoint(request: ChatRequest):
     try:
+        print(f"DEBUG - Received message: {request.message}")
+        print(f"DEBUG - Received history: {request.history}")
         history_dicts = [{"role": msg.role, "content": msg.content} for msg in request.history]
         response = get_rag_response(request.message, history_dicts)
         return {"response": response}
     except Exception as e:
         print(f"Error in chat endpoint: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail="Internal Server Error during LLM completion.")
 
 @app.get("/api/health")

@@ -1,6 +1,6 @@
 {
   "name": "Hatim Maachi",
-  "subtitle": "Ingénieur IA & Data Science | Étudiant en Master SDSI",
+  "subtitle": "Data Science & IA | Étudiant en Master SDSI",
   "bio": "Étudiant en Master SDSI (Sciences des Données et Systèmes Intelligents) passionné par l'intelligence artificielle et l'exploitation des données. Doté d'un solide bagage technique allant de l'ingénierie des données à la conception de modèles d'apprentissage automatique, je recherche un stage à distance pour contribuer à des projets innovants et développer des solutions décisionnelles intelligentes.",
   "about_title": "Ingénieur IA & Data Science | Étudiant en Master SDSI",
   "about_bio": "Étudiant en Master SDSI (Sciences des Données et Systèmes Intelligents) passionné par l'intelligence artificielle et l'exploitation des données. Doté d'un solide bagage technique allant de l'ingénierie des données à la conception de modèles d'apprentissage automatique, je recherche un stage à distance pour contribuer à des projets innovants et développer des solutions décisionnelles intelligentes.",
@@ -13,8 +13,7 @@
   "contact": {
     "email": "Hatimmaachi3@gmail.com",
     "phone": "+212 658 642 662",
-    "location": "Fès, Maroc",
-    "website": "https://maachi.me"
+    "location": "Fès, Maroc"
   },
   "socials": {
     "github": "https://github.com/HATIMMAACHI",
@@ -43,8 +42,12 @@
       "items": [
         "SQL Server",
         "PostgreSQL",
-        "SSAS, SSRS, SSIS",
-        "MDX, ETL, Data Warehouse"
+        "SSAS",
+        "SSRS",
+        "SSIS",
+        "MDX",
+        "ETL",
+        "Data Warehouse"
       ]
     },
     {
@@ -59,7 +62,6 @@
       "category": "Développement Web",
       "items": [
         "React",
-        "Angular",
         "Vue.js",
         "PHP / MySQL"
       ]
@@ -69,7 +71,8 @@
       "items": [
         "Modélisation UML",
         "Cryptographie",
-        "LangChain, ChromaDB",
+        "LangChain",
+        "ChromaDB",
         "Streamlit"
       ]
     }
