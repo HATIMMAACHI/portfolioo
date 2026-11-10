@@ -709,9 +709,10 @@
     }
 
     // Add a project item dynamically
-    function addProjectForm(proj = { title: '', description: '', tech: [] }) {
+    function addProjectForm(proj = { title: '', description: '', tech: [], github_url: '', metrics: [] }) {
       const container = document.getElementById("projects-container");
       const index = container.children.length;
+      const metricsVal = Array.isArray(proj.metrics) ? proj.metrics.join(", ") : (proj.metrics || '');
       
       const div = document.createElement("div");
       div.className = "project-item";
@@ -725,16 +726,26 @@
         <div class="grid-2">
           <div class="form-group">
             <label>Titre du projet</label>
-            <input type="text" class="form-control proj-title" value="${proj.title}">
+            <input type="text" class="form-control proj-title" value="${proj.title || ''}">
           </div>
           <div class="form-group">
             <label>Technologies utilisées (virgules)</label>
-            <input type="text" class="form-control proj-tech" value="${proj.tech.join(", ")}">
+            <input type="text" class="form-control proj-tech" value="${(proj.tech || []).join(", ")}">
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label>Lien GitHub (Code source)</label>
+            <input type="text" class="form-control proj-github" value="${proj.github_url || ''}" placeholder="https://github.com/HATIMMAACHI/...">
+          </div>
+          <div class="form-group">
+            <label>Chiffres clés & Métriques (virgules)</label>
+            <input type="text" class="form-control proj-metrics" value="${metricsVal}" placeholder="ex: 4 Modèles ML, R² = 88%, < 800ms">
           </div>
         </div>
         <div class="form-group" style="margin-top: 1rem;">
-          <label>Description du projet</label>
-          <textarea class="form-control proj-desc" rows="3">${proj.description}</textarea>
+          <label>Description du projet (avec métriques)</label>
+          <textarea class="form-control proj-desc" rows="3">${proj.description || ''}</textarea>
         </div>
       `;
       container.appendChild(div);
@@ -779,9 +790,12 @@
         const title = item.querySelector(".proj-title").value.trim();
         const techText = item.querySelector(".proj-tech").value;
         const tech = techText.split(",").map(t => t.trim()).filter(t => t !== "");
+        const github_url = item.querySelector(".proj-github") ? item.querySelector(".proj-github").value.trim() : "";
+        const metricsText = item.querySelector(".proj-metrics") ? item.querySelector(".proj-metrics").value : "";
+        const metrics = metricsText.split(",").map(m => m.trim()).filter(m => m !== "");
         const description = item.querySelector(".proj-desc").value.trim();
         if (title) {
-          projects.push({ title, description, tech });
+          projects.push({ title, description, tech, github_url, metrics });
         }
       });
 

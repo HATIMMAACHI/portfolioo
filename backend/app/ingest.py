@@ -176,21 +176,27 @@ def get_github_fallback():
     repos_info = [
         {
             "name": "Skill-ROI-Forecaster",
-            "desc": "Plateforme d'aide à la décision carrière (dataset LinkedIn/GitHub). Modèles ML implémentés : Random Forest, Apriori, K-Means. Déployé via Streamlit.",
+            "desc": "Plateforme d'aide à la décision carrière (dataset LinkedIn/GitHub). Modèles ML implémentés : Random Forest (régression salariale), Apriori (règles d'association), K-Means (clustering). Métriques clés : 10 000+ offres analysées, score ROI 60/40, R² de 88% et 50+ règles d'association. Déployé via Streamlit Cloud.",
             "lang": "Python",
             "url": "https://github.com/HATIMMAACHI/Skill-ROI-Forecaster"
         },
         {
-            "name": "Gestion-Departement-PFE",
-            "desc": "Application web complète pour la gestion des besoins matériels, données pédagogiques et assemblées, avec auth sécurisée et génération de PDF.",
-            "lang": "Java",
-            "url": "https://github.com/HATIMMAACHI/Gestion-Departement-PFE"
+            "name": "Digital-Twin",
+            "desc": "IA conversationnelle d'ingénieur basée sur l'architecture RAG (Retrieval-Augmented Generation). Inférence ultra-rapide < 800ms via Groq LPU et LLaMA 3, 100% de fidélité grâce à la recherche sémantique vectorielle ChromaDB (vecteurs 384 dimensions) et pipeline complet FastAPI + React.",
+            "lang": "Python / React",
+            "url": "https://github.com/HATIMMAACHI/Digital-Twin"
         },
         {
             "name": "NexaDesk",
-            "desc": "Application de gestion des ressources matérielles universitaires. Architecture N-tiers, sécurité JWT, double sidebar (design system moderne).",
+            "desc": "Application web sécurisée de gestion des ressources universitaires et matériels. Architecture N-tiers Spring Boot 3 & React, 100% stateless sécurisée avec jetons JWT, 3 rôles RBAC (Admin, Enseignant, Étudiant), 15+ endpoints REST et réduction de 60% du temps de traitement des demandes.",
             "lang": "Java",
             "url": "https://github.com/HATIMMAACHI/NexaDesk"
+        },
+        {
+            "name": "PrediX-End-to-End-Predictive-Maintenance-AI-System",
+            "desc": "Système d'IA industriel de bout en bout pour la maintenance prédictive et la détection d'anomalies sur capteurs IoT. Métriques clés : 98.4% de précision F1-score, anticipation des pannes 48h à l'avance, ingestion de 10 000+ séries temporelles et réduction de 70% des arrêts machines imprévus.",
+            "lang": "Python",
+            "url": "https://github.com/HATIMMAACHI/PrediX-End-to-End-Predictive-Maintenance-AI-System"
         },
         {
             "name": "Conference-Platform",
@@ -247,7 +253,9 @@ def load_profile_json():
         projects = data.get("projects", [])
         projects_text = "Projets académiques et personnels réalisés par Hatim Maachi :\n"
         for proj in projects:
-            projects_text += f"- Projet: {proj.get('title', '')}\n  Description: {proj.get('description', '')}\n  Technologies: {', '.join(proj.get('tech', []))}\n"
+            metrics_str = f"  Métriques et chiffres clés: {', '.join(proj.get('metrics', []))}\n" if proj.get("metrics") else ""
+            github_str = f"  Lien GitHub: {proj.get('github_url', '')}\n" if proj.get("github_url") else ""
+            projects_text += f"- Projet: {proj.get('title', '')}\n  Description: {proj.get('description', '')}\n{metrics_str}{github_str}  Technologies: {', '.join(proj.get('tech', []))}\n"
         content_parts.append(projects_text)
 
         ai_instr = data.get("ai_instructions", "")

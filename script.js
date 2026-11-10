@@ -212,17 +212,40 @@ async function fetchDynamicProfile() {
           card.setAttribute("data-aos-delay", `${(idx + 1) * 100}`);
           
           let techHtml = '';
-          proj.tech.forEach(t => {
-            techHtml += `<span class="tech-tag">${t}</span>`;
-          });
+          if (proj.tech && Array.isArray(proj.tech)) {
+            proj.tech.forEach(t => {
+              techHtml += `<span class="tech-tag">${t}</span>`;
+            });
+          }
+
+          let metricsHtml = '';
+          if (proj.metrics && Array.isArray(proj.metrics)) {
+            metricsHtml = '<div class="project-metrics">' +
+              proj.metrics.map(m => `<span class="metric-badge"><i class="fas fa-chart-line"></i> ${m}</span>`).join('') +
+              '</div>';
+          }
+
+          let linksHtml = '';
+          if (proj.github_url) {
+            linksHtml = `
+              <div class="project-links">
+                <a href="${proj.github_url}" target="_blank" rel="noopener noreferrer" class="project-link-btn github">
+                  <i class="fab fa-github"></i>
+                  <span>Code Source</span>
+                </a>
+              </div>
+            `;
+          }
           
           card.innerHTML = `
             <div class="project-content">
               <h3>${proj.title}</h3>
+              ${metricsHtml}
               <p>${proj.description}</p>
               <div class="project-tech">
                 ${techHtml}
               </div>
+              ${linksHtml}
             </div>
           `;
           setLocalizedText(card.querySelector("p"), proj.description);
@@ -300,6 +323,23 @@ const translations = {
     "Projet Académique": "Academic Project",
     "Voir tous mes certificats LinkedIn": "View all my LinkedIn certificates",
     "Voir sur LinkedIn": "View on LinkedIn",
+    "Code Source": "Source Code",
+    "Voir sur GitHub": "View on GitHub",
+    "4 Modèles ML": "4 ML Models",
+    "Score ROI 60/40": "ROI Score 60/40",
+    "10 000+ Profils": "10,000+ Profiles",
+    "Inférence < 800ms": "Inference < 800ms",
+    "100% RAG Fidélité": "100% RAG Accuracy",
+    "Pipeline 3-tiers": "3-tier Pipeline",
+    "Vecteurs 384 dim": "384-dim Vectors",
+    "100% Stateless JWT": "100% Stateless JWT",
+    "3 Rôles RBAC": "3 RBAC Roles",
+    "15+ Endpoints REST": "15+ REST Endpoints",
+    "-60% Temps Gestion": "-60% Processing Time",
+    "98.4% Précision": "98.4% Accuracy",
+    "Anticipation 48h": "48h Early Warning",
+    "10 000+ Signaux IoT": "10,000+ IoT Signals",
+    "-70% Arrêts Imprévus": "-70% Unplanned Downtime",
     "Voir": "View",
     "Stack utilisée": "Technology stack",
     "Détails": "Details",

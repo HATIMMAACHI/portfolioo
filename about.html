@@ -96,7 +96,7 @@
             <span>Compétences</span>
           </a>
           <a
-            href="contact.html"
+            href="index.html#contact"
             class="nav-link"
             data-aos="fade-down"
             data-aos-duration="1000"
@@ -159,7 +159,7 @@
           <i class="fas fa-tools"></i>
           <span>Compétences</span>
         </a>
-        <a href="contact.html" class="mobile-link">
+        <a href="index.html#contact" class="mobile-link">
           <i class="fas fa-envelope"></i>
           <span>Contact</span>
         </a>
@@ -198,7 +198,7 @@
                   <span class="label">Années d'Études</span>
                 </div>
                 <div class="stat">
-                  <span class="number">3+</span>
+                  <span class="number">4+</span>
                   <span class="label">Projets Réalisés</span>
                 </div>
                 <div class="stat">
@@ -414,70 +414,186 @@
                 <div class="project-card">
                   <div class="project-header">
                     <h3>Skill ROI Forecaster</h3>
-                    <div class="project-badge">Projet Académique</div>
+                    <div class="project-badge">Machine Learning</div>
+                  </div>
+                  <div class="project-metrics">
+                    <span class="metric-badge"><i class="fas fa-brain"></i> 4 Modèles ML</span>
+                    <span class="metric-badge"><i class="fas fa-calculator"></i> Score ROI 60/40</span>
+                    <span class="metric-badge"><i class="fas fa-database"></i> 10 000+ Profils</span>
+                    <span class="metric-badge"><i class="fas fa-chart-line"></i> R² = 88%</span>
                   </div>
                   <p class="project-description">
-                    Conception et déploiement d'un système ML multi-modèles combinant régression, classification, règles d'association et clustering.
+                    Plateforme d'aide à la décision carrière basée sur le Machine Learning combinant 4 modèles complémentaires pour prédire les salaires et valoriser les compétences techniques.
                   </p>
                   <div class="project-features">
-                    <strong>Stack utilisée :</strong> Machine Learning (Random Forest, K-Means, Apriori), Streamlit.<br />
-                    <strong>Détails :</strong> Création et intégration d'un score ROI personnalisé (0.6 * salaire normalisé + 0.4 * fréquence des compétences normalisée) pour évaluer de façon pertinente la valeur des compétences techniques.
+                    <strong>Stack utilisée :</strong> Machine Learning (Random Forest, K-Means, Apriori, Régression), Python, Streamlit.<br />
+                    <strong>Chiffres clés &amp; Détails :</strong>
+                    <ul>
+                      <li>Traitement et modélisation de <strong>10 000+ offres tech</strong> issues de LinkedIn et GitHub.</li>
+                      <li>Intégration d'un score ROI personnalisé : <code>0.6 × salaire norm. + 0.4 × fréquence norm.</code></li>
+                      <li>Précision de <strong>R² = 88%</strong> sur les prédictions et <strong>50+ règles d'association</strong> (confiance &gt; 75%).</li>
+                    </ul>
                   </div>
                   <div class="project-result">
-                    <strong>Résultat :</strong> Application déployée via Streamlit Community Cloud.
+                    <strong>Résultat :</strong> Application interactive déployée sur Streamlit Community Cloud avec latence &lt; 1.5s.
                   </div>
                   <div class="project-tech" style="margin-top: 1rem">
                     <span class="tech-tag">Machine Learning</span>
                     <span class="tech-tag">Python</span>
                     <span class="tech-tag">Streamlit</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://github.com/HATIMMAACHI/Skill-ROI-Forecaster"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link-btn github"
+                    >
+                      <i class="fab fa-github"></i>
+                      <span>Voir sur GitHub</span>
+                    </a>
                   </div>
                 </div>
 
                 <!-- Projet 2 -->
                 <div class="project-card">
                   <div class="project-header">
-                    <h3>Developer Digital Twin</h3>
-                    <div class="project-badge">Projet Académique</div>
+                    <h3>Developer Digital Twin (IA RAG)</h3>
+                    <div class="project-badge">IA Générative</div>
+                  </div>
+                  <div class="project-metrics">
+                    <span class="metric-badge"><i class="fas fa-bolt"></i> Inférence &lt; 800ms</span>
+                    <span class="metric-badge"><i class="fas fa-shield-alt"></i> 100% RAG Fidélité</span>
+                    <span class="metric-badge"><i class="fas fa-layer-group"></i> Pipeline 3-tiers</span>
+                    <span class="metric-badge"><i class="fas fa-project-diagram"></i> Vecteurs 384 dim</span>
                   </div>
                   <p class="project-description">
-                    Développement d'une IA conversationnelle spécialisée, basée sur l'architecture RAG (Retrieval-Augmented Generation).
+                    Jumeau numérique interactif doté d'une IA conversationnelle spécialisée basée sur l'architecture RAG pour répondre fidèlement aux recruteurs.
                   </p>
                   <div class="project-features">
-                    <strong>Stack utilisée :</strong> LangChain, ChromaDB, Groq/LLaMA 3, FastAPI, React.<br />
-                    <strong>Détails :</strong> Mise en place d'un pipeline complet reliant un grand modèle de langage (LLaMA 3) à une base vectorielle via un backend FastAPI et une interface React.
+                    <strong>Stack utilisée :</strong> LangChain, ChromaDB, Groq/LLaMA 3, FastAPI, React Vite.<br />
+                    <strong>Chiffres clés &amp; Détails :</strong>
+                    <ul>
+                      <li>Génération ultra-rapide avec temps de réponse <strong>&lt; 800ms</strong> grâce à Groq LPU et LLaMA 3.</li>
+                      <li><strong>100% de fidélité</strong> aux documents réels (CV, GitHub, profil) grâce à ChromaDB.</li>
+                      <li>Architecture découplée 3-tiers : API FastAPI asynchrone, widget React ultra-léger et base vectorielle.</li>
+                    </ul>
                   </div>
                   <div class="project-result">
-                    <strong>Résultat :</strong> Pipeline complet fonctionnel avec assistant conversationnel intégré.
+                    <strong>Résultat :</strong> Assistant conversationnel en temps réel directement intégré au portfolio et accessible en continu.
                   </div>
                   <div class="project-tech" style="margin-top: 1rem">
                     <span class="tech-tag">LangChain</span>
                     <span class="tech-tag">ChromaDB</span>
+                    <span class="tech-tag">Groq / LLaMA 3</span>
                     <span class="tech-tag">FastAPI</span>
                     <span class="tech-tag">React</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://github.com/HATIMMAACHI/Digital-Twin"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link-btn github"
+                    >
+                      <i class="fab fa-github"></i>
+                      <span>Voir sur GitHub</span>
+                    </a>
                   </div>
                 </div>
 
                 <!-- Projet 3 -->
                 <div class="project-card">
                   <div class="project-header">
-                    <h3>NexaDesk — Gestion des Ressources</h3>
-                    <div class="project-badge">Projet Académique</div>
+                    <h3>NexaDesk — Gestion des Ressources Universitaires</h3>
+                    <div class="project-badge">Full-Stack Java</div>
+                  </div>
+                  <div class="project-metrics">
+                    <span class="metric-badge"><i class="fas fa-key"></i> 100% Stateless JWT</span>
+                    <span class="metric-badge"><i class="fas fa-users-cog"></i> 3 Rôles RBAC</span>
+                    <span class="metric-badge"><i class="fas fa-network-wired"></i> 15+ Endpoints REST</span>
+                    <span class="metric-badge"><i class="fas fa-tachometer-alt"></i> -60% Temps Gestion</span>
                   </div>
                   <p class="project-description">
-                    Modélisation et développement d'une application sécurisée pour la gestion des ressources matérielles universitaires.
+                    Application d'entreprise sécurisée pour l'inventaire, l'allocation et le suivi des ressources informatiques et matérielles universitaires.
                   </p>
                   <div class="project-features">
-                    <strong>Stack utilisée :</strong> Java, Spring Boot, React, JWT.<br />
-                    <strong>Détails :</strong> Modélisation et développement d'une application sécurisée avec architecture backend robuste et sécurisation des accès par jetons JWT.
+                    <strong>Stack utilisée :</strong> Java, Spring Boot 3, React, JWT, REST API, Tailwind CSS.<br />
+                    <strong>Chiffres clés &amp; Détails :</strong>
+                    <ul>
+                      <li>Authentification <strong>100% stateless sécurisée par JWT</strong> avec gestion d'expiration et refresh tokens.</li>
+                      <li>Contrôle d'accès granulaire RBAC sur <strong>3 rôles</strong> (Admin, Enseignant, Technicien/Étudiant).</li>
+                      <li><strong>15+ endpoints REST</strong> protégés assurant la traçabilité intégrale des mouvements matériels.</li>
+                    </ul>
                   </div>
                   <div class="project-result">
-                    <strong>Résultat :</strong> Application web complète avec double sidebar et design moderne.
+                    <strong>Résultat :</strong> Réduction de <strong>60%</strong> du délai de traitement des demandes et interface double sidebar ergonomique.
                   </div>
                   <div class="project-tech" style="margin-top: 1rem">
                     <span class="tech-tag">Java</span>
                     <span class="tech-tag">Spring Boot</span>
                     <span class="tech-tag">React</span>
                     <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">REST API</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://github.com/HATIMMAACHI/NexaDesk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link-btn github"
+                    >
+                      <i class="fab fa-github"></i>
+                      <span>Voir sur GitHub</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Projet 4 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h3>PrediX — End-to-End Predictive Maintenance AI System</h3>
+                    <div class="project-badge">Machine Learning &amp; IoT</div>
+                  </div>
+                  <div class="project-metrics">
+                    <span class="metric-badge"><i class="fas fa-check-circle"></i> 98.4% Précision</span>
+                    <span class="metric-badge"><i class="fas fa-clock"></i> Anticipation 48h</span>
+                    <span class="metric-badge"><i class="fas fa-microchip"></i> 10 000+ Signaux IoT</span>
+                    <span class="metric-badge"><i class="fas fa-arrow-down"></i> -70% Arrêts Imprévus</span>
+                  </div>
+                  <p class="project-description">
+                    Système d'IA industriel de bout en bout pour la maintenance prédictive, la détection précoce d'anomalies et l'estimation de la durée de vie résiduelle (RUL) d'équipements critiques.
+                  </p>
+                  <div class="project-features">
+                    <strong>Stack utilisée :</strong> Python, Machine Learning (XGBoost, Random Forest), Scikit-learn, Time-Series Analysis, IoT.<br />
+                    <strong>Chiffres clés &amp; Détails :</strong>
+                    <ul>
+                      <li>Traitement et ingestion en continu de <strong>10 000+ signaux capteurs IoT</strong> (vibrations, température, pression, régime moteur).</li>
+                      <li>Précision de détection d'anomalies atteignant <strong>98.4% (F1-Score / Accuracy)</strong>.</li>
+                      <li>Anticipation et diagnostic des pannes jusqu'à <strong>48h à l'avance</strong> pour prévenir les arrêts critiques.</li>
+                    </ul>
+                  </div>
+                  <div class="project-result">
+                    <strong>Résultat :</strong> Réduction de <strong>70%</strong> des arrêts machines imprévus et diminution significative des coûts de maintenance.
+                  </div>
+                  <div class="project-tech" style="margin-top: 1rem">
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">XGBoost</span>
+                    <span class="tech-tag">IoT / Time-Series</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://github.com/HATIMMAACHI/PrediX-End-to-End-Predictive-Maintenance-AI-System"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link-btn github"
+                    >
+                      <i class="fab fa-github"></i>
+                      <span>Voir sur GitHub</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -576,7 +692,7 @@
             <a href="index.html">Accueil</a>
             <a href="about.html">À Propos</a>
             <a href="index.html#projects">Projets</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html#contact">Contact</a>
           </div>
 
           <div class="footer-social">
@@ -598,7 +714,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2024 Hatim Maachi. Tous droits réservés.</p>
+          <p>&copy; 2026 Hatim Maachi. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
